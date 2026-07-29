@@ -47,6 +47,8 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Interactive 35-bid auction simulator
 - Legal-bid enforcement, Pass, Double, Redouble, and declarer calculation
 - Click-to-flip glossary cards with keyboard controls
+- Interactive 13-card playground with drag-and-drop ordering
+- Suit/rank sorting and randomized following-suit exercises
 
 ---
 
