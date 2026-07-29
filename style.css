@@ -32,7 +32,11 @@ body {
 
     line-height: 1.7;
 
-    background: #f8f6ef;
+    background:
+       radial-gradient(circle at top,
+            #2a3b4f 0%,
+            #1c2a38 45%,
+            #111a24 100%);
 
     color: #243447;
 
