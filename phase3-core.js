@@ -103,11 +103,7 @@
         }
     }
 
-    function loadProgress() {
-        const saved = safeParse(
-            storageGet(PROGRESS_KEY),
-            {}
-        );
+    function normalizeProgress(saved = {}) {
         const defaults = defaultProgress();
 
         return {
@@ -120,6 +116,12 @@
                 ? saved.achievements
                 : []
         };
+    }
+
+    function loadProgress() {
+        return normalizeProgress(
+            safeParse(storageGet(PROGRESS_KEY), {})
+        );
     }
 
     let progress = loadProgress();
@@ -240,6 +242,14 @@
         return JSON.parse(JSON.stringify(progress));
     }
 
+    function replaceData(nextProgress) {
+        progress = normalizeProgress(nextProgress);
+        updateAchievements();
+        storageSet(PROGRESS_KEY, JSON.stringify(progress));
+        renderProgress();
+        listeners.forEach(listener => listener(getData()));
+    }
+
     function subscribe(listener) {
         listeners.add(listener);
         return () => listeners.delete(listener);
@@ -351,6 +361,7 @@
         recordActivity,
         completeLesson,
         getData,
+        replaceData,
         subscribe,
         render: renderProgress
     };

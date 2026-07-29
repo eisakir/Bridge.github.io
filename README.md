@@ -58,6 +58,7 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
   doubles, redoubles, bonuses, and penalties
 - Full 52-card, 13-trick deal trainer with legal-play enforcement
 - Persistent Light/Dark mode switch in the top navigation
+- Optional Google sign-in with secure Firestore progress synchronization
 
 ---
 
@@ -97,6 +98,7 @@ bridge-beginners/
 │── practice-hands.js
 │── scoring-calculator.js
 │── trick-trainer.js
+│── firebase-sync.js
 │── script.js
 └── README.md
 ```

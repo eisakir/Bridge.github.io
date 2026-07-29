@@ -307,6 +307,99 @@ img{
     transform:translateY(-1px);
 }
 
+.account-controls{
+    margin-left:1rem;
+}
+
+.google-sign-in{
+    display:inline-flex;
+    min-height:42px;
+    padding:.55rem .9rem;
+    align-items:center;
+    gap:.5rem;
+    border:1px solid rgba(31,59,87,.2);
+    border-radius:999px;
+    color:#17324a;
+    background:#fff;
+    font:inherit;
+    font-weight:750;
+    box-shadow:0 5px 16px rgba(0,0,0,.08);
+    cursor:pointer;
+}
+
+.google-sign-in span{
+    display:grid;
+    width:24px;
+    height:24px;
+    place-items:center;
+    border-radius:50%;
+    color:#fff;
+    background:#4285f4;
+    font-weight:900;
+}
+
+.google-sign-in:disabled{
+    cursor:wait;
+    opacity:.7;
+}
+
+.user-account{
+    display:flex;
+    min-height:46px;
+    padding:4px 5px 4px 8px;
+    align-items:center;
+    gap:8px;
+    border:1px solid rgba(31,59,87,.18);
+    border-radius:999px;
+    background:#fff;
+    box-shadow:0 5px 16px rgba(0,0,0,.08);
+}
+
+.user-account.hidden{display:none;}
+
+.user-account img{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#dce6ec;
+}
+
+.user-account>div{
+    display:flex;
+    max-width:120px;
+    flex-direction:column;
+    line-height:1.1;
+}
+
+.user-account strong{
+    overflow:hidden;
+    color:#17324a;
+    font-size:.76rem;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.user-account small{
+    margin-top:3px;
+    color:#537080;
+    font-size:.62rem;
+}
+
+.user-account small[data-state="error"]{color:#a9372d;}
+.user-account small[data-state="saving"]{color:#80681d;}
+
+.user-account button{
+    padding:.5rem .65rem;
+    border:0;
+    border-radius:999px;
+    color:#fff;
+    background:#174b70;
+    font:inherit;
+    font-size:.7rem;
+    font-weight:750;
+    cursor:pointer;
+}
+
 /* ==========================================================
    HERO
    ========================================================== */
@@ -4870,6 +4963,17 @@ html[data-theme="dark"] .theme-toggle{
     border-color:rgba(240,196,72,.6);
     background:#1a3545;
 }
+html[data-theme="dark"] .google-sign-in,
+html[data-theme="dark"] .user-account{
+    color:#eef4f7;
+    border-color:#49616e;
+    background:#1a3545;
+}
+html[data-theme="dark"] .user-account strong{color:#ffffff;}
+html[data-theme="dark"] .user-account small{color:#bcd0da;}
+html[data-theme="dark"] .user-account small[data-state="error"]{color:#ff9e95;}
+html[data-theme="dark"] .user-account small[data-state="saving"]{color:#f0cf68;}
+html[data-theme="dark"] .user-account button{background:#285a78;}
 html[data-theme="dark"] h1,
 html[data-theme="dark"] h2,
 html[data-theme="dark"] h3,
@@ -5105,6 +5209,7 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
     .learning-path-grid{grid-template-columns:repeat(2,1fr);}
     .calculator-controls{grid-template-columns:repeat(2,1fr);}
     .theme-toggle{margin-left:auto;margin-right:.7rem;}
+    .account-controls{margin-left:auto;}
     html[data-theme="dark"] .nav-links{background:#132b39;}
     html[data-theme="light"] .nav-links{background:#fff;}
 }
@@ -5132,4 +5237,9 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
     .accessibility-panel{right:16px;}
     .theme-toggle{min-width:46px;padding:.5rem;}
     .theme-toggle-text{display:none;}
+    .account-controls{margin-left:.4rem;}
+    .google-sign-in{padding:.5rem;min-width:46px;font-size:0;}
+    .google-sign-in span{font-size:.85rem;}
+    .user-account>div{display:none;}
+    .user-account button{padding:.5rem;}
 }

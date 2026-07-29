@@ -63,6 +63,24 @@
             <li><a href="#quiz">Practice Quiz</a></li>
         </ul>
 
+        <div class="account-controls">
+            <button
+                class="google-sign-in"
+                id="googleSignIn"
+                type="button">
+                <span aria-hidden="true">G</span>
+                Sign in
+            </button>
+            <div class="user-account hidden" id="userAccount">
+                <img id="userAvatar" alt="" referrerpolicy="no-referrer">
+                <div>
+                    <strong id="userName">Bridge learner</strong>
+                    <small id="syncStatus">Progress saved</small>
+                </div>
+                <button id="googleSignOut" type="button">Sign out</button>
+            </div>
+        </div>
+
         <button
             class="theme-toggle"
             id="themeToggle"
@@ -2347,6 +2365,7 @@
 <script src="scoring-calculator.js"></script>
 <script src="trick-trainer.js"></script>
 <script src="script.js"></script>
+<script type="module" src="firebase-sync.js"></script>
 
 </body>
 </html>
