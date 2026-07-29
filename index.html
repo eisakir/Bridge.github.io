@@ -1099,6 +1099,133 @@
 </section>
 
 <!-- ===================================================== -->
+<!-- PRACTICE HANDS -->
+<!-- ===================================================== -->
+
+<section id="practice-hands" class="section">
+
+    <h2>AI-Style Practice Hands</h2>
+
+    <p class="section-intro">
+        Study a realistic 13-card hand, choose an opening bid, and receive
+        instant coaching based on high-card points, distribution, and
+        beginner Standard American guidelines.
+    </p>
+
+    <div class="practice-hands-coach" id="practiceHandsCoach">
+
+        <div class="beginner-bid-guide">
+            <div class="guide-title">
+                <span class="simulator-label">Start here</span>
+                <h3>A simple opening-bid guide</h3>
+                <p>
+                    High-card points: Ace = 4, King = 3, Queen = 2,
+                    and Jack = 1.
+                </p>
+            </div>
+            <div class="guide-rules">
+                <span><strong>0–11</strong> Usually Pass</span>
+                <span><strong>12+</strong> Open your longest suit</span>
+                <span><strong>15–17 balanced</strong> Open 1NT</span>
+                <span><strong>5-card major</strong> Open 1♥ or 1♠</span>
+            </div>
+        </div>
+
+        <div class="coach-topbar">
+            <div>
+                <span class="simulator-label">
+                    Guided beginner mode
+                </span>
+                <h3 id="handChallengeTitle">What would you bid?</h3>
+            </div>
+            <div class="coach-score">
+                <span>Correct <strong id="coachCorrect">0</strong></span>
+                <span>Attempts <strong id="coachAttempts">0</strong></span>
+            </div>
+        </div>
+
+        <div class="coach-layout">
+
+            <div class="bridge-hand-display" id="bridgeHandDisplay">
+                <div class="hand-suit-row" data-hand-suit="spades">
+                    <span>♠</span><strong></strong>
+                </div>
+                <div class="hand-suit-row red" data-hand-suit="hearts">
+                    <span>♥</span><strong></strong>
+                </div>
+                <div class="hand-suit-row red" data-hand-suit="diamonds">
+                    <span>♦</span><strong></strong>
+                </div>
+                <div class="hand-suit-row" data-hand-suit="clubs">
+                    <span>♣</span><strong></strong>
+                </div>
+            </div>
+
+            <div class="hand-analysis-preview">
+                <div>
+                    <span>High-card points</span>
+                    <strong id="handHcp">0 HCP</strong>
+                </div>
+                <div>
+                    <span>Shape</span>
+                    <strong id="handShape">4–3–3–3</strong>
+                </div>
+                <div>
+                    <span>System</span>
+                    <strong>Standard American</strong>
+                </div>
+            </div>
+
+            <div class="bid-coach-panel">
+                <div class="coach-decision-path">
+                    <div>
+                        <span>1</span>
+                        <p>Count points<strong id="decisionPoints"></strong></p>
+                    </div>
+                    <div>
+                        <span>2</span>
+                        <p>Find longest suit<strong id="decisionSuit"></strong></p>
+                    </div>
+                    <div>
+                        <span>3</span>
+                        <p>Apply a rule<strong id="decisionRule"></strong></p>
+                    </div>
+                </div>
+
+                <p id="handPrompt">
+                    You are the dealer. Choose your opening call.
+                </p>
+
+                <button class="coach-hint-button" id="coachHintButton" type="button">
+                    Need a hint?
+                </button>
+                <p class="coach-hint hidden" id="coachHint"></p>
+
+                <div class="hand-bid-options" id="handBidOptions">
+                    <!-- JavaScript inserts choices -->
+                </div>
+
+                <div class="coach-feedback hidden" id="coachFeedback">
+                    <span id="coachVerdict">Correct</span>
+                    <h4 id="coachBestBid">Best bid: 1NT</h4>
+                    <p id="coachExplanation"></p>
+                    <div class="coach-reasoning" id="coachReasoning"></div>
+                    <button
+                        class="primary-button"
+                        id="nextPracticeHand"
+                        type="button">
+                        Try Another Hand
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
 <!-- SCORING -->
 <!-- ===================================================== -->
 
@@ -1826,6 +1953,8 @@
 
             <a href="#playground">Playground</a>
 
+            <a href="#practice-hands">Practice Hands</a>
+
             <a href="#scoring">Scoring</a>
 
             <a href="#glossary">Glossary</a>
@@ -1868,6 +1997,7 @@
 <script src="questions.js"></script>
 <script src="auction.js"></script>
 <script src="playground.js"></script>
+<script src="practice-hands.js"></script>
 <script src="script.js"></script>
 
 </body>
