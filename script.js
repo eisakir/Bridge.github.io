@@ -946,6 +946,33 @@ function launchConfetti(){
 
 }
 
+
+/* ==========================================
+   Scroll Reveal Animation
+========================================== */
+
+const revealSections = document.querySelectorAll(".section");
+
+const revealObserver = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("visible");
+
+        }
+
+    });
+
+}, {
+    threshold: 0.15
+});
+
+revealSections.forEach(section => {
+    revealObserver.observe(section);
+});
+       
 /* ==========================================================
    END OF FILE
 ========================================================== */
