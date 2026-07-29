@@ -72,6 +72,78 @@ window.addEventListener("scroll", highlightCurrentSection, { passive: true });
 window.addEventListener("load", highlightCurrentSection);
 
 /* ==========================================================
+   READING PROGRESS + SCROLL SOUND
+========================================================== */
+
+const scrollProgress = document.getElementById("scrollProgress");
+const scrollProgressBar = document.getElementById("scrollProgressBar");
+let scrollFramePending = false;
+let scrollSoundReady = false;
+let lastScrollSoundPosition = window.scrollY;
+
+function enableScrollSound() {
+    scrollSoundReady = true;
+    const context = getAudioContext();
+
+    if (context?.state === "suspended") {
+        context.resume().catch(() => {});
+    }
+}
+
+function updateReadingProgress() {
+    const scrollableDistance =
+        document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollableDistance > 0
+        ? Math.min(1, Math.max(0, window.scrollY / scrollableDistance))
+        : 0;
+
+    if (scrollProgressBar) {
+        scrollProgressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    if (scrollProgress) {
+        scrollProgress.setAttribute(
+            "aria-valuenow",
+            String(Math.round(progress * 100))
+        );
+    }
+
+    const distance = Math.abs(window.scrollY - lastScrollSoundPosition);
+
+    if (scrollSoundReady && distance >= 180) {
+        playTone({
+            frequency: window.scrollY > lastScrollSoundPosition ? 285 : 360,
+            duration: 0.045,
+            type: "triangle",
+            volume: 0.018
+        });
+        lastScrollSoundPosition = window.scrollY;
+    }
+
+    scrollFramePending = false;
+}
+
+function requestReadingProgressUpdate() {
+    if (!scrollFramePending) {
+        scrollFramePending = true;
+        window.requestAnimationFrame(updateReadingProgress);
+    }
+}
+
+window.addEventListener("pointerdown", enableScrollSound, { once: true });
+window.addEventListener("keydown", enableScrollSound, { once: true });
+window.addEventListener("wheel", enableScrollSound, {
+    once: true,
+    passive: true
+});
+window.addEventListener("scroll", requestReadingProgressUpdate, {
+    passive: true
+});
+window.addEventListener("resize", requestReadingProgressUpdate);
+window.addEventListener("load", requestReadingProgressUpdate);
+requestReadingProgressUpdate();
+
+/* ==========================================================
    BACK TO TOP BUTTON
 ========================================================== */
 
