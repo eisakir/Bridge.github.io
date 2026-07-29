@@ -32,11 +32,7 @@ body {
 
     line-height: 1.7;
 
-    background:
-       radial-gradient(circle at top,
-            #2a3b4f 0%,
-            #1c2a38 45%,
-            #111a24 100%);
+    background: #f8f6ef;
 
     color: #243447;
 
@@ -1752,45 +1748,78 @@ img{
    Mouse Glow Background
 ========================================================== */
 
-.mouse-glow {
+.mouse-glow{
 
-    position: fixed;
+    position:fixed;
 
-    width: 500px;
+    left:0;
+    top:0;
 
-    height: 500px;
+    width:700px;
+    height:700px;
 
-    border-radius: 50%;
+    border-radius:50%;
 
-    pointer-events: none;
+    pointer-events:none;
 
-    z-index: -1;
+    z-index:-1;
 
-    left: 0;
-
-    top: 0;
-
-    transform: translate(-50%, -50%);
+    transform:translate(-50%,-50%);
 
     background:
         radial-gradient(
             circle,
-            rgba(214,170,0,.18) 0%,
-            rgba(214,170,0,.08) 35%,
-            rgba(214,170,0,.03) 60%,
-            transparent 75%
+            rgba(255,210,70,.28) 0%,
+            rgba(255,210,70,.14) 25%,
+            rgba(255,210,70,.08) 45%,
+            rgba(255,210,70,.03) 65%,
+            transparent 78%
         );
 
-    filter: blur(30px);
+    filter:blur(65px);
 
-    transition:
-        opacity .3s;
-
-    opacity: .9;
+    opacity:1;
 
 }
 
 
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(212,175,55,.15),
+            transparent 70%
+        );
+
+    top:-350px;
+
+    right:-250px;
+
+    pointer-events:none;
+
+    filter:blur(40px);
+
+}
 
 /* ==========================================================
    PRINT STYLESHEET
