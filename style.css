@@ -1743,6 +1743,51 @@ img{
 
 }
 
+
+/* ==========================================================
+   Mouse Glow Background
+========================================================== */
+
+.mouse-glow {
+
+    position: fixed;
+
+    width: 500px;
+
+    height: 500px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    left: 0;
+
+    top: 0;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(214,170,0,.18) 0%,
+            rgba(214,170,0,.08) 35%,
+            rgba(214,170,0,.03) 60%,
+            transparent 75%
+        );
+
+    filter: blur(30px);
+
+    transition:
+        opacity .3s;
+
+    opacity: .9;
+
+}
+
+
+
 /* ==========================================================
    PRINT STYLESHEET
    ========================================================== */
