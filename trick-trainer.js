@@ -96,12 +96,13 @@
 
     function updateSeats() {
         Object.entries(state.hands).forEach(([seat, hand]) => {
-            const seatElement = document.querySelector(
-                `[data-trainer-seat="${seat}"] span`
+            const seatNode = document.querySelector(
+                `[data-trainer-seat="${seat}"]`
             );
-            if (!seatElement) {
+            if (!seatNode) {
                 return;
             }
+            const seatElement = seatNode.querySelector("span");
             const role =
                 seat === "north" ? "Dummy" :
                 seat === "south" ? "Declarer" :
@@ -109,6 +110,38 @@
                     ? "Opening lead"
                     : "Defender";
             seatElement.textContent = `${role} · ${hand.length} cards`;
+
+            let cards = seatNode.querySelector(".trainer-seat-cards");
+            if (!cards) {
+                cards = document.createElement("div");
+                cards.className = "trainer-seat-cards";
+                seatNode.append(cards);
+            }
+
+            cards.replaceChildren();
+            if (seat === "north" && state.dummyVisible) {
+                cards.classList.add("face-up");
+                hand.forEach(card => {
+                    const visibleCard = document.createElement("span");
+                    visibleCard.className =
+                        `trainer-seat-card face ${card.color}`;
+                    visibleCard.innerHTML =
+                        `<strong>${card.rank}</strong>` +
+                        `<small>${card.symbol}</small>`;
+                    visibleCard.title = `${card.rank} of ${card.suit}`;
+                    cards.append(visibleCard);
+                });
+            } else {
+                cards.classList.remove("face-up");
+                const visibleBacks = Math.min(5, hand.length);
+                for (let index = 0; index < visibleBacks; index += 1) {
+                    const cardBack = document.createElement("span");
+                    cardBack.className = "trainer-seat-card back";
+                    cardBack.setAttribute("aria-hidden", "true");
+                    cardBack.textContent = "♠";
+                    cards.append(cardBack);
+                }
+            }
         });
     }
 

@@ -4824,9 +4824,68 @@ main,
     box-shadow:inset 0 0 0 4px rgba(255,255,255,.16);
 }
 
-.trainer-seat{text-align:center;}
+.trainer-seat{
+    display:flex;
+    min-width:0;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
 .trainer-seat strong{display:block;font-size:1.08rem;}
 .trainer-seat span{display:block;color:#ffe293;font-size:.8rem;}
+.trainer-seat-cards{
+    display:flex;
+    min-height:50px;
+    max-width:100%;
+    align-items:center;
+    justify-content:center;
+    margin-top:8px;
+}
+.trainer-seat-card{
+    display:inline-flex!important;
+    width:34px;
+    height:48px;
+    margin-left:-10px;
+    padding:4px;
+    flex:0 0 auto;
+    flex-direction:column;
+    justify-content:space-between;
+    border-radius:6px;
+    box-shadow:0 4px 9px rgba(0,0,0,.25);
+}
+.trainer-seat-card:first-child{margin-left:0;}
+.trainer-seat-card.back{
+    align-items:center;
+    justify-content:center;
+    border:2px solid #c5d9e3;
+    color:#dcebf2;
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(255,255,255,.11) 0 4px,
+            transparent 4px 9px
+        ),
+        #17466b;
+    font-size:.88rem;
+}
+.trainer-seat-card.face{
+    border:1px solid #cbd3d8;
+    color:#17202a;
+    background:#fff;
+}
+.trainer-seat-card.face.red{color:#b62e28;}
+.trainer-seat-card strong{
+    display:block;
+    color:inherit;
+    font-size:.62rem;
+    line-height:1;
+}
+.trainer-seat-card small{
+    display:block;
+    color:inherit;
+    font-size:.78rem;
+    line-height:1;
+}
 .trainer-north{grid-area:north;}
 .trainer-west{grid-area:west;}
 .trainer-east{grid-area:east;}
@@ -5231,6 +5290,14 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
         grid-template:"blank north blank2" 1fr "west trick east" 2fr "blank3 south blank4" 1fr / .7fr 1.8fr .7fr;
     }
     .trainer-trick-area{min-height:210px;padding:7px;}
+    .trainer-seat-card{
+        width:25px;
+        height:37px;
+        margin-left:-8px;
+        padding:3px;
+    }
+    .trainer-seat-card strong{font-size:.52rem;}
+    .trainer-seat-card small{font-size:.66rem;}
     .trainer-card{width:46px;height:66px;}
     .trainer-active-panel{grid-template-columns:1fr;}
     .accessibility-toggle{right:16px;}
