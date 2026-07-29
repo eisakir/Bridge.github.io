@@ -206,6 +206,13 @@ img{
 
 }
 
+.logo:hover,
+.logo:focus-visible {
+
+    color: var(--gold);
+
+}
+
 .nav-links{
 
     display:flex;
@@ -2081,6 +2088,434 @@ img{
 }
 
 /* ==========================================================
+   CARD PLAYGROUND
+   ========================================================== */
+
+.card-playground {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 1.5rem;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(31,59,87,.12);
+
+    border-radius: 24px;
+
+    background: white;
+
+    box-shadow: var(--shadow);
+
+}
+
+.playground-toolbar {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: .7rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.playground-toolbar button,
+.next-exercise {
+
+    padding: .7rem 1rem;
+
+    border: 2px solid var(--navy);
+
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: var(--navy);
+
+    font: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+}
+
+.playground-toolbar button:hover,
+.playground-toolbar button:focus-visible,
+.next-exercise:hover,
+.next-exercise:focus-visible {
+
+    background: var(--navy);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+.follow-suit-challenge {
+
+    display: grid;
+
+    grid-template-columns: 130px minmax(240px, 1fr) 150px;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    padding: 1.5rem;
+
+    border-radius: 18px;
+
+    background: linear-gradient(135deg, #eef5f0, #f8f6ef);
+
+}
+
+.lead-card-area {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: .45rem;
+
+    color: var(--green);
+
+    font-size: .72rem;
+
+    font-weight: 800;
+
+    letter-spacing: .06em;
+
+    text-transform: uppercase;
+
+}
+
+.practice-card {
+
+    position: relative;
+
+    width: 76px;
+
+    height: 106px;
+
+    border: 1px solid #ccd2d8;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #17202a;
+
+    box-shadow: 0 7px 16px rgba(0,0,0,.16);
+
+}
+
+.practice-card.red {
+
+    color: #c0392b;
+
+}
+
+.practice-card .card-rank {
+
+    position: absolute;
+
+    top: 7px;
+
+    left: 8px;
+
+    font-size: 1rem;
+
+    font-weight: 900;
+
+}
+
+.practice-card .card-suit {
+
+    position: absolute;
+
+    top: 25px;
+
+    left: 8px;
+
+    font-size: 1rem;
+
+}
+
+.practice-card .card-center-suit {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 2rem;
+
+}
+
+.challenge-copy h3 {
+
+    margin: .25rem 0 .5rem;
+
+}
+
+.challenge-copy p {
+
+    margin-bottom: .75rem;
+
+}
+
+.card-drop-zone {
+
+    min-height: 135px;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: .75rem;
+
+    border: 3px dashed #93a99a;
+
+    border-radius: 16px;
+
+    color: var(--green);
+
+    font-weight: 800;
+
+    text-align: center;
+
+    transition: var(--transition);
+
+}
+
+.card-drop-zone.drag-over {
+
+    border-color: var(--gold);
+
+    background: #fff9df;
+
+    transform: scale(1.03);
+
+}
+
+.card-drop-zone.correct {
+
+    border-color: #2e8b57;
+
+    background: #e5f6ec;
+
+}
+
+.card-drop-zone.incorrect {
+
+    border-color: #c0392b;
+
+    background: #fbe9e7;
+
+}
+
+.played-card {
+
+    width: 68px;
+
+    height: 96px;
+
+}
+
+.playground-score {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 1.25rem;
+
+    margin: 1rem 0 .5rem;
+
+    color: var(--green);
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+}
+
+.playground-hand {
+
+    min-height: 150px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    padding: 1.25rem 1rem;
+
+    overflow-x: auto;
+
+    border-radius: 18px;
+
+    background: #356a4e;
+
+    box-shadow: inset 0 0 25px rgba(0,0,0,.18);
+
+}
+
+.hand-card {
+
+    flex: 0 0 auto;
+
+    width: 72px;
+
+    height: 110px;
+
+    margin-left: -20px;
+
+    font: inherit;
+
+    cursor: grab;
+
+    transition:
+        transform .2s ease,
+        margin .2s ease,
+        opacity .2s ease;
+
+}
+
+.hand-card:first-child {
+
+    margin-left: 0;
+
+}
+
+.hand-card:hover,
+.hand-card:focus-visible {
+
+    z-index: 4;
+
+    margin-right: 10px;
+
+    transform: translateY(-14px);
+
+}
+
+.hand-card.dragging {
+
+    opacity: .35;
+
+}
+
+.hand-card.selected {
+
+    opacity: .55;
+
+    transform: translateY(-16px);
+
+}
+
+.drag-hint {
+
+    margin: .75rem 0 0;
+
+    color: var(--green);
+
+    font-size: .8rem;
+
+    text-align: center;
+
+}
+
+.playground-shake {
+
+    animation: playgroundShake .35s ease;
+
+}
+
+@keyframes playgroundShake {
+
+    0%, 100% { transform: translateX(0); }
+    30% { transform: translateX(-7px); }
+    70% { transform: translateX(7px); }
+
+}
+
+@media (max-width: 768px) {
+
+    .follow-suit-challenge {
+
+        grid-template-columns: 100px 1fr;
+
+    }
+
+    .card-drop-zone {
+
+        grid-column: 1 / -1;
+
+        min-height: 115px;
+
+    }
+
+}
+
+@media (max-width: 540px) {
+
+    .card-playground {
+
+        padding: 1rem;
+
+    }
+
+    .follow-suit-challenge {
+
+        grid-template-columns: 1fr;
+
+        text-align: center;
+
+    }
+
+    .card-drop-zone {
+
+        grid-column: auto;
+
+    }
+
+    .playground-score {
+
+        justify-content: center;
+
+    }
+
+    .playground-hand {
+
+        justify-content: flex-start;
+
+    }
+
+    .hand-card {
+
+        margin-left: -26px;
+
+    }
+
+}
+
+/* ==========================================================
    QUIZ
    ========================================================== */
 
@@ -3111,6 +3546,45 @@ img{
 /* ==========================================================
    PRINT STYLESHEET
    ========================================================== */
+
+@media (prefers-color-scheme: dark) {
+
+    .card-playground {
+
+        border-color: #374151;
+
+        background: #1f2937;
+
+    }
+
+    .follow-suit-challenge {
+
+        background: linear-gradient(135deg, #273449, #1f2937);
+
+    }
+
+    .playground-toolbar button,
+    .next-exercise {
+
+        border-color: #dbeafe;
+
+        color: #dbeafe;
+
+    }
+
+    .card-drop-zone.correct {
+
+        background: #173e2b;
+
+    }
+
+    .card-drop-zone.incorrect {
+
+        background: #492626;
+
+    }
+
+}
 
 @media print{
 
