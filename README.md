@@ -33,7 +33,10 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Smooth scrolling
 - Mobile navigation menu
 - Scroll reveal animations
-- Interactive 10-question quiz
+- 80-question Bridge knowledge bank
+- 10 randomized questions per quiz attempt
+- No repeated questions within an attempt
+- Always-available button for starting a fresh randomized quiz
 - Instant answer feedback
 - Running score
 - Final results screen
@@ -71,6 +74,7 @@ bridge-beginners/
 
 │── index.html
 │── style.css
+│── questions.js
 │── script.js
 └── README.md
 ```
