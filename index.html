@@ -253,26 +253,110 @@
 
     </p>
 
-    <div class="bridge-table">
+    <div
+        class="bridge-lesson dealer-north"
+        id="bridgeLesson"
+        data-step="0">
 
-        <div class="north seat">
-            North
+        <div class="lesson-heading">
+            <span class="lesson-step" id="lessonStep">Interactive lesson</span>
+            <strong id="lessonTitle">Ready for a Bridge hand?</strong>
+            <p id="lessonText">
+                Press Start lesson to deal the cards and follow one trick.
+            </p>
         </div>
 
-        <div class="west seat">
-            West
+        <div
+            class="animated-bridge-table"
+            aria-label="Animated Bridge table with North, East, South, and West">
+
+            <div class="dealer-chip" id="dealerChip" aria-label="Dealer">
+                D
+            </div>
+
+            <div class="table-seat table-north" data-seat="north">
+                <span class="seat-label">
+                    North <small class="seat-role">Player</small>
+                </span>
+                <div class="animated-hand north-hand">
+                    <span class="mini-card play-card">
+                        <span class="card-back">♠</span><span class="card-face">Q♣</span>
+                    </span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">9♥</span></span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">6♦</span></span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">3♠</span></span>
+                    <span class="card-count">13 cards</span>
+                </div>
+            </div>
+
+            <div class="table-seat table-west" data-seat="west">
+                <span class="seat-label">
+                    West <small class="seat-role">Player</small>
+                </span>
+                <div class="animated-hand west-hand">
+                    <span class="mini-card play-card">
+                        <span class="card-back">♠</span><span class="card-face">8♣</span>
+                    </span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">J♥</span></span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">4♦</span></span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">2♠</span></span>
+                    <span class="card-count">13 cards</span>
+                </div>
+            </div>
+
+            <div class="felt-center">
+                <div class="card-deck" aria-hidden="true">♠</div>
+                <span class="trick-label">Current trick</span>
+                <strong class="trick-winner" id="trickWinner">
+                    East wins the trick
+                </strong>
+            </div>
+
+            <div class="table-seat table-east" data-seat="east">
+                <span class="seat-label">
+                    East <small class="seat-role">Player</small>
+                </span>
+                <div class="animated-hand east-hand">
+                    <span class="mini-card play-card">
+                        <span class="card-back">♠</span><span class="card-face">K♣</span>
+                    </span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">8♥</span></span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">5♦</span></span>
+                    <span class="mini-card"><span class="card-back">♠</span><span class="card-face">4♠</span></span>
+                    <span class="card-count">13 cards</span>
+                </div>
+            </div>
+
+            <div class="table-seat table-south" data-seat="south">
+                <span class="seat-label">
+                    South <small class="seat-role">Player</small>
+                </span>
+                <div class="animated-hand south-hand">
+                    <span class="mini-card play-card">
+                        <span class="card-back">♠</span><span class="card-face">5♣</span>
+                    </span>
+                    <span class="mini-card">
+                        <span class="card-back">♠</span><span class="card-face red">A♥</span>
+                    </span>
+                    <span class="mini-card">
+                        <span class="card-back">♠</span><span class="card-face red">10♦</span>
+                    </span>
+                    <span class="mini-card">
+                        <span class="card-back">♠</span><span class="card-face black">7♠</span>
+                    </span>
+                    <span class="card-count">13 cards</span>
+                </div>
+            </div>
+
         </div>
 
-        <div class="table-center">
-            TABLE
-        </div>
-
-        <div class="east seat">
-            East
-        </div>
-
-        <div class="south seat">
-            South
+        <div class="lesson-controls">
+            <button class="primary-button" id="lessonNext" type="button">
+                Start lesson
+            </button>
+            <button class="lesson-reset" id="lessonReset" type="button">
+                ↻ Replay with next dealer
+            </button>
         </div>
 
     </div>
