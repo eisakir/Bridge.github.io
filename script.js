@@ -364,9 +364,6 @@ const quizQuestions = [
 
 ];
 
-/* ==========================================================
-   CONTINUES IN PART 2
-========================================================== */
 
 /* ==========================================================
    QUIZ ENGINE
@@ -527,15 +524,13 @@ function checkAnswer(selectedIndex) {
     });
 
     if (selectedIndex === question.correct) {
-
-        score++;
-
-        feedbackTitle.textContent = "✅ Correct!";
-
+       score++;
+       feedbackTitle.textContent = "✅ Correct!";
+       playCorrectSound();
+       celebrate();
     } else {
-
-        feedbackTitle.textContent = "❌ Incorrect";
-
+       feedbackTitle.textContent = "❌ Incorrect";
+       playWrongSound();
     }
 
     feedbackText.textContent =
@@ -900,6 +895,56 @@ document.querySelectorAll(".tilt-card").forEach(card => {
 
         card.style.transform =
             "perspective
+
+/* ==========================================
+   CONFETTI
+========================================== */
+
+function launchConfetti(){
+
+    const container =
+        document.getElementById("confetti-container");
+
+    const colors = [
+
+        "#d4af37",
+        "#1f3b57",
+        "#5b7b67",
+        "#d64545",
+        "#ffffff"
+
+    ];
+
+    for(let i=0;i<90;i++){
+
+        const piece =
+            document.createElement("div");
+
+        piece.className="confetti";
+
+        piece.style.left =
+            Math.random()*100+"vw";
+
+        piece.style.background =
+            colors[Math.floor(Math.random()*colors.length)];
+
+        piece.style.animationDuration =
+            1+Math.random()*1+"s";
+
+        piece.style.transform =
+            `translateY(-20px) rotate(${Math.random()*360}deg)`;
+
+        container.appendChild(piece);
+
+        setTimeout(()=>{
+
+            piece.remove();
+
+        },2000);
+
+    }
+
+}
 
 /* ==========================================================
    END OF FILE
