@@ -14,6 +14,18 @@ Interactive Features
 
 "use strict";
 
+/* ==========================================
+   QUIZ SOUND EFFECTS
+========================================== */
+
+const correctSound = new Audio("assets/correct.mp3");
+
+const wrongSound = new Audio("assets/wrong.mp3");
+
+correctSound.volume = 0.45;
+
+wrongSound.volume = 0.45;
+
 /* ==========================================================
    MOBILE NAVIGATION
 ========================================================== */
