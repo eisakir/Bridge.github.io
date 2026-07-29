@@ -591,6 +591,86 @@
 
     </div>
 
+    <h3>Try an Auction</h3>
+
+    <p>
+        Take every seat at the table and build a legal auction yourself.
+        The simulator follows the bidding ladder, rotates clockwise, and
+        explains each call as you make it.
+    </p>
+
+    <div class="auction-simulator" id="auctionSimulator">
+
+        <div class="auction-header">
+            <div>
+                <span class="simulator-label">Interactive simulator</span>
+                <h4 id="auctionTurn">North to call</h4>
+                <p id="auctionGuidance">
+                    North is dealer. Choose a bid or Pass.
+                </p>
+            </div>
+
+            <button class="auction-reset" id="auctionReset" type="button">
+                ↻ New Auction
+            </button>
+        </div>
+
+        <div class="auction-seats" aria-label="Auction turn order">
+            <div class="auction-seat active" data-auction-seat="0">
+                <strong>North</strong><span>N–S</span>
+            </div>
+            <div class="auction-seat" data-auction-seat="1">
+                <strong>East</strong><span>E–W</span>
+            </div>
+            <div class="auction-seat" data-auction-seat="2">
+                <strong>South</strong><span>N–S</span>
+            </div>
+            <div class="auction-seat" data-auction-seat="3">
+                <strong>West</strong><span>E–W</span>
+            </div>
+        </div>
+
+        <div
+            class="auction-history"
+            id="auctionHistory"
+            aria-live="polite">
+            <p class="auction-placeholder">
+                Calls will appear here as the auction develops.
+            </p>
+        </div>
+
+        <div class="auction-status" id="auctionStatus">
+            <span>Current contract</span>
+            <strong id="currentContract">No bid yet</strong>
+        </div>
+
+        <div class="bid-controls" id="bidControls">
+            <div class="special-calls">
+                <button type="button" data-call="pass">Pass</button>
+                <button type="button" data-call="double">Double</button>
+                <button type="button" data-call="redouble">Redouble</button>
+            </div>
+
+            <p class="bid-grid-label">
+                Or choose any legal bid:
+            </p>
+
+            <div class="bid-grid" id="bidGrid">
+                <!-- JavaScript creates the 35 bid buttons -->
+            </div>
+        </div>
+
+        <div class="auction-result hidden" id="auctionResult">
+            <span>Auction complete</span>
+            <strong id="finalContract">3NT by North</strong>
+            <p id="auctionResultText"></p>
+            <button class="primary-button" id="auctionAgain" type="button">
+                Try Another Auction
+            </button>
+        </div>
+
+    </div>
+
     <p>
 
         The auction ends after three consecutive passes following a bid.
@@ -1339,6 +1419,10 @@
 
 <h2>Glossary</h2>
 
+<p class="glossary-instructions">
+    Click or press Enter on a card to flip it and reveal the definition.
+</p>
+
 <div class="glossary-grid">
 
 <article class="glossary-item">
@@ -1703,6 +1787,7 @@
 <!-- ===================================================== -->
 
 <script src="questions.js"></script>
+<script src="auction.js"></script>
 <script src="script.js"></script>
 
 </body>
