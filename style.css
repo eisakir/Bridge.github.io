@@ -4733,6 +4733,12 @@ main,
     background:linear-gradient(160deg,#fff,#eaf8f2);
 }
 
+.learning-path-card>div{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+}
+
 .path-number{
     display:grid;
     width:38px;
@@ -4744,9 +4750,13 @@ main,
     font-weight:800;
 }
 
-.learning-path-card h3{margin:16px 0 7px;}
+.learning-path-card h3{
+    min-height:2.5em;
+    margin:16px 0 7px;
+}
 .learning-path-card p{margin:0 0 15px;color:#63727d;font-size:.9rem;}
-.path-status{margin-top:auto;color:#44606f;font-size:.82rem;font-weight:700;}
+.learning-path-card a{margin-top:auto;}
+.path-status{color:#44606f;font-size:.82rem;font-weight:700;}
 
 .learning-path-card button,
 #calculateScore,
@@ -4761,6 +4771,8 @@ main,
     font-weight:700;
     cursor:pointer;
 }
+
+.learning-path-card button{width:100%;}
 
 .learning-path-card.completed button{background:#1d795d;}
 
