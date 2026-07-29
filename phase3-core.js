@@ -250,6 +250,10 @@
         listeners.forEach(listener => listener(getData()));
     }
 
+    function resetData() {
+        replaceData(defaultProgress());
+    }
+
     function subscribe(listener) {
         listeners.add(listener);
         return () => listeners.delete(listener);
@@ -362,6 +366,7 @@
         completeLesson,
         getData,
         replaceData,
+        resetData,
         subscribe,
         render: renderProgress
     };

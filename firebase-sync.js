@@ -198,7 +198,23 @@ if (
     });
 
     signOutButton.addEventListener("click", async () => {
-        await signOut(auth);
+        signOutButton.disabled = true;
+        setStatus("Signing out…", "saving");
+        applyingCloudData = true;
+        currentUser = null;
+        window.clearTimeout(saveTimer);
+
+        try {
+            await signOut(auth);
+            window.BridgeProgress.resetData();
+        } catch (error) {
+            currentUser = auth.currentUser;
+            console.error("Google sign-out failed:", error);
+            setStatus("Could not sign out", "error");
+        } finally {
+            applyingCloudData = false;
+            signOutButton.disabled = false;
+        }
     });
 
     window.BridgeProgress.subscribe(queueCloudSave);
