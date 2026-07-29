@@ -9,22 +9,13 @@ Interactive Features
 - Back-to-top button
 - Scroll reveal animations
 - Interactive quiz
+- Mouse glow
+- 3D hero cards
+- Quiz sounds and confetti
 ==========================================================
 */
 
 "use strict";
-
-/* ==========================================
-   QUIZ SOUND EFFECTS
-========================================== */
-
-const correctSound = new Audio("assets/correct.mp3");
-
-const wrongSound = new Audio("assets/wrong.mp3");
-
-correctSound.volume = 0.45;
-
-wrongSound.volume = 0.45;
 
 /* ==========================================================
    MOBILE NAVIGATION
@@ -34,36 +25,21 @@ const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
 if (menuToggle && navMenu) {
-
     menuToggle.addEventListener("click", () => {
-
         navMenu.classList.toggle("open");
 
         const expanded =
             menuToggle.getAttribute("aria-expanded") === "true";
 
-        menuToggle.setAttribute(
-            "aria-expanded",
-            String(!expanded)
-        );
-
+        menuToggle.setAttribute("aria-expanded", String(!expanded));
     });
 
     document.querySelectorAll(".nav-links a").forEach(link => {
-
         link.addEventListener("click", () => {
-
             navMenu.classList.remove("open");
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
+            menuToggle.setAttribute("aria-expanded", "false");
         });
-
     });
-
 }
 
 /* ==========================================================
@@ -74,381 +50,411 @@ const sections = document.querySelectorAll("section");
 const navigationLinks = document.querySelectorAll(".nav-links a");
 
 function highlightCurrentSection() {
-
-    let currentSection = "";
+    let currentSection = "home";
 
     sections.forEach(section => {
+        const top = section.offsetTop - 140;
 
-        const top =
-            section.offsetTop - 140;
-
-        if (window.scrollY >= top) {
-
+        if (window.scrollY >= top && section.id) {
             currentSection = section.id;
-
         }
-
     });
 
     navigationLinks.forEach(link => {
-
-        link.classList.remove("active");
-
-        if (
-            link.getAttribute("href") ===
-            "#" + currentSection
-        ) {
-
-            link.classList.add("active");
-
-        }
-
+        link.classList.toggle(
+            "active",
+            link.getAttribute("href") === `#${currentSection}`
+        );
     });
-
 }
 
-window.addEventListener(
-    "scroll",
-    highlightCurrentSection
-);
-
-highlightCurrentSection();
+window.addEventListener("scroll", highlightCurrentSection, { passive: true });
+window.addEventListener("load", highlightCurrentSection);
 
 /* ==========================================================
    BACK TO TOP BUTTON
 ========================================================== */
 
-const backToTopButton =
-    document.getElementById("backToTop");
+const backToTopButton = document.getElementById("backToTop");
 
 if (backToTopButton) {
-
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY > 500) {
-
-            backToTopButton.classList.add("show");
-
-        } else {
-
-            backToTopButton.classList.remove("show");
-
-        }
-
-    });
+    window.addEventListener(
+        "scroll",
+        () => {
+            backToTopButton.classList.toggle("show", window.scrollY > 500);
+        },
+        { passive: true }
+    );
 
     backToTopButton.addEventListener("click", () => {
-
         window.scrollTo({
-
             top: 0,
-
             behavior: "smooth"
-
         });
-
     });
-
 }
 
 /* ==========================================================
    SCROLL REVEAL ANIMATION
 ========================================================== */
 
-const revealObserver = new IntersectionObserver(
+const revealSections = document.querySelectorAll(".section");
 
-    entries => {
+if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.08,
+            rootMargin: "0px 0px -40px 0px"
+        }
+    );
 
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("visible");
-
-            }
-
-        });
-
-    },
-
-    {
-
-        threshold: 0.15
-
-    }
-
-);
-
-document
-.querySelectorAll(".section")
-.forEach(section => {
-
-    revealObserver.observe(section);
-
-});
+    revealSections.forEach(section => revealObserver.observe(section));
+} else {
+    revealSections.forEach(section => section.classList.add("visible"));
+}
 
 /* ==========================================================
-   QUIZ QUESTIONS
+   QUIZ QUESTION BANK
 ========================================================== */
 
 const quizQuestions = [
-
-{
-    question: "What is the highest-ranking card in Bridge?",
-
-    answers: [
-        "Ace",
-        "King",
-        "Queen",
-        "Jack"
-    ],
-
-    correct: 0,
-
-    explanation:
-        "The Ace is the highest-ranking card."
-},
-
-{
-    question:
-        "How many players are in a game of Contract Bridge?",
-
-    answers: [
-        "2",
-        "3",
-        "4",
-        "5"
-    ],
-
-    correct: 2,
-
-    explanation:
-        "Bridge is played by four players in two partnerships."
-},
-
-{
-    question:
-        "How many cards does each player receive?",
-
-    answers: [
-        "10",
-        "12",
-        "13",
-        "15"
-    ],
-
-    correct: 2,
-
-    explanation:
-        "A standard 52-card deck deals 13 cards to each player."
-},
-
-{
-    question:
-        "Which partnership sits opposite each other?",
-
-    answers: [
-        "North & East",
-        "North & South",
-        "North & West",
-        "East & South"
-    ],
-
-    correct: 1,
-
-    explanation:
-        "North and South are partners. East and West are partners."
-},
-
-{
-    question:
-        "If you have a card in the suit led, what must you do?",
-
-    answers: [
-        "Play any card",
-        "Follow suit",
-        "Play a trump card",
-        "Pass"
-    ],
-
-    correct: 1,
-
-    explanation:
-        "Players must follow suit whenever possible."
-},
-
-{
-    question:
-        "Who becomes the dummy?",
-
-    answers: [
-        "The dealer",
-        "The declarer's partner",
-        "The highest bidder",
-        "The player on declarer's left"
-    ],
-
-    correct: 1,
-
-    explanation:
-        "The declarer's partner becomes the dummy."
-},
-
-{
-    question:
-        "Who makes the opening lead?",
-
-    answers: [
-        "The declarer",
-        "The dummy",
-        "The player to declarer's left",
-        "The dealer"
-    ],
-
-    correct: 2,
-
-    explanation:
-        "The defender sitting to declarer's left always makes the opening lead."
-},
-
-{
-    question:
-        "A contract of 4♥ requires how many tricks?",
-
-    answers: [
-        "8",
-        "9",
-        "10",
-        "11"
-    ],
-
-    correct: 2,
-
-    explanation:
-        "Four plus six equals ten tricks."
-},
-
-{
-    question:
-        "What is true about a No Trump contract?",
-
-    answers: [
-        "Hearts are trump",
-        "There is no trump suit",
-        "Spades are always trump",
-        "The dealer chooses the trump suit"
-    ],
-
-    correct: 1,
-
-    explanation:
-        "In No Trump there is no trump suit."
-},
-
-{
-    question:
-        "When does the auction end?",
-
-    answers: [
-        "After one pass",
-        "After two passes",
-        "After three consecutive passes after a bid",
-        "Whenever the dealer decides"
-    ],
-
-    correct: 2,
-
-    explanation:
-        "The auction ends after three consecutive passes following a bid."
-}
-
+    {
+        question: "What is the highest-ranking card in Bridge?",
+        answers: ["Ace", "King", "Queen", "Jack"],
+        correct: 0,
+        explanation: "The Ace is the highest-ranking card."
+    },
+    {
+        question: "How many players are in a game of Contract Bridge?",
+        answers: ["2", "3", "4", "5"],
+        correct: 2,
+        explanation: "Bridge is played by four players in two partnerships."
+    },
+    {
+        question: "How many cards does each player receive?",
+        answers: ["10", "12", "13", "15"],
+        correct: 2,
+        explanation: "A standard 52-card deck deals 13 cards to each player."
+    },
+    {
+        question: "Which players are partners?",
+        answers: [
+            "North and East",
+            "North and South",
+            "North and West",
+            "East and South"
+        ],
+        correct: 1,
+        explanation:
+            "North and South are partners. East and West are partners."
+    },
+    {
+        question: "If you have a card in the suit led, what must you do?",
+        answers: [
+            "Play any card",
+            "Follow suit",
+            "Play a trump card",
+            "Pass"
+        ],
+        correct: 1,
+        explanation: "Players must follow suit whenever possible."
+    },
+    {
+        question: "Who becomes the dummy?",
+        answers: [
+            "The dealer",
+            "The declarer's partner",
+            "The highest bidder",
+            "The player on declarer's left"
+        ],
+        correct: 1,
+        explanation: "The declarer's partner becomes the dummy."
+    },
+    {
+        question: "Who makes the opening lead?",
+        answers: [
+            "The declarer",
+            "The dummy",
+            "The player to declarer's left",
+            "The dealer"
+        ],
+        correct: 2,
+        explanation:
+            "The defender sitting to declarer's left makes the opening lead."
+    },
+    {
+        question: "A contract of 4♥ requires how many tricks?",
+        answers: ["8", "9", "10", "11"],
+        correct: 2,
+        explanation: "Four plus six equals ten tricks."
+    },
+    {
+        question: "What is true about a No Trump contract?",
+        answers: [
+            "Hearts are trump",
+            "There is no trump suit",
+            "Spades are always trump",
+            "The dealer chooses the trump suit"
+        ],
+        correct: 1,
+        explanation: "In No Trump there is no trump suit."
+    },
+    {
+        question: "When does the auction end after a bid has been made?",
+        answers: [
+            "After one pass",
+            "After two passes",
+            "After three consecutive passes",
+            "Whenever the dealer decides"
+        ],
+        correct: 2,
+        explanation:
+            "The auction ends after three consecutive passes following a bid."
+    }
 ];
 
-
 /* ==========================================================
-   QUIZ ENGINE
+   QUIZ ELEMENTS AND STATE
 ========================================================== */
 
-const questionNumber =
-    document.getElementById("question-number");
-
-const scoreDisplay =
-    document.getElementById("score-display");
-
-const progressFill =
-    document.getElementById("progress-fill");
-
-const questionText =
-    document.getElementById("question-text");
-
-const answerButtons =
-    document.getElementById("answer-buttons");
-
-const feedbackBox =
-    document.getElementById("answer-feedback");
-
-const feedbackTitle =
-    document.getElementById("feedback-title");
-
-const feedbackText =
-    document.getElementById("feedback-text");
-
-const nextQuestionButton =
-    document.getElementById("next-question");
-
-const quizResults =
-    document.getElementById("quiz-results");
-
-const finalScore =
-    document.getElementById("final-score");
-
-const resultMessage =
-    document.getElementById("result-message");
-
-const restartButton =
-    document.getElementById("restart-quiz");
-
-/* ==========================================================
-   QUIZ STATE
-========================================================== */
+const questionNumber = document.getElementById("question-number");
+const scoreDisplay = document.getElementById("score-display");
+const progressFill = document.getElementById("progress-fill");
+const questionText = document.getElementById("question-text");
+const answerButtons = document.getElementById("answer-buttons");
+const feedbackBox = document.getElementById("answer-feedback");
+const feedbackTitle = document.getElementById("feedback-title");
+const feedbackText = document.getElementById("feedback-text");
+const nextQuestionButton = document.getElementById("next-question");
+const quizResults = document.getElementById("quiz-results");
+const finalScore = document.getElementById("final-score");
+const resultMessage = document.getElementById("result-message");
+const restartButton = document.getElementById("restart-quiz");
+const questionCard = document.getElementById("question-card");
+const quizContainer = document.getElementById("quiz-container");
 
 let currentQuestionIndex = 0;
 let score = 0;
 let answered = false;
 
 /* ==========================================================
-   START QUIZ
+   SOUND EFFECTS — NO AUDIO FILES REQUIRED
 ========================================================== */
 
-function startQuiz() {
+let audioContext = null;
 
-    currentQuestionIndex = 0;
-    score = 0;
+function getAudioContext() {
+    if (!audioContext) {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
 
-    quizResults.classList.add("hidden");
+        if (AudioContextClass) {
+            audioContext = new AudioContextClass();
+        }
+    }
 
-    document
-        .getElementById("question-card")
-        .classList.remove("hidden");
+    return audioContext;
+}
 
-    loadQuestion();
+function playTone({
+    frequency,
+    duration,
+    type = "sine",
+    volume = 0.12,
+    delay = 0
+}) {
+    const context = getAudioContext();
 
+    if (!context) {
+        return;
+    }
+
+    const startTime = context.currentTime + delay;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, startTime);
+
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        startTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + duration + 0.03);
+}
+
+function playCorrectSound() {
+    playTone({
+        frequency: 523.25,
+        duration: 0.18,
+        type: "sine",
+        volume: 0.11
+    });
+
+    playTone({
+        frequency: 659.25,
+        duration: 0.2,
+        type: "sine",
+        volume: 0.1,
+        delay: 0.1
+    });
+
+    playTone({
+        frequency: 783.99,
+        duration: 0.25,
+        type: "sine",
+        volume: 0.09,
+        delay: 0.2
+    });
+}
+
+function playWrongSound() {
+    const context = getAudioContext();
+
+    if (!context) {
+        return;
+    }
+
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    const startTime = context.currentTime;
+
+    oscillator.type = "sawtooth";
+    oscillator.frequency.setValueAtTime(220, startTime);
+    oscillator.frequency.exponentialRampToValueAtTime(
+        90,
+        startTime + 0.55
+    );
+
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.07, startTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        startTime + 0.6
+    );
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + 0.62);
 }
 
 /* ==========================================================
-   LOAD QUESTION
+   CONFETTI
 ========================================================== */
 
+function launchConfetti() {
+    const container = document.getElementById("confetti-container");
+
+    if (!container) {
+        return;
+    }
+
+    const colors = [
+        "#d4af37",
+        "#1f3b57",
+        "#5b7b67",
+        "#d64545",
+        "#ffffff"
+    ];
+
+    for (let i = 0; i < 70; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti";
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.top = `${-20 - Math.random() * 100}px`;
+        piece.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = `${Math.random() * 0.25}s`;
+        piece.style.animationDuration = `${1.2 + Math.random()}s`;
+
+        container.appendChild(piece);
+
+        window.setTimeout(() => piece.remove(), 2400);
+    }
+}
+
+function celebrate() {
+    launchConfetti();
+
+    if (!quizContainer) {
+        return;
+    }
+
+    quizContainer.classList.remove("quiz-correct");
+    void quizContainer.offsetWidth;
+    quizContainer.classList.add("quiz-correct");
+
+    window.setTimeout(() => {
+        quizContainer.classList.remove("quiz-correct");
+    }, 650);
+}
+
+function showWrongEffect() {
+    if (!quizContainer) {
+        return;
+    }
+
+    quizContainer.classList.remove("quiz-wrong");
+    void quizContainer.offsetWidth;
+    quizContainer.classList.add("quiz-wrong");
+
+    window.setTimeout(() => {
+        quizContainer.classList.remove("quiz-wrong");
+    }, 500);
+}
+
+/* ==========================================================
+   QUIZ ENGINE
+========================================================== */
+
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+
+    if (!quizResults || !questionCard) {
+        return;
+    }
+
+    quizResults.classList.add("hidden");
+    questionCard.classList.remove("hidden");
+
+    loadQuestion();
+}
+
 function loadQuestion() {
+    if (
+        !feedbackBox ||
+        !answerButtons ||
+        !questionNumber ||
+        !scoreDisplay ||
+        !progressFill ||
+        !questionText
+    ) {
+        return;
+    }
 
     answered = false;
-
     feedbackBox.classList.add("hidden");
-
     answerButtons.innerHTML = "";
 
-    const question =
-        quizQuestions[currentQuestionIndex];
+    const question = quizQuestions[currentQuestionIndex];
 
     questionNumber.textContent =
         `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
@@ -457,171 +463,239 @@ function loadQuestion() {
         `Score: ${score} / ${quizQuestions.length}`;
 
     progressFill.style.width =
-        `${((currentQuestionIndex) / quizQuestions.length) * 100}%`;
+        `${(currentQuestionIndex / quizQuestions.length) * 100}%`;
 
-    questionText.textContent =
-        question.question;
+    questionText.textContent = question.question;
 
     question.answers.forEach((answer, index) => {
-
-        const button =
-            document.createElement("button");
+        const button = document.createElement("button");
 
         button.textContent = answer;
-
         button.type = "button";
-
-        button.addEventListener(
-            "click",
-            () => checkAnswer(index)
-        );
+        button.addEventListener("click", () => checkAnswer(index));
 
         answerButtons.appendChild(button);
-
     });
-
 }
 
-/* ==========================================================
-   CHECK ANSWER
-========================================================== */
-
 function checkAnswer(selectedIndex) {
-
-    if (answered) {
-
+    if (answered || !answerButtons || !feedbackBox) {
         return;
-
     }
 
     answered = true;
 
-    const question =
-        quizQuestions[currentQuestionIndex];
-
-    const buttons =
-        answerButtons.querySelectorAll("button");
+    const question = quizQuestions[currentQuestionIndex];
+    const buttons = answerButtons.querySelectorAll("button");
 
     buttons.forEach((button, index) => {
-
         button.disabled = true;
 
         if (index === question.correct) {
-
             button.classList.add("correct");
-
         }
 
-        if (
-            index === selectedIndex &&
-            index !== question.correct
-        ) {
-
+        if (index === selectedIndex && index !== question.correct) {
             button.classList.add("incorrect");
-
         }
-
     });
 
     if (selectedIndex === question.correct) {
-       score++;
-       feedbackTitle.textContent = "✅ Correct!";
-       playCorrectSound();
-       celebrate();
+        score += 1;
+        feedbackTitle.textContent = "✅ Correct!";
+        playCorrectSound();
+        celebrate();
     } else {
-       feedbackTitle.textContent = "❌ Incorrect";
-       playWrongSound();
+        feedbackTitle.textContent = "❌ Incorrect";
+        playWrongSound();
+        showWrongEffect();
     }
 
-    feedbackText.textContent =
-        question.explanation;
-
+    feedbackText.textContent = question.explanation;
     scoreDisplay.textContent =
         `Score: ${score} / ${quizQuestions.length}`;
-
     feedbackBox.classList.remove("hidden");
-
 }
 
-/* ==========================================================
-   NEXT QUESTION
-========================================================== */
-
 function nextQuestion() {
-
-    currentQuestionIndex++;
+    currentQuestionIndex += 1;
 
     if (currentQuestionIndex >= quizQuestions.length) {
-
         showResults();
-
         return;
-
     }
 
     loadQuestion();
-
 }
-
-nextQuestionButton.addEventListener(
-    "click",
-    nextQuestion
-);
-
-/* ==========================================================
-   SHOW RESULTS
-========================================================== */
 
 function showResults() {
-
-    document
-        .getElementById("question-card")
-        .classList.add("hidden");
-
-    quizResults.classList.remove("hidden");
-
-    progressFill.style.width = "100%";
-
-    finalScore.textContent =
-        `${score} / ${quizQuestions.length}`;
-
-    if (score === quizQuestions.length) {
-
-        resultMessage.textContent =
-            "Perfect! You're ready for your first Bridge game.";
-
-    } else if (score >= 8) {
-
-        resultMessage.textContent =
-            "Excellent! You have a strong understanding of the basics.";
-
-    } else if (score >= 6) {
-
-        resultMessage.textContent =
-            "Nice work! Review a few sections and you'll be ready to play.";
-
-    } else if (score >= 4) {
-
-        resultMessage.textContent =
-            "Good start! Read through the lessons again and try the quiz once more.";
-
-    } else {
-
-        resultMessage.textContent =
-            "Keep practicing! Every Bridge player starts as a beginner.";
-
+    if (
+        !questionCard ||
+        !quizResults ||
+        !progressFill ||
+        !finalScore ||
+        !resultMessage
+    ) {
+        return;
     }
 
+    questionCard.classList.add("hidden");
+    quizResults.classList.remove("hidden");
+    progressFill.style.width = "100%";
+    finalScore.textContent = `${score} / ${quizQuestions.length}`;
+
+    if (score === quizQuestions.length) {
+        resultMessage.textContent =
+            "Perfect! You're ready for your first Bridge game.";
+        launchConfetti();
+    } else if (score >= 8) {
+        resultMessage.textContent =
+            "Excellent! You have a strong understanding of the basics.";
+    } else if (score >= 6) {
+        resultMessage.textContent =
+            "Nice work! Review a few sections and you'll be ready to play.";
+    } else if (score >= 4) {
+        resultMessage.textContent =
+            "Good start! Review the lessons and try the quiz again.";
+    } else {
+        resultMessage.textContent =
+            "Keep practicing! Every Bridge player starts as a beginner.";
+    }
+}
+
+if (nextQuestionButton) {
+    nextQuestionButton.addEventListener("click", nextQuestion);
+}
+
+if (restartButton) {
+    restartButton.addEventListener("click", startQuiz);
 }
 
 /* ==========================================================
-   RESTART QUIZ
+   SMOOTH SCROLLING AND MENU ACCESSIBILITY
 ========================================================== */
 
-restartButton.addEventListener(
-    "click",
-    startQuiz
-);
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", event => {
+        const targetID = link.getAttribute("href");
+
+        if (!targetID || targetID === "#") {
+            return;
+        }
+
+        const target = document.querySelector(targetID);
+
+        if (!target) {
+            return;
+        }
+
+        event.preventDefault();
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+});
+
+document.addEventListener("click", event => {
+    if (!menuToggle || !navMenu) {
+        return;
+    }
+
+    const clickedMenu = navMenu.contains(event.target);
+    const clickedButton = menuToggle.contains(event.target);
+
+    if (
+        !clickedMenu &&
+        !clickedButton &&
+        navMenu.classList.contains("open")
+    ) {
+        navMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        navMenu &&
+        navMenu.classList.contains("open")
+    ) {
+        navMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.focus();
+    }
+});
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 900 && navMenu) {
+        navMenu.classList.remove("open");
+
+        if (menuToggle) {
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    }
+});
+
+/* ==========================================================
+   MOUSE GLOW EFFECT
+========================================================== */
+
+const mouseGlow = document.querySelector(".mouse-glow");
+
+if (mouseGlow && window.matchMedia("(pointer: fine)").matches) {
+    let glowX = window.innerWidth / 2;
+    let glowY = window.innerHeight / 2;
+    let targetX = glowX;
+    let targetY = glowY;
+
+    document.addEventListener(
+        "mousemove",
+        event => {
+            targetX = event.clientX;
+            targetY = event.clientY;
+        },
+        { passive: true }
+    );
+
+    function animateGlow() {
+        glowX += (targetX - glowX) * 0.08;
+        glowY += (targetY - glowY) * 0.08;
+
+        mouseGlow.style.left = `${glowX}px`;
+        mouseGlow.style.top = `${glowY}px`;
+
+        window.requestAnimationFrame(animateGlow);
+    }
+
+    animateGlow();
+}
+
+/* ==========================================================
+   HERO CARD 3D EFFECT
+========================================================== */
+
+document.querySelectorAll(".tilt-card").forEach(card => {
+    card.addEventListener("mousemove", event => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const rotateY = (x / rect.width - 0.5) * 18;
+        const rotateX = (0.5 - y / rect.height) * 18;
+
+        card.style.transform =
+            `perspective(900px) ` +
+            `rotateX(${rotateX}deg) ` +
+            `rotateY(${rotateY}deg) ` +
+            `translateY(-6px) scale(1.04)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+        card.style.transform =
+            "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+});
 
 /* ==========================================================
    INITIALIZE
@@ -629,350 +703,5 @@ restartButton.addEventListener(
 
 startQuiz();
 
-/* ==========================================================
-   CONTINUES IN PART 3
-========================================================== */
-
-/* ==========================================================
-   ACCESSIBILITY & USABILITY ENHANCEMENTS
-========================================================== */
-
-/*
-   Close the mobile menu when clicking outside it.
-*/
-
-document.addEventListener("click", event => {
-
-    if (!menuToggle || !navMenu) {
-        return;
-    }
-
-    const clickedMenu =
-        navMenu.contains(event.target);
-
-    const clickedButton =
-        menuToggle.contains(event.target);
-
-    if (
-        !clickedMenu &&
-        !clickedButton &&
-        navMenu.classList.contains("open")
-    ) {
-
-        navMenu.classList.remove("open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-    }
-
-});
-
-/*
-   Close the menu when the Escape key is pressed.
-*/
-
-document.addEventListener("keydown", event => {
-
-    if (
-        event.key === "Escape" &&
-        navMenu &&
-        navMenu.classList.contains("open")
-    ) {
-
-        navMenu.classList.remove("open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        menuToggle.focus();
-
-    }
-
-});
-
-/* ==========================================================
-   IMPROVED SMOOTH SCROLLING
-========================================================== */
-
-document
-.querySelectorAll('a[href^="#"]')
-.forEach(link => {
-
-    link.addEventListener("click", event => {
-
-        const targetID =
-            link.getAttribute("href");
-
-        if (
-            !targetID ||
-            targetID === "#"
-        ) {
-            return;
-        }
-
-        const target =
-            document.querySelector(targetID);
-
-        if (!target) {
-            return;
-        }
-
-        event.preventDefault();
-
-        target.scrollIntoView({
-
-            behavior: "smooth",
-
-            block: "start"
-
-        });
-
-    });
-
-});
-
-/* ==========================================================
-   UPDATE ACTIVE NAVIGATION AFTER PAGE LOAD
-========================================================== */
-
-window.addEventListener("load", () => {
-
-    highlightCurrentSection();
-
-});
-
-/* ==========================================================
-   RESIZE HANDLER
-========================================================== */
-
-window.addEventListener("resize", () => {
-
-    if (
-        window.innerWidth > 900 &&
-        navMenu
-    ) {
-
-        navMenu.classList.remove("open");
-
-        if (menuToggle) {
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        }
-
-    }
-
-});
-
-/* ==========================================================
-   DEFENSIVE QUIZ CHECK
-========================================================== */
-
-if (
-    quizQuestions.length === 0
-) {
-
-    questionText.textContent =
-        "No quiz questions were found.";
-
-}
-
-/* ==========================================================
-   CONSOLE MESSAGE
-========================================================== */
-
-console.log(
-    "Learn Bridge loaded successfully."
-);
-
-console.log(
-    `Loaded ${quizQuestions.length} quiz questions.`
-);
-
-
-/* ==========================================================
-   MOUSE GLOW EFFECT
-========================================================== */
-
-const mouseGlow =
-    document.querySelector(".mouse-glow");
-
-let glowX = window.innerWidth / 2;
-let glowY = window.innerHeight / 2;
-
-let targetX = glowX;
-let targetY = glowY;
-
-document.addEventListener("mousemove", event => {
-
-    targetX = event.clientX;
-
-    targetY = event.clientY;
-
-});
-
-function animateGlow() {
-
-    glowX += (targetX - glowX) * 0.08;
-    glowY += (targetY - glowY) * 0.08;
-
-    if (mouseGlow) {
-
-        mouseGlow.style.left = glowX + "px";
-        mouseGlow.style.top = glowY + "px";
-
-    }
-
-    requestAnimationFrame(animateGlow);
-
-}
-
-animateGlow();
-
-
-/* ==========================================================
-   HERO CARD PARALLAX
-========================================================== */
-
-const heroCards =
-    document.querySelectorAll(".playing-card");
-
-document.addEventListener("mousemove", event => {
-
-    const x =
-        (event.clientX / window.innerWidth - 0.5) * 12;
-
-    const y =
-        (event.clientY / window.innerHeight - 0.5) * 12;
-
-    heroCards.forEach((card, index) => {
-
-        const speed = (index + 1) * 0.25;
-
-        card.style.transform =
-            `translate(${-x * speed}px, ${-y * speed}px)`;
-
-    });
-
-});
-
-
-
-
-/* ==========================================
-   HERO CARD 3D EFFECT
-========================================== */
-
-document.querySelectorAll(".tilt-card").forEach(card => {
-
-    card.addEventListener("mousemove", e => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const rotateY = ((x / rect.width) - 0.5) * 22;
-        const rotateX = ((rect.height / 2 - y) / rect.height) * 22;
-
-        card.style.transform =
-            `perspective(900px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             scale(1.06)`;
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform =
-            "perspective
-
-/* ==========================================
-   CONFETTI
-========================================== */
-
-function launchConfetti(){
-
-    const container =
-        document.getElementById("confetti-container");
-
-    const colors = [
-
-        "#d4af37",
-        "#1f3b57",
-        "#5b7b67",
-        "#d64545",
-        "#ffffff"
-
-    ];
-
-    for(let i=0;i<90;i++){
-
-        const piece =
-            document.createElement("div");
-
-        piece.className="confetti";
-
-        piece.style.left =
-            Math.random()*100+"vw";
-
-        piece.style.background =
-            colors[Math.floor(Math.random()*colors.length)];
-
-        piece.style.animationDuration =
-            1+Math.random()*1+"s";
-
-        piece.style.transform =
-            `translateY(-20px) rotate(${Math.random()*360}deg)`;
-
-        container.appendChild(piece);
-
-        setTimeout(()=>{
-
-            piece.remove();
-
-        },2000);
-
-    }
-
-}
-
-
-/* ==========================================
-   Scroll Reveal Animation
-========================================== */
-
-const revealSections = document.querySelectorAll(".section");
-
-const revealObserver = new IntersectionObserver((entries) => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("visible");
-
-        }
-
-    });
-
-}, {
-    threshold: 0.15
-});
-
-revealSections.forEach(section => {
-    revealObserver.observe(section);
-});
-       
-/* ==========================================================
-   END OF FILE
-========================================================== */
+console.log("Learn Bridge loaded successfully.");
+console.log(`Loaded ${quizQuestions.length} quiz questions.`);
