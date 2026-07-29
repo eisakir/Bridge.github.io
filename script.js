@@ -252,6 +252,13 @@ function playTone({
     volume = 0.12,
     delay = 0
 }) {
+    if (
+        window.BridgeA11y &&
+        !window.BridgeA11y.soundEnabled()
+    ) {
+        return;
+    }
+
     const context = getAudioContext();
 
     if (!context) {
@@ -525,6 +532,13 @@ function showResults() {
     quizResults.classList.remove("hidden");
     progressFill.style.width = "100%";
     finalScore.textContent = `${score} / ${quizQuestions.length}`;
+
+    if (window.BridgeProgress) {
+        window.BridgeProgress.recordActivity("quiz", {
+            score,
+            total: quizQuestions.length
+        });
+    }
 
     if (score === quizQuestions.length) {
         resultMessage.textContent =
@@ -945,6 +959,9 @@ function resetBridgeLesson() {
 if (lessonNext) {
     lessonNext.addEventListener("click", () => {
         if (lessonIndex === 4) {
+            if (window.BridgeProgress) {
+                window.BridgeProgress.recordActivity("animatedLesson");
+            }
             resetBridgeLesson();
             window.setTimeout(() => {
                 lessonIndex = 1;

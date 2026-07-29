@@ -9,6 +9,23 @@
 
     <title>Learn Bridge | Beginner's Guide to Contract Bridge</title>
 
+    <script>
+        try {
+            const savedDisplay = JSON.parse(
+                localStorage.getItem("learnBridgeAccessibilityV1") || "{}"
+            );
+            const preferredTheme = ["light", "dark"].includes(
+                savedDisplay.theme
+            )
+                ? savedDisplay.theme
+                : (matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light");
+            document.documentElement.dataset.theme = preferredTheme;
+        } catch {
+            document.documentElement.dataset.theme = "light";
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -45,6 +62,16 @@
             <li><a href="#glossary">Glossary</a></li>
             <li><a href="#quiz">Practice Quiz</a></li>
         </ul>
+
+        <button
+            class="theme-toggle"
+            id="themeToggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            aria-pressed="false">
+            <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+            <span class="theme-toggle-text">Dark</span>
+        </button>
 
     </nav>
 
@@ -159,6 +186,165 @@
             </p>
         </div>
 
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- LEARNING DASHBOARD -->
+<!-- ===================================================== -->
+
+<section id="dashboard" class="section learning-dashboard">
+
+    <div class="dashboard-heading">
+        <div>
+            <span class="simulator-label">Your learning progress</span>
+            <h2>Bridge Dashboard</h2>
+            <p>
+                Your progress is saved privately in this browser—no account
+                or sign-in required.
+            </p>
+        </div>
+        <div class="streak-card">
+            <span>Learning streak</span>
+            <strong><span id="learningStreak">0</span> days 🔥</strong>
+        </div>
+    </div>
+
+    <div class="dashboard-progress-card">
+        <div class="dashboard-progress-copy">
+            <strong id="overallProgressText">0% complete</strong>
+            <span id="overallProgressDetail">
+                Complete lessons and activities to fill your learning path.
+            </span>
+        </div>
+        <div
+            class="dashboard-progress-track"
+            role="progressbar"
+            aria-label="Overall learning progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0">
+            <div id="overallProgressFill"></div>
+        </div>
+    </div>
+
+    <div class="dashboard-stat-grid">
+        <article>
+            <span>Best quiz</span>
+            <strong id="dashboardQuiz">—</strong>
+        </article>
+        <article>
+            <span>Auctions completed</span>
+            <strong id="dashboardAuctions">0</strong>
+        </article>
+        <article>
+            <span>Following-suit wins</span>
+            <strong id="dashboardExercises">0</strong>
+        </article>
+        <article>
+            <span>Opening bids correct</span>
+            <strong id="dashboardHands">0</strong>
+        </article>
+        <article>
+            <span>Deals completed</span>
+            <strong id="dashboardDeals">0</strong>
+        </article>
+    </div>
+
+    <div class="achievement-panel">
+        <div class="panel-heading">
+            <div>
+                <span class="simulator-label">Milestones</span>
+                <h3>Achievements</h3>
+            </div>
+            <span id="achievementCount">0 / 7 unlocked</span>
+        </div>
+        <div class="achievement-grid" id="achievementGrid">
+            <!-- JavaScript inserts achievement badges -->
+        </div>
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- GUIDED LEARNING PATH -->
+<!-- ===================================================== -->
+
+<section id="learning-path" class="section">
+
+    <h2>Your Guided Learning Path</h2>
+
+    <p class="section-intro">
+        Follow these lessons in order or jump to the topic you need.
+        Mark a lesson complete when you feel comfortable with it.
+    </p>
+
+    <div class="learning-path-grid">
+        <article class="learning-path-card" data-learning-card="basics">
+            <span class="path-number">1</span>
+            <div>
+                <span class="path-status">Not completed</span>
+                <h3>Cards & Partnerships</h3>
+                <p>Learn card ranks, suits, seating, and the four stages.</p>
+                <a href="#basics">Study lesson</a>
+            </div>
+            <button type="button" data-complete-lesson="basics">
+                Mark complete
+            </button>
+        </article>
+
+        <article class="learning-path-card" data-learning-card="auction">
+            <span class="path-number">2</span>
+            <div>
+                <span class="path-status">Not completed</span>
+                <h3>The Auction</h3>
+                <p>Understand legal bids, contracts, declarer, and dummy.</p>
+                <a href="#auction">Study lesson</a>
+            </div>
+            <button type="button" data-complete-lesson="auction">
+                Mark complete
+            </button>
+        </article>
+
+        <article class="learning-path-card" data-learning-card="play">
+            <span class="path-number">3</span>
+            <div>
+                <span class="path-status">Not completed</span>
+                <h3>Playing Tricks</h3>
+                <p>Practice following suit, trump, and winning tricks.</p>
+                <a href="#play">Study lesson</a>
+            </div>
+            <button type="button" data-complete-lesson="play">
+                Mark complete
+            </button>
+        </article>
+
+        <article class="learning-path-card" data-learning-card="scoring">
+            <span class="path-number">4</span>
+            <div>
+                <span class="path-status">Not completed</span>
+                <h3>Scoring</h3>
+                <p>Calculate contracts, bonuses, overtricks, and penalties.</p>
+                <a href="#scoring">Study lesson</a>
+            </div>
+            <button type="button" data-complete-lesson="scoring">
+                Mark complete
+            </button>
+        </article>
+
+        <article class="learning-path-card" data-learning-card="practice">
+            <span class="path-number">5</span>
+            <div>
+                <span class="path-status">Not completed</span>
+                <h3>Guided Practice</h3>
+                <p>Use the quiz, auction, playground, and bid coach.</p>
+                <a href="#quiz">Start practice</a>
+            </div>
+            <button type="button" data-complete-lesson="practice">
+                Mark complete
+            </button>
+        </article>
     </div>
 
 </section>
@@ -1022,6 +1208,89 @@
 </section>
 
 <!-- ===================================================== -->
+<!-- FULL TRICK TRAINER -->
+<!-- ===================================================== -->
+
+<section id="trick-trainer" class="section">
+
+    <h2>Full Deal Trainer</h2>
+
+    <p class="section-intro">
+        Play all 13 tricks of a complete deal. The trainer reveals dummy,
+        enforces following suit, determines every winner, and checks whether
+        the contract succeeds. You choose a card for each seat so you can
+        learn both declarer play and defense.
+    </p>
+
+    <div class="trick-trainer" id="trickTrainer">
+
+        <div class="trainer-topbar">
+            <div>
+                <span class="simulator-label">13-trick practice deal</span>
+                <h3 id="trainerContract">Contract: 3NT by South</h3>
+                <p id="trainerStatus">
+                    West makes the opening lead.
+                </p>
+            </div>
+            <button id="newTrainerDeal" type="button">Deal New Hand</button>
+        </div>
+
+        <div class="trainer-scoreboard">
+            <div><span>Declarer side</span><strong id="declarerTricks">0</strong></div>
+            <div><span>Defenders</span><strong id="defenderTricks">0</strong></div>
+            <div><span>Trick</span><strong id="trainerTrickNumber">1 / 13</strong></div>
+        </div>
+
+        <div class="trainer-table">
+            <div class="trainer-seat trainer-north" data-trainer-seat="north">
+                <strong>North</strong><span>Dummy · 13 cards</span>
+            </div>
+            <div class="trainer-seat trainer-west" data-trainer-seat="west">
+                <strong>West</strong><span>Opening lead · 13 cards</span>
+            </div>
+            <div class="trainer-trick-area" id="trainerTrickArea">
+                <span>Cards played to this trick appear here.</span>
+            </div>
+            <div class="trainer-seat trainer-east" data-trainer-seat="east">
+                <strong>East</strong><span>Defender · 13 cards</span>
+            </div>
+            <div class="trainer-seat trainer-south" data-trainer-seat="south">
+                <strong>South</strong><span>Declarer · 13 cards</span>
+            </div>
+        </div>
+
+        <div class="trainer-dummy hidden" id="trainerDummy">
+            <span>Dummy is face up</span>
+            <div id="trainerDummyCards"></div>
+        </div>
+
+        <div class="trainer-active-panel">
+            <div>
+                <span class="simulator-label">Choose a legal card</span>
+                <h3 id="trainerActivePlayer">West to play</h3>
+                <p id="trainerGuidance">
+                    Lead any card to begin the trick.
+                </p>
+            </div>
+            <div class="trainer-active-hand" id="trainerActiveHand">
+                <!-- JavaScript inserts the active player's hand -->
+            </div>
+        </div>
+
+        <div class="trainer-result hidden" id="trainerResult">
+            <span>Deal complete</span>
+            <h3 id="trainerResultTitle">Contract made!</h3>
+            <p id="trainerResultText"></p>
+            <button class="primary-button" id="trainerAgain" type="button">
+                Play Another Deal
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
 <!-- CARD PLAYGROUND -->
 <!-- ===================================================== -->
 
@@ -1050,6 +1319,7 @@
                 <div class="practice-card lead-card" id="leadCard">
                     <span class="card-rank">A</span>
                     <span class="card-suit">♠</span>
+                    <span class="card-center-suit">♠</span>
                 </div>
             </div>
 
@@ -1351,6 +1621,75 @@
             </p>
 
         </article>
+
+    </div>
+
+    <div class="scoring-calculator" id="scoringCalculator">
+
+        <div class="calculator-heading">
+            <div>
+                <span class="simulator-label">Duplicate scoring tool</span>
+                <h3>Bridge Score Calculator</h3>
+                <p>
+                    Enter the contract and result. The calculator explains
+                    every point in plain language.
+                </p>
+            </div>
+            <div class="score-result-badge">
+                <span>Total score</span>
+                <strong id="calculatedScore">0</strong>
+            </div>
+        </div>
+
+        <div class="calculator-controls">
+            <label>Contract level
+                <select id="scoreLevel">
+                    <option value="1">1</option><option value="2">2</option>
+                    <option value="3" selected>3</option><option value="4">4</option>
+                    <option value="5">5</option><option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </label>
+            <label>Strain
+                <select id="scoreStrain">
+                    <option value="clubs">♣ Clubs</option>
+                    <option value="diamonds">♦ Diamonds</option>
+                    <option value="hearts">♥ Hearts</option>
+                    <option value="spades">♠ Spades</option>
+                    <option value="notrump" selected>NT No Trump</option>
+                </select>
+            </label>
+            <label>Double status
+                <select id="scoreDouble">
+                    <option value="1">Undoubled</option>
+                    <option value="2">Doubled</option>
+                    <option value="4">Redoubled</option>
+                </select>
+            </label>
+            <label>Tricks won
+                <select id="scoreTricks">
+                    <option value="0">0</option><option value="1">1</option>
+                    <option value="2">2</option><option value="3">3</option>
+                    <option value="4">4</option><option value="5">5</option>
+                    <option value="6">6</option><option value="7">7</option>
+                    <option value="8">8</option><option value="9" selected>9</option>
+                    <option value="10">10</option><option value="11">11</option>
+                    <option value="12">12</option><option value="13">13</option>
+                </select>
+            </label>
+            <label class="vulnerability-control">
+                <input id="scoreVulnerable" type="checkbox"> Vulnerable
+            </label>
+            <button id="calculateScore" type="button">Calculate &amp; Save</button>
+        </div>
+
+        <div class="score-summary">
+            <strong id="scoreHeadline">3NT made exactly</strong>
+            <p id="scoreExplanation">
+                Select a contract to see the score breakdown.
+            </p>
+            <div class="score-breakdown" id="scoreBreakdown"></div>
+        </div>
 
     </div>
 
@@ -1945,11 +2284,17 @@
 
         <nav class="footer-nav">
 
+            <a href="#dashboard">Dashboard</a>
+
+            <a href="#learning-path">Learning Path</a>
+
             <a href="#basics">Basics</a>
 
             <a href="#auction">Auction</a>
 
             <a href="#play">Play</a>
+
+            <a href="#trick-trainer">Deal Trainer</a>
 
             <a href="#playground">Playground</a>
 
@@ -1995,9 +2340,12 @@
 <!-- ===================================================== -->
 
 <script src="questions.js"></script>
+<script src="phase3-core.js"></script>
 <script src="auction.js"></script>
 <script src="playground.js"></script>
 <script src="practice-hands.js"></script>
+<script src="scoring-calculator.js"></script>
+<script src="trick-trainer.js"></script>
 <script src="script.js"></script>
 
 </body>

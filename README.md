@@ -51,6 +51,13 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Suit/rank sorting and randomized following-suit exercises
 - Twelve randomized opening-bid practice hands
 - Automatic HCP, shape analysis, and Standard American coaching
+- Browser-saved learning dashboard with daily streak tracking
+- Five-step guided learning path
+- Seven unlockable learning achievements
+- Complete duplicate Bridge scoring calculator with vulnerability,
+  doubles, redoubles, bonuses, and penalties
+- Full 52-card, 13-trick deal trainer with legal-play enforcement
+- Persistent Light/Dark mode switch in the top navigation
 
 ---
 
@@ -84,6 +91,12 @@ bridge-beginners/
 │── index.html
 │── style.css
 │── questions.js
+│── phase3-core.js
+│── auction.js
+│── playground.js
+│── practice-hands.js
+│── scoring-calculator.js
+│── trick-trainer.js
 │── script.js
 └── README.md
 ```
@@ -205,17 +218,10 @@ By completing this tutorial, a new player should understand:
 
 Possible future additions include:
 
-- Interactive card animations
-- Drag-and-drop trick practice
-- Beginner bidding trainer
-- Declarer play exercises
-- Defense practice
-- Duplicate Bridge scoring calculator
+- Computer-selected defender cards in the full-deal trainer
+- More declarer-play and defense challenges
 - Rubber Bridge scoring calculator
 - Printable reference cards
-- Additional quizzes
-- Animated tutorials
-- Sound effects
 - Offline support with a Progressive Web App (PWA)
 
 ---

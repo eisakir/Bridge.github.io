@@ -114,6 +114,8 @@ if (cardPlayground) {
             leadCard.rank;
         leadCardElement.querySelector(".card-suit").textContent =
             leadCard.suitSymbol;
+        leadCardElement.querySelector(".card-center-suit").textContent =
+            leadCard.suitSymbol;
     }
 
     function chooseLead() {
@@ -193,12 +195,16 @@ if (cardPlayground) {
         exerciseComplete = true;
         correct += 1;
         correctElement.textContent = String(correct);
+        if (window.BridgeProgress) {
+            window.BridgeProgress.recordActivity("exercise");
+        }
         dropZone.classList.remove("incorrect");
         dropZone.classList.add("correct");
         dropZone.innerHTML =
             `<div class="practice-card played-card ${card.color}">` +
                 `<span class="card-rank">${card.rank}</span>` +
                 `<span class="card-suit">${card.suitSymbol}</span>` +
+                `<span class="card-center-suit">${card.suitSymbol}</span>` +
             `</div>`;
 
         feedbackElement.textContent = card.suit === leadCard.suit

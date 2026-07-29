@@ -376,6 +376,11 @@ if (practiceHandsCoach) {
         const challenge = practiceHands[handIndex];
         const isCorrect = choice === challenge.correct;
         const buttons = [...optionsElement.querySelectorAll("button")];
+        if (window.BridgeProgress) {
+            window.BridgeProgress.recordActivity("practiceHand", {
+                correct: isCorrect
+            });
+        }
 
         if (isCorrect) {
             correctAnswers += 1;

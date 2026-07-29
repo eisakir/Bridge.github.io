@@ -221,6 +221,8 @@ img{
 
     list-style:none;
 
+    margin-left:auto;
+
 }
 
 .nav-links a{
@@ -277,6 +279,32 @@ img{
 
     font-size:2rem;
 
+}
+
+.theme-toggle{
+    display:inline-flex;
+    min-width:92px;
+    min-height:42px;
+    margin-left:1.2rem;
+    padding:.55rem .85rem;
+    align-items:center;
+    justify-content:center;
+    gap:.45rem;
+    border:1px solid rgba(31,59,87,.2);
+    border-radius:999px;
+    color:var(--navy);
+    background:var(--light);
+    font:inherit;
+    font-weight:750;
+    cursor:pointer;
+    box-shadow:0 5px 16px rgba(0,0,0,.08);
+    transition:var(--transition);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible{
+    border-color:var(--gold);
+    transform:translateY(-1px);
 }
 
 /* ==========================================================
@@ -4082,7 +4110,7 @@ img{
 
     pointer-events:none;
 
-    z-index:-1;
+    z-index:2;
 
     transform:translate(-50%,-50%);
 
@@ -4100,6 +4128,12 @@ img{
 
     opacity:1;
 
+}
+
+main,
+.site-footer{
+    position:relative;
+    z-index:1;
 }
 
 
@@ -4247,6 +4281,8 @@ img{
     .site-footer,
     .menu-toggle,
     .back-to-top,
+    .accessibility-toggle,
+    .accessibility-panel,
     #quiz{
 
         display:none !important;
@@ -4412,4 +4448,688 @@ img{
     80%{transform:translateX(6px);}
     100%{transform:translateX(0);}
 
+}
+
+/* ==========================================================
+   PHASE 3: PROGRESS, SCORING, FULL DEALS & ACCESSIBILITY
+========================================================== */
+
+.learning-dashboard,
+.scoring-calculator,
+.trick-trainer{
+    max-width:1100px;
+    margin:34px auto 0;
+    padding:30px;
+    border:1px solid rgba(16,50,76,.12);
+    border-radius:24px;
+    background:linear-gradient(145deg,#fff,#f5f8fb);
+    box-shadow:0 24px 60px rgba(17,41,61,.12);
+}
+
+.dashboard-heading,
+.calculator-heading,
+.trainer-topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:24px;
+}
+
+.streak-card{
+    min-width:150px;
+    padding:16px 20px;
+    border-radius:18px;
+    color:#fff;
+    background:linear-gradient(135deg,#0e694d,#164467);
+    text-align:center;
+}
+
+.streak-card strong{
+    display:block;
+    margin-top:4px;
+    font-size:1.6rem;
+}
+
+.dashboard-progress-track{
+    height:14px;
+    margin:24px 0 10px;
+    overflow:hidden;
+    border-radius:999px;
+    background:#dfe8ee;
+}
+
+#overallProgressFill{
+    display:block;
+    width:0;
+    height:100%;
+    border-radius:inherit;
+    background:linear-gradient(90deg,#10825e,#d4af37);
+    transition:width .45s ease;
+}
+
+.dashboard-progress-copy{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.dashboard-stat-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin:26px 0;
+}
+
+.dashboard-stat-grid article{
+    padding:18px 12px;
+    border-radius:16px;
+    background:#edf4f7;
+    text-align:center;
+}
+
+.dashboard-stat-grid article span{
+    display:block;
+    color:#5c6c78;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+}
+
+.dashboard-stat-grid article strong{
+    display:block;
+    margin-top:5px;
+    color:#12334d;
+    font-size:1.45rem;
+}
+
+.panel-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:12px;
+}
+
+.achievement-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:14px;
+}
+
+.achievement-badge{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    padding:16px;
+    border:1px solid rgba(16,50,76,.1);
+    border-radius:16px;
+    background:#fff;
+}
+
+.achievement-badge>span{
+    font-size:1.7rem;
+}
+
+.achievement-badge p{
+    margin:4px 0 0;
+    color:#63727d;
+    font-size:.88rem;
+}
+
+.achievement-badge.locked{
+    filter:grayscale(1);
+    opacity:.55;
+}
+
+.achievement-badge.unlocked{
+    border-color:rgba(212,175,55,.55);
+    box-shadow:0 8px 22px rgba(212,175,55,.13);
+}
+
+.learning-path-grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+    max-width:1150px;
+    margin:38px auto 0;
+}
+
+.learning-path-card{
+    position:relative;
+    display:flex;
+    min-height:230px;
+    padding:22px 18px;
+    flex-direction:column;
+    border:1px solid rgba(16,50,76,.13);
+    border-radius:20px;
+    background:#fff;
+    box-shadow:0 12px 30px rgba(17,41,61,.08);
+}
+
+.learning-path-card.completed{
+    border-color:#1d8b67;
+    background:linear-gradient(160deg,#fff,#eaf8f2);
+}
+
+.path-number{
+    display:grid;
+    width:38px;
+    height:38px;
+    place-items:center;
+    border-radius:50%;
+    color:#fff;
+    background:#163f5f;
+    font-weight:800;
+}
+
+.learning-path-card h3{margin:16px 0 7px;}
+.learning-path-card p{margin:0 0 15px;color:#63727d;font-size:.9rem;}
+.path-status{margin-top:auto;color:#44606f;font-size:.82rem;font-weight:700;}
+
+.learning-path-card button,
+#calculateScore,
+.trainer-topbar button{
+    margin-top:12px;
+    padding:10px 13px;
+    border:0;
+    border-radius:11px;
+    color:#fff;
+    background:#174b70;
+    font:inherit;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.learning-path-card.completed button{background:#1d795d;}
+
+.score-result-badge{
+    min-width:145px;
+    padding:16px 22px;
+    border-radius:18px;
+    color:#fff;
+    background:#173f5e;
+    text-align:center;
+}
+
+.score-result-badge span{display:block;font-size:.8rem;}
+.score-result-badge strong{display:block;margin-top:3px;font-size:2rem;}
+
+.calculator-controls{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:24px;
+}
+
+.calculator-controls label{
+    display:flex;
+    gap:7px;
+    flex-direction:column;
+    color:#344f61;
+    font-size:.85rem;
+    font-weight:700;
+}
+
+.calculator-controls select{
+    min-height:44px;
+    padding:0 12px;
+    border:1px solid #c7d3dc;
+    border-radius:10px;
+    color:#173449;
+    background:#fff;
+    font:inherit;
+}
+
+.calculator-controls .vulnerability-control{
+    flex-direction:row;
+    align-items:center;
+}
+
+#calculateScore{align-self:end;margin:0;min-height:44px;}
+
+.score-summary{
+    margin-top:24px;
+    padding:20px;
+    border-radius:16px;
+    background:#eaf2f6;
+}
+
+.score-summary p{margin:7px 0 0;color:#526a78;}
+.score-breakdown{display:grid;gap:8px;margin-top:16px;}
+.score-breakdown div{display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #cedbe2;}
+
+.trainer-scoreboard{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:22px 0;
+}
+
+.trainer-scoreboard div{
+    padding:12px;
+    border-radius:14px;
+    background:#e8f0f4;
+    text-align:center;
+}
+
+.trainer-scoreboard span{display:block;color:#60717c;font-size:.78rem;}
+.trainer-scoreboard strong{font-size:1.45rem;color:#153c59;}
+
+.trainer-table{
+    display:grid;
+    min-height:500px;
+    padding:24px;
+    grid-template:"blank north blank2" 1fr "west trick east" 2fr "blank3 south blank4" 1fr / 1fr 2fr 1fr;
+    align-items:center;
+    gap:14px;
+    border:12px solid #654128;
+    border-radius:34px;
+    color:#fff;
+    background:radial-gradient(circle,#347556,#236044);
+    box-shadow:inset 0 0 0 4px rgba(255,255,255,.16);
+}
+
+.trainer-seat{text-align:center;}
+.trainer-seat strong{display:block;font-size:1.08rem;}
+.trainer-seat span{display:block;color:#ffe293;font-size:.8rem;}
+.trainer-north{grid-area:north;}
+.trainer-west{grid-area:west;}
+.trainer-east{grid-area:east;}
+.trainer-south{grid-area:south;}
+
+.trainer-trick-area{
+    grid-area:trick;
+    position:relative;
+    display:grid;
+    min-height:255px;
+    grid-template-columns:repeat(2,1fr);
+    align-items:center;
+    gap:12px;
+    padding:16px;
+    border:2px dashed rgba(255,255,255,.3);
+    border-radius:50%;
+    text-align:center;
+}
+
+.trainer-play{display:flex;align-items:center;justify-content:center;gap:6px;}
+.trainer-play span{font-size:.72rem;}
+
+.trainer-card{
+    display:inline-flex;
+    width:54px;
+    height:76px;
+    padding:7px;
+    flex-direction:column;
+    justify-content:space-between;
+    border:1px solid #cdd4d8;
+    border-radius:8px;
+    color:#151c22;
+    background:#fff;
+    box-shadow:0 5px 12px rgba(0,0,0,.2);
+    font:inherit;
+    cursor:pointer;
+}
+
+.trainer-card.red{color:#b52626;}
+.trainer-card:disabled{cursor:not-allowed;opacity:.38;}
+.trainer-trick-area .trainer-card:disabled,
+#trainerDummyCards .trainer-card:disabled{opacity:1;}
+.trainer-card strong{font-size:.9rem;}
+.trainer-card span{font-size:1.18rem;}
+
+.trainer-dummy,
+.trainer-active-panel,
+.trainer-result{
+    margin-top:18px;
+    padding:20px;
+    border-radius:18px;
+    background:#eaf2f6;
+}
+
+#trainerDummyCards,
+.trainer-active-hand{
+    display:flex;
+    gap:5px;
+    margin-top:13px;
+    overflow-x:auto;
+    padding:5px 2px 12px;
+}
+
+.trainer-active-panel{display:grid;grid-template-columns:minmax(190px,.6fr) 1.4fr;gap:20px;}
+.trainer-result{text-align:center;background:#eef8ef;}
+
+.accessibility-toggle{
+    position:fixed;
+    right:24px;
+    bottom:86px;
+    z-index:90;
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:50%;
+    color:#fff;
+    background:#174b70;
+    box-shadow:0 10px 26px rgba(0,0,0,.22);
+    font-size:1.35rem;
+    cursor:pointer;
+}
+
+.accessibility-panel{
+    position:fixed;
+    right:24px;
+    bottom:145px;
+    z-index:91;
+    width:min(330px,calc(100vw - 32px));
+    padding:22px;
+    border:1px solid #ccd6dc;
+    border-radius:18px;
+    background:#fff;
+    box-shadow:0 18px 55px rgba(12,35,52,.25);
+}
+
+.accessibility-heading{display:flex;align-items:center;justify-content:space-between;}
+.accessibility-heading button{border:0;background:transparent;font-size:1.3rem;cursor:pointer;}
+.accessibility-panel label{display:flex;justify-content:space-between;gap:15px;margin-top:16px;}
+.accessibility-panel select{min-width:130px;}
+
+html.a11y-large{font-size:112.5%;}
+html.a11y-larger{font-size:125%;}
+
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+}
+
+html.high-contrast *:focus-visible{outline:4px solid #ffbf00!important;outline-offset:3px;}
+html.high-contrast .section,
+html.high-contrast .learning-dashboard,
+html.high-contrast .scoring-calculator,
+html.high-contrast .trick-trainer,
+html.high-contrast .learning-path-card{border-color:currentColor!important;}
+
+html[data-theme="dark"]{
+    color-scheme:dark;
+    --cream:#0d1b25;
+    --light:#1f3441;
+    --navy:#eef4f7;
+    --navy-dark:#ffffff;
+    --green:#9fc8b0;
+    --gold:#f0c448;
+}
+html[data-theme="dark"] body{color:#eef4f7;background:#0d1b25;}
+html[data-theme="dark"] .section{background:#102532;}
+html[data-theme="dark"] .site-header{background:rgba(13,27,37,.96);}
+html[data-theme="dark"] .theme-toggle{
+    color:#fff4c2;
+    border-color:rgba(240,196,72,.6);
+    background:#1a3545;
+}
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4{color:#f8fafc;}
+html[data-theme="dark"] .info-card,
+html[data-theme="dark"] .suit-card,
+html[data-theme="dark"] .rank-card,
+html[data-theme="dark"] .seat,
+html[data-theme="dark"] .tip-card,
+html[data-theme="dark"] .step-card,
+html[data-theme="dark"] .example-card,
+html[data-theme="dark"] .example-box,
+html[data-theme="dark"] .glossary-card-face,
+html[data-theme="dark"] .glossary-item,
+html[data-theme="dark"] .cheat-card,
+html[data-theme="dark"] .faq-item,
+html[data-theme="dark"] .question-card,
+html[data-theme="dark"] .quiz-container,
+html[data-theme="dark"] .simple-table,
+html[data-theme="dark"] .stage-card,
+html[data-theme="dark"] .auction-simulator,
+html[data-theme="dark"] .card-playground,
+html[data-theme="dark"] .practice-hands-coach{color:#f3f4f6;background:#1f3441;}
+html[data-theme="dark"] .bridge-lesson,
+html[data-theme="dark"] .flow-diagram,
+html[data-theme="dark"] .trick-example,
+html[data-theme="dark"] .check-item,
+html[data-theme="dark"] .timeline-item,
+html[data-theme="dark"] .follow-suit-challenge,
+html[data-theme="dark"] .bid-coach-panel,
+html[data-theme="dark"] .beginner-bid-guide{
+    color:#f1f6f8;
+    border-color:#476170;
+    background:#1a3443;
+}
+html[data-theme="dark"] .hand-bid-options button,
+html[data-theme="dark"] .auction-seat,
+html[data-theme="dark"] .special-calls button,
+html[data-theme="dark"] .bid-button,
+html[data-theme="dark"] .answer-buttons button{
+    color:#f7fafc;
+    border-color:#526b79;
+    background:#294756;
+}
+html[data-theme="dark"] .primary-button,
+html[data-theme="dark"] .lesson-reset:hover,
+html[data-theme="dark"] .lesson-reset:focus-visible,
+html[data-theme="dark"] .playground-toolbar button:hover,
+html[data-theme="dark"] .playground-toolbar button:focus-visible,
+html[data-theme="dark"] .next-exercise:hover,
+html[data-theme="dark"] .next-exercise:focus-visible,
+html[data-theme="dark"] .quiz-restart-button:hover,
+html[data-theme="dark"] .quiz-restart-button:focus-visible,
+html[data-theme="dark"] .answer-buttons button:hover,
+html[data-theme="dark"] .simple-table th,
+html[data-theme="dark"] .score-circle,
+html[data-theme="dark"] .site-footer{
+    color:#ffffff;
+    background:#123f5a;
+}
+html[data-theme="dark"] .auction-history{
+    color:#ffffff;
+    border:1px solid #49616e;
+    background:#142f3e;
+}
+html[data-theme="dark"] .auction-placeholder{
+    color:#d7e4ea;
+    opacity:1;
+}
+html[data-theme="dark"] .auction-result{
+    color:#fff4c2;
+    border-color:#7d6b2d;
+    background:#403a20;
+}
+html[data-theme="dark"] .simple-table td{
+    color:#eef4f7;
+    border-color:#49616e;
+    background:#1f3a49;
+}
+html[data-theme="dark"] .simple-table tbody tr:hover td{
+    color:#ffffff;
+    background:#2a4a59;
+}
+html[data-theme="dark"] .beginner-bid-guide{
+    background:linear-gradient(135deg,#1b3c36,#173342);
+}
+html[data-theme="dark"] .guide-rules span,
+html[data-theme="dark"] .hand-analysis-preview > div,
+html[data-theme="dark"] .coach-score span,
+html[data-theme="dark"] .coach-decision-path > div{
+    color:#c7d7df;
+    background:#294756;
+}
+html[data-theme="dark"] .guide-rules strong,
+html[data-theme="dark"] .hand-analysis-preview strong,
+html[data-theme="dark"] .coach-decision-path strong{
+    color:#ffffff;
+}
+html[data-theme="dark"] .guide-rules span,
+html[data-theme="dark"] .hand-analysis-preview span,
+html[data-theme="dark"] .coach-score span,
+html[data-theme="dark"] .coach-decision-path p{
+    color:#a9d5bc;
+}
+html[data-theme="dark"] .coach-hint-button,
+html[data-theme="dark"] .coach-reasoning span,
+html[data-theme="dark"] .answer-feedback{
+    color:#eef4f7;
+    background:#294756;
+}
+html[data-theme="dark"] .coach-hint{
+    color:#fff4c2;
+    background:#4a4120;
+}
+html[data-theme="dark"] .card-drop-zone.drag-over{
+    color:#fff4c2;
+    border-color:#f0c448;
+    background:#423b1d;
+}
+html[data-theme="dark"] .card-drop-zone.correct,
+html[data-theme="dark"] .hand-bid-options button.correct{
+    color:#d8ffea;
+    border-color:#43b779;
+    background:#174d35;
+}
+html[data-theme="dark"] .card-drop-zone.incorrect,
+html[data-theme="dark"] .hand-bid-options button.incorrect{
+    color:#ffe2df;
+    border-color:#e06b60;
+    background:#572a2a;
+}
+html[data-theme="dark"] .auction-seat.active,
+html[data-theme="dark"] .special-calls button:hover:not(:disabled),
+html[data-theme="dark"] .special-calls button:focus-visible,
+html[data-theme="dark"] .bid-button:hover:not(:disabled),
+html[data-theme="dark"] .bid-button:focus-visible{
+    color:#ffffff;
+    border-color:#f0c448;
+    background:#385564;
+}
+html[data-theme="dark"] .special-calls button:disabled,
+html[data-theme="dark"] .bid-button:disabled{
+    color:#91a6b1;
+    border-color:#334e5d;
+    background:#1a3442;
+    opacity:1;
+}
+html[data-theme="dark"] .coach-feedback{
+    border-color:#49616e;
+}
+html[data-theme="dark"] .faq-item summary:hover{
+    color:#ffffff;
+    background:#294756;
+}
+html[data-theme="dark"] .calculator-controls select{
+    color:#f7fafc;
+    border-color:#526b79;
+    background:#203d4c;
+}
+html[data-theme="dark"] .score-breakdown div{border-color:#526b79;}
+html[data-theme="dark"] .simulator-label,
+html[data-theme="dark"] .path-status{color:#f0c448;}
+html[data-theme="dark"] .mouse-glow{
+    opacity:1;
+    mix-blend-mode:screen;
+    background:radial-gradient(
+        circle,
+        rgba(255,205,65,.25) 0%,
+        rgba(224,168,24,.14) 30%,
+        rgba(212,175,55,.09) 55%,
+        transparent 76%
+    );
+}
+html[data-theme="dark"] .nav-links a{color:#eef4f7;}
+html[data-theme="dark"] .nav-links a:hover,
+html[data-theme="dark"] .nav-links a.active{color:#f0c448;}
+html[data-theme="dark"] .achievement-empty{color:#d6e2e8;}
+html[data-theme="dark"] .learning-dashboard,
+html[data-theme="dark"] .scoring-calculator,
+html[data-theme="dark"] .trick-trainer,
+html[data-theme="dark"] .learning-path-card,
+html[data-theme="dark"] .achievement-badge,
+html[data-theme="dark"] .accessibility-panel{color:#eef4f7;background:#17303e;border-color:#385161;}
+html[data-theme="dark"] .dashboard-stat-grid article,
+html[data-theme="dark"] .score-summary,
+html[data-theme="dark"] .trainer-scoreboard div,
+html[data-theme="dark"] .trainer-dummy,
+html[data-theme="dark"] .trainer-active-panel,
+html[data-theme="dark"] .trainer-result{color:#eef4f7;background:#203d4c;}
+html[data-theme="dark"] .dashboard-stat-grid article strong,
+html[data-theme="dark"] .trainer-scoreboard strong{color:#f5fbff;}
+html[data-theme="dark"] .dashboard-stat-grid article span,
+html[data-theme="dark"] .achievement-badge p,
+html[data-theme="dark"] .learning-path-card p,
+html[data-theme="dark"] .score-summary p{color:#c4d4dd;}
+
+html[data-theme="light"]{color-scheme:light;--cream:#f7f4ec;--light:#fff;--navy:#17324a;--navy-dark:#16283d;}
+html[data-theme="light"] body{color:#1b2d3a;background:#f7f5ef;}
+html[data-theme="light"] .site-header{background:rgba(255,255,255,.95);}
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4{color:#17324a;}
+html[data-theme="light"] .info-card,
+html[data-theme="light"] .tip-card,
+html[data-theme="light"] .step-card,
+html[data-theme="light"] .example-card,
+html[data-theme="light"] .example-box,
+html[data-theme="light"] .glossary-card-face,
+html[data-theme="light"] .cheat-card,
+html[data-theme="light"] .faq-item,
+html[data-theme="light"] .question-card,
+html[data-theme="light"] .quiz-container,
+html[data-theme="light"] .simple-table,
+html[data-theme="light"] .stage-card,
+html[data-theme="light"] .auction-simulator,
+html[data-theme="light"] .card-playground,
+html[data-theme="light"] .practice-hands-coach{color:#1b2d3a;background:#fff;}
+html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
+
+.achievement-empty{
+    grid-column:1/-1;
+    margin:0;
+    padding:24px;
+    border:1px dashed rgba(31,59,87,.25);
+    border-radius:14px;
+    color:#596d79;
+    text-align:center;
+}
+
+@media(max-width:900px){
+    .dashboard-stat-grid{grid-template-columns:repeat(2,1fr);}
+    .learning-path-grid{grid-template-columns:repeat(2,1fr);}
+    .calculator-controls{grid-template-columns:repeat(2,1fr);}
+    .theme-toggle{margin-left:auto;margin-right:.7rem;}
+    html[data-theme="dark"] .nav-links{background:#132b39;}
+    html[data-theme="light"] .nav-links{background:#fff;}
+}
+
+@media(max-width:650px){
+    .learning-dashboard,
+    .scoring-calculator,
+    .trick-trainer{padding:20px;}
+    .dashboard-heading,
+    .calculator-heading,
+    .trainer-topbar{flex-direction:column;}
+    .dashboard-progress-copy{flex-direction:column;gap:3px;}
+    .achievement-grid,
+    .learning-path-grid,
+    .calculator-controls{grid-template-columns:1fr;}
+    .trainer-table{
+        min-height:430px;
+        padding:12px;
+        grid-template:"blank north blank2" 1fr "west trick east" 2fr "blank3 south blank4" 1fr / .7fr 1.8fr .7fr;
+    }
+    .trainer-trick-area{min-height:210px;padding:7px;}
+    .trainer-card{width:46px;height:66px;}
+    .trainer-active-panel{grid-template-columns:1fr;}
+    .accessibility-toggle{right:16px;}
+    .accessibility-panel{right:16px;}
+    .theme-toggle{min-width:46px;padding:.5rem;}
+    .theme-toggle-text{display:none;}
 }

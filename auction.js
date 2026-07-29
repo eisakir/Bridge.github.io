@@ -278,6 +278,9 @@ if (auctionSimulator) {
         auctionEnded = true;
         bidControls.classList.add("hidden");
         auctionResult.classList.remove("hidden");
+        if (window.BridgeProgress) {
+            window.BridgeProgress.recordActivity("auction");
+        }
 
         if (passedOut) {
             finalContract.textContent = "Passed out";
