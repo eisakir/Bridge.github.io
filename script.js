@@ -122,6 +122,57 @@ if ("IntersectionObserver" in window) {
 }
 
 /* ==========================================================
+   GLOSSARY FLIP CARDS
+========================================================== */
+
+document.querySelectorAll(".glossary-item").forEach(card => {
+    const heading = card.querySelector("h3");
+    const definition = card.querySelector("p");
+
+    if (!heading || !definition) {
+        return;
+    }
+
+    const term = heading.textContent.trim();
+    const meaning = definition.textContent.trim();
+
+    card.innerHTML =
+        `<div class="glossary-card-inner">` +
+            `<div class="glossary-card-face glossary-card-front">` +
+                `<h3>${term}</h3>` +
+            `</div>` +
+            `<div class="glossary-card-face glossary-card-back">` +
+                `<p>${meaning}</p>` +
+            `</div>` +
+        `</div>`;
+
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-expanded", "false");
+    card.setAttribute("aria-label", `${term}: reveal definition`);
+
+    function toggleGlossaryCard() {
+        const isFlipped = card.classList.toggle("flipped");
+
+        card.setAttribute("aria-expanded", String(isFlipped));
+        card.setAttribute(
+            "aria-label",
+            isFlipped
+                ? `${term}: hide definition`
+                : `${term}: reveal definition`
+        );
+    }
+
+    card.addEventListener("click", toggleGlossaryCard);
+    card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggleGlossaryCard();
+        }
+    });
+});
+
+/* ==========================================================
    RANDOMIZED QUIZ SELECTION
 ========================================================== */
 
