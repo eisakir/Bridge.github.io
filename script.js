@@ -790,6 +790,46 @@ console.log(
     `Loaded ${quizQuestions.length} quiz questions.`
 );
 
+
+/* ==========================================================
+   MOUSE GLOW EFFECT
+========================================================== */
+
+const mouseGlow =
+    document.querySelector(".mouse-glow");
+
+let glowX = window.innerWidth / 2;
+let glowY = window.innerHeight / 2;
+
+let targetX = glowX;
+let targetY = glowY;
+
+document.addEventListener("mousemove", event => {
+
+    targetX = event.clientX;
+
+    targetY = event.clientY;
+
+});
+
+function animateGlow() {
+
+    glowX += (targetX - glowX) * 0.08;
+    glowY += (targetY - glowY) * 0.08;
+
+    if (mouseGlow) {
+
+        mouseGlow.style.left = glowX + "px";
+        mouseGlow.style.top = glowY + "px";
+
+    }
+
+    requestAnimationFrame(animateGlow);
+
+}
+
+animateGlow();
+
 /* ==========================================================
    END OF FILE
 ========================================================== */
