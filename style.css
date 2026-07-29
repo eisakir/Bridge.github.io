@@ -1880,3 +1880,26 @@ img{
 /* ==========================================================
    END OF STYLESHEET
    ========================================================== */
+
+/* ==========================================
+   3D CARD TILT
+========================================== */
+
+.tilt-card{
+
+    transform-style:preserve-3d;
+
+    transition:
+        transform .15s ease,
+        box-shadow .25s ease;
+
+    will-change:transform;
+
+}
+
+.tilt-card:hover{
+
+    box-shadow:
+        0 35px 70px rgba(0,0,0,.22);
+
+}
