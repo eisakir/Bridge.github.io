@@ -830,6 +830,35 @@ function animateGlow() {
 
 animateGlow();
 
+
+/* ==========================================================
+   HERO CARD PARALLAX
+========================================================== */
+
+const heroCards =
+    document.querySelectorAll(".playing-card");
+
+document.addEventListener("mousemove", event => {
+
+    const x =
+        (event.clientX / window.innerWidth - 0.5) * 12;
+
+    const y =
+        (event.clientY / window.innerHeight - 0.5) * 12;
+
+    heroCards.forEach((card, index) => {
+
+        const speed = (index + 1) * 0.25;
+
+        card.style.transform =
+            `translate(${-x * speed}px, ${-y * speed}px)`;
+
+    });
+
+});
+
+
+
 /* ==========================================================
    END OF FILE
 ========================================================== */
