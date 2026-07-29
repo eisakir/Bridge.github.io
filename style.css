@@ -1128,6 +1128,43 @@ img{
 
 }
 
+.quiz-restart-button {
+
+    display: block;
+
+    margin: 1rem 0 0 auto;
+
+    padding: .65rem 1rem;
+
+    border: 2px solid var(--navy);
+
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: var(--navy);
+
+    font: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+}
+
+.quiz-restart-button:hover,
+.quiz-restart-button:focus-visible {
+
+    background: var(--navy);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
 .question-card h3 {
 
     margin-bottom: 2rem;
@@ -1732,6 +1769,23 @@ img{
         background:#374151;
 
         color:white;
+
+    }
+
+    .quiz-restart-button {
+
+        border-color: #dbeafe;
+
+        color: #dbeafe;
+
+    }
+
+    .quiz-restart-button:hover,
+    .quiz-restart-button:focus-visible {
+
+        background: #dbeafe;
+
+        color: #111827;
 
     }
 
