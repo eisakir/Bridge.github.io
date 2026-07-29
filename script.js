@@ -122,104 +122,33 @@ if ("IntersectionObserver" in window) {
 }
 
 /* ==========================================================
-   QUIZ QUESTION BANK
+   RANDOMIZED QUIZ SELECTION
 ========================================================== */
 
-const quizQuestions = [
-    {
-        question: "What is the highest-ranking card in Bridge?",
-        answers: ["Ace", "King", "Queen", "Jack"],
-        correct: 0,
-        explanation: "The Ace is the highest-ranking card."
-    },
-    {
-        question: "How many players are in a game of Contract Bridge?",
-        answers: ["2", "3", "4", "5"],
-        correct: 2,
-        explanation: "Bridge is played by four players in two partnerships."
-    },
-    {
-        question: "How many cards does each player receive?",
-        answers: ["10", "12", "13", "15"],
-        correct: 2,
-        explanation: "A standard 52-card deck deals 13 cards to each player."
-    },
-    {
-        question: "Which players are partners?",
-        answers: [
-            "North and East",
-            "North and South",
-            "North and West",
-            "East and South"
-        ],
-        correct: 1,
-        explanation:
-            "North and South are partners. East and West are partners."
-    },
-    {
-        question: "If you have a card in the suit led, what must you do?",
-        answers: [
-            "Play any card",
-            "Follow suit",
-            "Play a trump card",
-            "Pass"
-        ],
-        correct: 1,
-        explanation: "Players must follow suit whenever possible."
-    },
-    {
-        question: "Who becomes the dummy?",
-        answers: [
-            "The dealer",
-            "The declarer's partner",
-            "The highest bidder",
-            "The player on declarer's left"
-        ],
-        correct: 1,
-        explanation: "The declarer's partner becomes the dummy."
-    },
-    {
-        question: "Who makes the opening lead?",
-        answers: [
-            "The declarer",
-            "The dummy",
-            "The player to declarer's left",
-            "The dealer"
-        ],
-        correct: 2,
-        explanation:
-            "The defender sitting to declarer's left makes the opening lead."
-    },
-    {
-        question: "A contract of 4♥ requires how many tricks?",
-        answers: ["8", "9", "10", "11"],
-        correct: 2,
-        explanation: "Four plus six equals ten tricks."
-    },
-    {
-        question: "What is true about a No Trump contract?",
-        answers: [
-            "Hearts are trump",
-            "There is no trump suit",
-            "Spades are always trump",
-            "The dealer chooses the trump suit"
-        ],
-        correct: 1,
-        explanation: "In No Trump there is no trump suit."
-    },
-    {
-        question: "When does the auction end after a bid has been made?",
-        answers: [
-            "After one pass",
-            "After two passes",
-            "After three consecutive passes",
-            "Whenever the dealer decides"
-        ],
-        correct: 2,
-        explanation:
-            "The auction ends after three consecutive passes following a bid."
+const QUESTIONS_PER_GAME = 10;
+const questionBank = window.bridgeQuestionBank || [];
+let quizQuestions = [];
+
+function shuffledCopy(items) {
+    const shuffled = [...items];
+
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[randomIndex]] =
+            [shuffled[randomIndex], shuffled[index]];
     }
-];
+
+    return shuffled;
+}
+
+function selectQuestions() {
+    quizQuestions = shuffledCopy(questionBank)
+        .slice(0, QUESTIONS_PER_GAME)
+        .map(question => ({
+            ...question,
+            answers: [...question.answers]
+        }));
+}
 
 /* ==========================================================
    QUIZ ELEMENTS AND STATE
@@ -238,6 +167,7 @@ const quizResults = document.getElementById("quiz-results");
 const finalScore = document.getElementById("final-score");
 const resultMessage = document.getElementById("result-message");
 const restartButton = document.getElementById("restart-quiz");
+const newQuizButton = document.getElementById("new-quiz");
 const questionCard = document.getElementById("question-card");
 const quizContainer = document.getElementById("quiz-container");
 
@@ -425,6 +355,7 @@ function showWrongEffect() {
 ========================================================== */
 
 function startQuiz() {
+    selectQuestions();
     currentQuestionIndex = 0;
     score = 0;
 
@@ -571,6 +502,10 @@ if (restartButton) {
     restartButton.addEventListener("click", startQuiz);
 }
 
+if (newQuizButton) {
+    newQuizButton.addEventListener("click", startQuiz);
+}
+
 /* ==========================================================
    SMOOTH SCROLLING AND MENU ACCESSIBILITY
 ========================================================== */
@@ -704,4 +639,7 @@ document.querySelectorAll(".tilt-card").forEach(card => {
 startQuiz();
 
 console.log("Learn Bridge loaded successfully.");
-console.log(`Loaded ${quizQuestions.length} quiz questions.`);
+console.log(
+    `Loaded ${questionBank.length} questions; ` +
+    `${QUESTIONS_PER_GAME} selected for this game.`
+);
