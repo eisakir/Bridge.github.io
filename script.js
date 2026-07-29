@@ -859,6 +859,36 @@ document.addEventListener("mousemove", event => {
 
 
 
+
+/* ==========================================
+   HERO CARD 3D EFFECT
+========================================== */
+
+document.querySelectorAll(".tilt-card").forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateY = ((x / rect.width) - 0.5) * 22;
+        const rotateX = ((rect.height / 2 - y) / rect.height) * 22;
+
+        card.style.transform =
+            `perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             scale(1.06)`;
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.transform =
+            "perspective
+
 /* ==========================================================
    END OF FILE
 ========================================================== */
