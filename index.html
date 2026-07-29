@@ -1,1014 +1,1610 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn Contract Bridge from scratch with this beginner-friendly interactive guide.">
+    <meta name="keywords" content="Bridge, Contract Bridge, Learn Bridge, Card Game, Beginner Bridge">
+    <meta name="author" content="Learn Bridge">
 
-<title>Learn Bridge — A Beginner's Guide</title>
+    <title>Learn Bridge | Beginner's Guide to Contract Bridge</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header id="top">
+<header class="site-header">
 
-<nav id="navbar">
+    <nav class="navbar">
 
-<div class="logo">
-♠ Learn Bridge
-</div>
+        <div class="logo">
+            ♠ Learn Bridge
+        </div>
 
-<ul class="nav-links">
-<li><a href="#home">Home</a></li>
-<li><a href="#basics">The Basics</a></li>
-<li><a href="#auction">Auction</a></li>
-<li><a href="#play">Playing</a></li>
-<li><a href="#scoring">Scoring</a></li>
-<li><a href="#glossary">Glossary</a></li>
-<li><a href="#quiz">Quiz</a></li>
-</ul>
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Open Navigation"
+            aria-expanded="false">
+            ☰
+        </button>
 
-</nav>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#basics">The Basics</a></li>
+            <li><a href="#auction">The Auction</a></li>
+            <li><a href="#play">Playing the Hand</a></li>
+            <li><a href="#scoring">Scoring</a></li>
+            <li><a href="#glossary">Glossary</a></li>
+            <li><a href="#quiz">Practice Quiz</a></li>
+        </ul>
+
+    </nav>
 
 </header>
 
 <main>
 
-<!-- ========================= -->
-<!-- HOME -->
-<!-- ========================= -->
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
 
 <section id="home" class="hero">
 
-<div class="hero-text">
+    <div class="hero-content">
 
-<h1>Learn Contract Bridge From Scratch</h1>
+        <h1>Learn Contract Bridge</h1>
 
-<p class="lead">
+        <p class="hero-tagline">
+            A friendly guide for complete beginners.
+            No previous card-game experience required.
+        </p>
 
-Bridge is one of the world's greatest card games.
+        <p>
 
-If you've never played before, don't worry—this guide explains everything in plain English.
+            Bridge is one of the world's most enjoyable card games.
+            It combines teamwork, planning, communication, and careful play.
+            Although it has a reputation for being difficult, anyone can learn
+            the basics with a little guidance.
 
-</p>
+        </p>
 
-<a href="#basics" class="button">
-Start Learning
-</a>
+        <p>
 
-</div>
+            By the end of this guide you'll understand enough to sit down,
+            play a social game, and continue learning with confidence.
 
-<div class="hero-card">
+        </p>
 
-<h2>Every Hand Follows Four Steps</h2>
+        <a href="#basics" class="primary-button">
+            Start Learning
+        </a>
 
-<div class="flow">
+    </div>
 
-<div class="step">
-<h3>1</h3>
-<p>Deal</p>
-</div>
+    <div class="hero-cards">
 
-<div class="arrow">→</div>
-
-<div class="step">
-<h3>2</h3>
-<p>Auction</p>
-</div>
-
-<div class="arrow">→</div>
-
-<div class="step">
-<h3>3</h3>
-<p>Play</p>
-</div>
-
-<div class="arrow">→</div>
-
-<div class="step">
-<h3>4</h3>
-<p>Score</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="intro">
-
-<h2>Welcome!</h2>
-
-<p>
-
-Bridge is a partnership trick-taking card game played by four people.
-
-Unlike many card games, Bridge includes an auction before anyone plays a card.
-
-During the auction, partners work together to decide how many tricks they believe they can win.
-
-</p>
-
-<p>
-
-Once the auction ends, one partnership becomes the attacking side while the other partnership defends.
-
-Every hand becomes a fun puzzle involving teamwork, planning, and careful play.
-
-</p>
-
-<div class="tip-box">
-
-<h3>Good News!</h3>
-
-<p>
-
-Bridge has a reputation for being difficult, but the basic rules are much easier than most people expect.
-
-You can learn enough to enjoy your first game in one afternoon.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- BASICS -->
-<!-- ========================= -->
-
-<section id="basics">
-
-<h1>The Basics</h1>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>The Deck</h2>
-
-<p>
-
-Bridge uses a normal 52-card deck with no jokers.
-
-Every player receives exactly 13 cards.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Card Ranking</h2>
-
-<ul>
-
-<li>Ace</li>
-<li>King</li>
-<li>Queen</li>
-<li>Jack</li>
-<li>10</li>
-<li>9</li>
-<li>8</li>
-<li>7</li>
-<li>6</li>
-<li>5</li>
-<li>4</li>
-<li>3</li>
-<li>2</li>
-
-</ul>
-
-</div>
-
-<div class="card">
-
-<h2>Suit Ranking for Bidding</h2>
-
-<p>
-
-When bids are compared, suits have an order.
-
-</p>
-
-<ol>
-
-<li>♣ Clubs</li>
-<li>♦ Diamonds</li>
-<li>♥ Hearts</li>
-<li>♠ Spades</li>
-<li>No Trump (NT)</li>
-
-</ol>
-
-<p>
-
-No Trump is not a suit.
-
-It means there is no trump suit.
-
-</p>
-
-</div>
-
-</div>
-
-<h2>The Four Players</h2>
-
-<div class="table-diagram">
-
-<div class="north seat">
-
-<strong>North</strong>
-
-</div>
-
-<div class="middle-row">
-
-<div class="west seat">
-<strong>West</strong>
-</div>
-
-<div class="center-table">
-TABLE
-</div>
-
-<div class="east seat">
-<strong>East</strong>
-</div>
-
-</div>
-
-<div class="south seat">
-
-<strong>South</strong>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Partnerships</h2>
-
-<p>
-
-North and South play together.
-
-East and West play together.
-
-Partners sit opposite one another.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>The Deal</h2>
-
-<p>
-
-The dealer shuffles the cards.
-
-One card is dealt at a time clockwise until everyone has exactly 13 cards.
-
-No player should see another player's cards.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>What Is A Trick?</h2>
-
-<p>
-
-A trick is made up of one card from each player.
-
-The first player leads a card.
-
-The other three players each play one card.
-
-The winning card takes the trick.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- AUCTION -->
-<!-- ========================= -->
-
-<section id="auction">
-
-<h1>The Auction (Bidding)</h1>
-
-<p>
-
-The auction decides the contract.
-
-The contract tells everyone:
-
-</p>
-
-<ul>
-
-<li>Which partnership will try to make the contract.</li>
-
-<li>How many tricks they must win.</li>
-
-<li>Which suit is trump—or whether there is No Trump.</li>
-
-</ul>
-
-<div class="card">
-
-<h2>How Bidding Works</h2>
-
-<ol>
-
-<li>The dealer begins.</li>
-
-<li>Players take turns clockwise.</li>
-
-<li>You may bid, pass, double, or redouble.</li>
-
-<li>The auction ends after three passes in a row following a bid.</li>
-
-</ol>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>Pass</h2>
-
-<p>
-
-You choose not to make a bid.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Double</h2>
-
-<p>
-
-The opponents' contract becomes riskier and worth more points.
-
-Beginners don't need to worry about using doubles right away.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Redouble</h2>
-
-<p>
-
-A response to a double.
-
-This increases the stakes even more.
-
-</p>
-
-</div>
-
-</div>
-
-<h2>Legal Bids</h2>
-
-<p>
-
-Bids begin at 1♣ and continue upward through:
-
-</p>
-
-<p>
-
-1♣ → 1♦ → 1♥ → 1♠ → 1NT
-
-then
-
-2♣ ...
-
-all the way to
-
-7NT.
-
-</p>
-
-<div class="example">
-
-<h3>Example Auction</h3>
-
-<table>
-
-<tr>
-<th>North</th>
-<th>East</th>
-<th>South</th>
-<th>West</th>
-</tr>
-
-<tr>
-
-<td>1♥</td>
-<td>Pass</td>
-<td>2♥</td>
-<td>Pass</td>
-
-</tr>
-
-<tr>
-
-<td>4♥</td>
-<td>Pass</td>
-<td>Pass</td>
-<td>Pass</td>
-
-</tr>
-
-</table>
-
-<p>
-
-Final Contract:
-
-<strong>4 Hearts</strong>
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>What Does "4 Hearts" Mean?</h2>
-
-<p>
-
-A contract always promises six tricks plus the bid level.
-
-</p>
-
-<ul>
-
-<li>1-level = 7 tricks</li>
-<li>2-level = 8 tricks</li>
-<li>3-level = 9 tricks</li>
-<li>4-level = 10 tricks</li>
-<li>5-level = 11 tricks</li>
-<li>6-level = 12 tricks</li>
-<li>7-level = 13 tricks</li>
-
-</ul>
-
-<p>
-
-So 4♥ means the declaring partnership must win at least 10 tricks with Hearts as trump.
-
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>Declarer</h2>
-
-<p>
-
-The first player from the partnership who bid the final trump suit (or No Trump) becomes the Declarer.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Dummy</h2>
-
-<p>
-
-The Declarer's partner becomes the Dummy.
-
-Their cards are placed face up on the table after the opening lead.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- PLAY -->
-<!-- ========================= -->
-
-<section id="play">
-
-<h1>Playing the Hand</h1>
-
-<div class="card">
-
-<h2>Opening Lead</h2>
-
-<p>
-
-The player to the Declarer's left makes the first lead.
-
-Only after this card is played does the Dummy place all 13 cards face up.
-
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>Following Suit</h2>
-
-<p>
-
-If someone leads a Heart and you have at least one Heart, you must play a Heart.
-
-You may choose any Heart from your hand.
-
-</p>
-
-<p>
-
-Only when you have no Hearts may you play another suit or a trump.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Winning a Trick</h2>
-
-<p>
-
-If nobody plays a trump, the highest card of the suit that was led wins the trick.
-
-If one or more trump cards are played, the highest trump wins the trick.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Who Plays Dummy?</h2>
-
-<p>
-
-The Dummy does not choose cards.
-
-The Declarer decides which Dummy card to play on every trick.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="example">
-
-<h2>Example Trick</h2>
-
-<table>
-
-<tr>
-<th>Player</th>
-<th>Card</th>
-</tr>
-
-<tr>
-<td>West</td>
-<td>♣10</td>
-</tr>
-
-<tr>
-<td>North</td>
-<td>♣Q</td>
-</tr>
-
-<tr>
-<td>East</td>
-<td>♣A</td>
-</tr>
-
-<tr>
-<td>South</td>
-<td>♣5</td>
-</tr>
-
-</table>
-
-<p>
-
-East wins the trick because the Ace is the highest Club played.
-
-</p>
-
-</div>
-
-<div class="tip-box">
-
-<h2>Remember</h2>
-
-<ul>
-
-<li>Defenders try to stop the contract.</li>
-
-<li>Declarer tries to make the contract.</li>
-
-<li>Every trick matters.</li>
-
-<li>Think before playing each card.</li>
-
-</ul>
-
-</div>
-
-</section>
-
-<!-- ========================= -->
-<!-- SCORING -->
-<!-- ========================= -->
-
-<section id="scoring">
-
-    <h1>Scoring (Keep It Simple)</h1>
-
-    <p>
-        Bridge scoring can become quite detailed, especially in tournament play.
-        Fortunately, beginners only need to understand a few basic ideas before
-        they can enjoy playing.
-    </p>
-
-    <div class="grid">
-
-        <div class="card">
-
-            <h2>Your Goal</h2>
-
-            <p>
-                Your contract tells you how many tricks you promised to win.
-                Remember:
-            </p>
-
-            <p>
-                <strong>Contract Level + 6 = Tricks Needed</strong>
-            </p>
-
-            <table class="simple-table">
-
-                <tr>
-                    <th>Contract</th>
-                    <th>Tricks Needed</th>
-                </tr>
-
-                <tr>
-                    <td>1♠</td>
-                    <td>7</td>
-                </tr>
-
-                <tr>
-                    <td>2♥</td>
-                    <td>8</td>
-                </tr>
-
-                <tr>
-                    <td>3NT</td>
-                    <td>9</td>
-                </tr>
-
-                <tr>
-                    <td>4♠</td>
-                    <td>10</td>
-                </tr>
-
-                <tr>
-                    <td>6♦</td>
-                    <td>12</td>
-                </tr>
-
-                <tr>
-                    <td>7NT</td>
-                    <td>13</td>
-                </tr>
-
-            </table>
-
+        <div class="playing-card spade">
+            <span>A</span>
+            <span>♠</span>
         </div>
 
-        <div class="card">
-
-            <h2>Overtricks</h2>
-
-            <p>
-                If Declarer wins more tricks than promised, the extra tricks are
-                called <strong>overtricks</strong>.
-            </p>
-
-            <p>
-                Example:
-            </p>
-
-            <ul>
-                <li>Contract = 4♥</li>
-                <li>Needed = 10 tricks</li>
-                <li>Won = 11 tricks</li>
-            </ul>
-
-            <p>
-                Result: One overtrick.
-            </p>
-
+        <div class="playing-card heart">
+            <span>K</span>
+            <span>♥</span>
         </div>
 
-        <div class="card">
+        <div class="playing-card diamond">
+            <span>Q</span>
+            <span>♦</span>
+        </div>
 
-            <h2>Undertricks</h2>
-
-            <p>
-                If Declarer wins fewer tricks than required, the contract is
-                defeated.
-            </p>
-
-            <p>
-                Example:
-            </p>
-
-            <ul>
-                <li>Contract = 3NT</li>
-                <li>Needed = 9 tricks</li>
-                <li>Won = 8 tricks</li>
-            </ul>
-
-            <p>
-                Result: Down one (one undertrick).
-            </p>
-
+        <div class="playing-card club">
+            <span>J</span>
+            <span>♣</span>
         </div>
 
     </div>
 
-    <div class="tip-box">
+</section>
 
-        <h2>Don't Worry About Every Point</h2>
+<!-- ===================================================== -->
+<!-- FOUR STAGES -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+    <h2>The Four Stages of Every Bridge Hand</h2>
+
+    <div class="stage-grid">
+
+        <div class="stage-card">
+            <h3>1. Deal</h3>
+            <p>
+                Each player receives 13 cards from a standard 52-card deck.
+            </p>
+        </div>
+
+        <div class="stage-arrow">↓</div>
+
+        <div class="stage-card">
+            <h3>2. Auction</h3>
+            <p>
+                Players bid to decide the final contract.
+            </p>
+        </div>
+
+        <div class="stage-arrow">↓</div>
+
+        <div class="stage-card">
+            <h3>3. Play</h3>
+            <p>
+                Players compete to win tricks according to the contract.
+            </p>
+        </div>
+
+        <div class="stage-arrow">↓</div>
+
+        <div class="stage-card">
+            <h3>4. Score</h3>
+            <p>
+                Points are awarded depending on how well the contract was made.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- BASICS -->
+<!-- ===================================================== -->
+
+<section id="basics" class="section">
+
+    <h2>The Basics</h2>
+
+    <p>
+
+        Contract Bridge uses one standard deck of
+        <strong>52 cards</strong>.
+        There are <strong>no jokers</strong>.
+
+    </p>
+
+    <p>
+
+        Four players each receive
+        <strong>13 cards</strong>.
+
+    </p>
+
+    <h3>Card Ranking</h3>
+
+    <div class="ranking-box">
+
+        <div class="rank-card">A</div>
+        <div class="rank-card">K</div>
+        <div class="rank-card">Q</div>
+        <div class="rank-card">J</div>
+        <div class="rank-card">10</div>
+        <div class="rank-card">9</div>
+        <div class="rank-card">8</div>
+        <div class="rank-card">7</div>
+        <div class="rank-card">6</div>
+        <div class="rank-card">5</div>
+        <div class="rank-card">4</div>
+        <div class="rank-card">3</div>
+        <div class="rank-card">2</div>
+
+    </div>
+
+    <p>
+
+        Ace is always the highest-ranking card.
+
+    </p>
+
+    <h3>Suit Order for Bidding</h3>
+
+    <div class="suit-grid">
+
+        <div class="suit-card clubs">
+            ♣ Clubs
+        </div>
+
+        <div class="suit-card diamonds">
+            ♦ Diamonds
+        </div>
+
+        <div class="suit-card hearts">
+            ♥ Hearts
+        </div>
+
+        <div class="suit-card spades">
+            ♠ Spades
+        </div>
+
+        <div class="suit-card notrump">
+            NT No Trump
+        </div>
+
+    </div>
+
+    <p>
+
+        This order is used only during the auction.
+        It does <strong>not</strong> make one suit stronger than another
+        during ordinary card play.
+
+    </p>
+
+    <h3>Partnerships</h3>
+
+    <p>
+
+        Bridge is always played by four players divided into
+        two partnerships.
+
+    </p>
+
+    <div class="bridge-table">
+
+        <div class="north seat">
+            North
+        </div>
+
+        <div class="west seat">
+            West
+        </div>
+
+        <div class="table-center">
+            TABLE
+        </div>
+
+        <div class="east seat">
+            East
+        </div>
+
+        <div class="south seat">
+            South
+        </div>
+
+    </div>
+
+    <p>
+
+        North and South are partners.
+
+        East and West are partners.
+
+        Partners sit opposite one another.
+
+    </p>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+
+            <h3>Dealer</h3>
+
+            <p>
+
+                One player is the dealer.
+                The dealer begins the auction.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h3>Deal</h3>
+
+            <p>
+
+                A complete distribution of all 52 cards.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h3>Trick</h3>
+
+            <p>
+
+                Four cards played —
+                one from each player.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h3>Following Suit</h3>
+
+            <p>
+
+                If you have a card of the suit led,
+                you must play one.
+
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- AUCTION -->
+<!-- ===================================================== -->
+
+<section id="auction" class="section">
+
+    <h2>The Auction</h2>
+
+    <p>
+
+        Before any cards are played,
+        players participate in an auction
+        (also called the bidding).
+
+    </p>
+
+    <p>
+
+        The purpose of the auction is to determine:
+
+    </p>
+
+    <ul>
+
+        <li>Which partnership will try to make the contract.</li>
+
+        <li>How many tricks they promise to win.</li>
+
+        <li>Whether a trump suit will be used.</li>
+
+    </ul>
+
+    <h3>Who Starts?</h3>
+
+    <p>
+
+        The dealer always makes the first call.
+
+        Play then proceeds clockwise.
+
+    </p>
+
+    <div class="flow-diagram">
+
+        Dealer
+
+        →
+
+        Left-Hand Opponent
+
+        →
+
+        Partner
+
+        →
+
+        Right-Hand Opponent
+
+        →
+
+        Repeat
+
+    </div>
+
+    <h3>Legal Bids</h3>
+
+    <p>
+
+        Bids begin at <strong>1♣</strong>
+        and continue upward through
+        <strong>7 No Trump</strong>.
+
+    </p>
+
+    <table class="simple-table">
+
+        <thead>
+
+        <tr>
+
+            <th>Example Bid</th>
+
+            <th>Meaning</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr>
+
+            <td>1♣</td>
+
+            <td>Promise to win 7 tricks with Clubs as trump.</td>
+
+        </tr>
+
+        <tr>
+
+            <td>2♠</td>
+
+            <td>Promise to win 8 tricks with Spades as trump.</td>
+
+        </tr>
+
+        <tr>
+
+            <td>3NT</td>
+
+            <td>Promise to win 9 tricks with no trump suit.</td>
+
+        </tr>
+
+        <tr>
+
+            <td>4♥</td>
+
+            <td>Promise to win 10 tricks with Hearts as trump.</td>
+
+        </tr>
+
+        <tr>
+
+            <td>6♦</td>
+
+            <td>Promise to win 12 tricks.</td>
+
+        </tr>
+
+        <tr>
+
+            <td>7NT</td>
+
+            <td>Promise to win all 13 tricks.</td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+    <h3>Other Calls</h3>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+            <h4>Pass</h4>
+            <p>Choose not to make a bid.</p>
+        </article>
+
+        <article class="info-card">
+            <h4>Double</h4>
+            <p>Challenge the opponents' contract under specific conditions.</p>
+        </article>
+
+        <article class="info-card">
+            <h4>Redouble</h4>
+            <p>Respond to a double, increasing the stakes again.</p>
+        </article>
+
+    </div>
+
+    <p>
+
+        The auction ends after three consecutive passes following a bid.
+
+    </p>
+
+    <h3>What Is a Contract?</h3>
+
+    <p>
+
+        The highest bid becomes the contract.
+
+        For example:
+
+    </p>
+
+    <div class="example-box">
+
+        <strong>4♥</strong>
 
         <p>
-            Experienced Bridge players use a detailed scoring system.
-            When you're learning, focus on making your contract and counting
-            tricks correctly.
+
+            Means the partnership promises to win
+            <strong>10 tricks</strong>
+            with Hearts as trump.
+
         </p>
 
     </div>
 
+    <h3>Declarer and Dummy</h3>
+
+    <p>
+
+        The first player in the partnership who bid the final trump suit (or No Trump)
+        becomes the <strong>declarer</strong>.
+
+        The declarer's partner becomes the
+        <strong>dummy</strong>.
+
+    </p>
+
+<!-- CONTINUES IN PART 2 -->
+
+    <div class="example-grid">
+
+        <article class="example-card">
+            <h4>Example 1</h4>
+
+            <p><strong>Auction</strong></p>
+
+            <p>North: 1♥</p>
+            <p>East: Pass</p>
+            <p>South: 2♥</p>
+            <p>West: Pass</p>
+            <p>North: 4♥</p>
+            <p>Everyone Passes</p>
+
+            <p>
+
+                North was the first player in the partnership to bid Hearts,
+                so North becomes the <strong>declarer</strong>.
+
+                South becomes the <strong>dummy</strong>.
+
+            </p>
+
+        </article>
+
+        <article class="example-card">
+
+            <h4>Example 2</h4>
+
+            <p><strong>Auction</strong></p>
+
+            <p>East: 1NT</p>
+            <p>South: Pass</p>
+            <p>West: 3NT</p>
+            <p>North: Pass</p>
+            <p>East: Pass</p>
+            <p>South: Pass</p>
+
+            <p>
+
+                East bid No Trump first, so East becomes the declarer.
+
+            </p>
+
+        </article>
+
+    </div>
+
 </section>
 
-<!-- ========================= -->
+<!-- ===================================================== -->
+<!-- PLAYING THE HAND -->
+<!-- ===================================================== -->
+
+<section id="play" class="section">
+
+    <h2>Playing the Hand</h2>
+
+    <p>
+
+        Once the auction has finished, the play begins.
+
+    </p>
+
+    <h3>Opening Lead</h3>
+
+    <p>
+
+        The player to the left of the declarer plays the first card.
+        This is called the <strong>opening lead</strong>.
+
+    </p>
+
+    <div class="step-grid">
+
+        <div class="step-card">
+            <span class="step-number">1</span>
+            <h4>Opening Lead</h4>
+            <p>The defender on declarer's left leads the first card.</p>
+        </div>
+
+        <div class="step-card">
+            <span class="step-number">2</span>
+            <h4>Dummy Appears</h4>
+            <p>The dummy places all 13 cards face up on the table.</p>
+        </div>
+
+        <div class="step-card">
+            <span class="step-number">3</span>
+            <h4>Declarer Plays</h4>
+            <p>The declarer chooses cards for both their own hand and the dummy.</p>
+        </div>
+
+        <div class="step-card">
+            <span class="step-number">4</span>
+            <h4>Play Continues</h4>
+            <p>Players continue until all 13 tricks have been played.</p>
+        </div>
+
+    </div>
+
+    <h3>The Dummy</h3>
+
+    <p>
+
+        After the opening lead, the dummy spreads every card face up.
+
+        Everyone can now see the dummy's cards.
+
+        Only the declarer decides which card the dummy should play.
+
+    </p>
+
+    <h3>Following Suit</h3>
+
+    <p>
+
+        Whenever possible, you must play a card in the same suit as the opening
+        lead.
+
+    </p>
+
+    <div class="example-box">
+
+        <h4>Example</h4>
+
+        <p>West leads the ♠10.</p>
+
+        <p>
+
+            If you have any spades, you must play one.
+
+            You cannot choose another suit unless you have no spades left.
+
+        </p>
+
+    </div>
+
+    <h3>Winning a Trick</h3>
+
+    <p>
+
+        Each trick contains one card from every player.
+
+        Normally, the highest card in the suit that was led wins the trick.
+
+    </p>
+
+    <div class="trick-example">
+
+        <h4>Example Trick</h4>
+
+        <table class="simple-table">
+
+            <thead>
+
+            <tr>
+
+                <th>Player</th>
+                <th>Card</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+                <td>West</td>
+                <td>♣8</td>
+            </tr>
+
+            <tr>
+                <td>North</td>
+                <td>♣Q</td>
+            </tr>
+
+            <tr>
+                <td>East</td>
+                <td>♣K</td>
+            </tr>
+
+            <tr>
+                <td>South</td>
+                <td>♣5</td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+        <p>
+
+            East wins the trick because the King is the highest club played.
+
+        </p>
+
+    </div>
+
+    <h3>Trump Cards</h3>
+
+    <p>
+
+        If the contract names a trump suit, any trump card beats every card
+        in another suit.
+
+    </p>
+
+    <div class="example-box">
+
+        <h4>Example</h4>
+
+        <p>Contract: 4♥</p>
+
+        <table class="simple-table">
+
+            <tbody>
+
+            <tr>
+                <td>West</td>
+                <td>♠K</td>
+            </tr>
+
+            <tr>
+                <td>North</td>
+                <td>♠A</td>
+            </tr>
+
+            <tr>
+                <td>East</td>
+                <td>♠7</td>
+            </tr>
+
+            <tr>
+                <td>South</td>
+                <td>♥2</td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+        <p>
+
+            South wins the trick because Hearts are trumps.
+
+        </p>
+
+    </div>
+
+    <h3>No Trump Contracts</h3>
+
+    <p>
+
+        In a No Trump contract there is no trump suit.
+
+        Every trick is won by the highest card of the suit led.
+
+    </p>
+
+    <h3>Working Together</h3>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+
+            <h4>Declarer</h4>
+
+            <p>
+
+                Tries to make the contract by winning enough tricks.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h4>Dummy</h4>
+
+            <p>
+
+                Places cards on the table and follows the declarer's instructions.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h4>Defenders</h4>
+
+            <p>
+
+                Cooperate to prevent the declarer from making the contract.
+
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SCORING -->
+<!-- ===================================================== -->
+
+<section id="scoring" class="section">
+
+    <h2>Scoring</h2>
+
+    <p>
+
+        The full Bridge scoring system is detailed, but beginners only need a
+        few important ideas to start playing.
+
+    </p>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+
+            <h3>Contract Level</h3>
+
+            <p>
+
+                A contract always promises six tricks plus the bid level.
+
+            </p>
+
+            <ul>
+
+                <li>1-level = 7 tricks</li>
+                <li>2-level = 8 tricks</li>
+                <li>3-level = 9 tricks</li>
+                <li>4-level = 10 tricks</li>
+                <li>5-level = 11 tricks</li>
+                <li>6-level = 12 tricks</li>
+                <li>7-level = 13 tricks</li>
+
+            </ul>
+
+        </article>
+
+        <article class="info-card">
+
+            <h3>Overtricks</h3>
+
+            <p>
+
+                If you win more tricks than your contract requires,
+                the extra tricks are called <strong>overtricks</strong>.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h3>Undertricks</h3>
+
+            <p>
+
+                If you win fewer tricks than promised,
+                the missing tricks are called
+                <strong>undertricks</strong>.
+
+            </p>
+
+        </article>
+
+    </div>
+
+    <div class="example-box">
+
+        <h3>Example</h3>
+
+        <p>
+
+            Contract: <strong>4♠</strong>
+
+        </p>
+
+        <p>
+
+            Required tricks:
+            <strong>10</strong>
+
+        </p>
+
+        <ul>
+
+            <li>10 tricks = Contract made</li>
+            <li>11 tricks = One overtrick</li>
+            <li>12 tricks = Two overtricks</li>
+            <li>9 tricks = One undertrick</li>
+
+        </ul>
+
+    </div>
+
+    <h3>Different Ways to Play</h3>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+
+            <h4>Rubber Bridge</h4>
+
+            <p>
+
+                A traditional social format often played at home.
+
+            </p>
+
+        </article>
+
+        <article class="info-card">
+
+            <h4>Duplicate Bridge</h4>
+
+            <p>
+
+                The same hands are played at multiple tables so skill matters
+                more than luck.
+
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+<!-- CONTINUES IN PART 3 -->
+
+<!-- ===================================================== -->
+<!-- TIPS -->
+<!-- ===================================================== -->
+
+<section id="tips" class="section">
+
+    <h2>Tips for Your First Game</h2>
+
+    <div class="tips-grid">
+
+        <article class="tip-card">
+            <h3>Relax</h3>
+            <p>
+                Every experienced Bridge player was once a beginner.
+                Don't worry about making mistakes.
+            </p>
+        </article>
+
+        <article class="tip-card">
+            <h3>Count Your Cards</h3>
+            <p>
+                Before the auction begins, make sure you have exactly
+                13 cards.
+            </p>
+        </article>
+
+        <article class="tip-card">
+            <h3>Take Your Time</h3>
+            <p>
+                There is no need to rush. Think before making a bid or
+                playing a card.
+            </p>
+        </article>
+
+        <article class="tip-card">
+            <h3>Watch Every Card</h3>
+            <p>
+                Pay attention to every trick. Even small cards can become
+                important later.
+            </p>
+        </article>
+
+        <article class="tip-card">
+            <h3>Ask Questions Afterwards</h3>
+            <p>
+                During friendly games, most players are happy to explain
+                hands after they finish.
+            </p>
+        </article>
+
+        <article class="tip-card">
+            <h3>Enjoy Yourself</h3>
+            <p>
+                Bridge is a lifelong game. Focus on learning rather than
+                winning.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- BEGINNER MISTAKES -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+    <h2>Common Beginner Mistakes</h2>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+            <h3>Forgetting to Follow Suit</h3>
+            <p>
+                If you have a card in the suit led, you must play one.
+                This is one of the most important rules in Bridge.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Playing Too Quickly</h3>
+            <p>
+                Pause for a moment before each play.
+                Consider what your opponents may have.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Ignoring the Dummy</h3>
+            <p>
+                The dummy's cards are a valuable resource.
+                Look at both hands before planning the play.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Miscounting Tricks</h3>
+            <p>
+                Keep track of how many tricks your side has already won.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Overbidding</h3>
+            <p>
+                Promising more tricks than your cards can realistically win
+                often leads to poor results.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Giving Up</h3>
+            <p>
+                Even difficult contracts can sometimes succeed with careful
+                planning.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ETIQUETTE -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+    <h2>Bridge Etiquette</h2>
+
+    <div class="checklist">
+
+        <div class="check-item">
+            ✓ Be polite to everyone at the table.
+        </div>
+
+        <div class="check-item">
+            ✓ Let each player think without rushing them.
+        </div>
+
+        <div class="check-item">
+            ✓ Avoid commenting on hands while they are still being played.
+        </div>
+
+        <div class="check-item">
+            ✓ Congratulate good play by either partnership.
+        </div>
+
+        <div class="check-item">
+            ✓ Learn from mistakes instead of blaming your partner.
+        </div>
+
+        <div class="check-item">
+            ✓ Remember that Bridge is meant to be enjoyable.
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- KEEP LEARNING -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+    <h2>How to Keep Learning</h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <span class="timeline-number">1</span>
+            <p>Play casual games with friends.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="timeline-number">2</span>
+            <p>Review interesting hands after each session.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="timeline-number">3</span>
+            <p>Read beginner Bridge books and articles.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="timeline-number">4</span>
+            <p>Practice online against friendly opponents.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="timeline-number">5</span>
+            <p>Gradually learn a simple bidding system.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CHEAT SHEET -->
+<!-- ===================================================== -->
+
+<section class="section cheat-sheet" id="cheatsheet">
+
+    <h2>Printable Beginner Cheat Sheet</h2>
+
+    <div class="cheat-grid">
+
+        <div class="cheat-card">
+
+            <h3>Card Rank</h3>
+
+            <p>
+                A K Q J 10 9 8 7 6 5 4 3 2
+            </p>
+
+        </div>
+
+        <div class="cheat-card">
+
+            <h3>Suit Order (Auction)</h3>
+
+            <p>
+                ♣ ♦ ♥ ♠ NT
+            </p>
+
+        </div>
+
+        <div class="cheat-card">
+
+            <h3>Contract Formula</h3>
+
+            <p>
+                Contract Level + 6 = Tricks Needed
+            </p>
+
+        </div>
+
+        <div class="cheat-card">
+
+            <h3>Remember</h3>
+
+            <ul>
+
+                <li>Count 13 cards.</li>
+                <li>Follow suit.</li>
+                <li>Watch every trick.</li>
+                <li>Be kind to your partner.</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
 <!-- GLOSSARY -->
-<!-- ========================= -->
+<!-- ===================================================== -->
 
-<section id="glossary">
+<section id="glossary" class="section">
 
-<h1>Glossary</h1>
+<h2>Glossary</h2>
 
-<p>
-These are some of the most common Bridge words you'll hear.
-Learning these definitions will make conversations at the table much easier.
-</p>
+<div class="glossary-grid">
 
-<div class="glossary">
-
-<div class="term">
+<article class="glossary-item">
 <h3>Auction</h3>
-<p>The bidding that happens before any cards are played.</p>
-</div>
+<p>The bidding phase before the cards are played.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Bid</h3>
-<p>A statement describing how many tricks your partnership hopes to win and the trump suit (or No Trump).</p>
-</div>
+<p>A promise to win a certain number of tricks.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Contract</h3>
-<p>The final winning bid that determines the target number of tricks.</p>
-</div>
+<p>The final winning bid of the auction.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Declarer</h3>
-<p>The player who plays both their own hand and the Dummy's hand.</p>
-</div>
+<p>The player who plays both their own hand and the dummy.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Double</h3>
-<p>A call that increases the score if the contract succeeds or fails.</p>
-</div>
+<p>A call challenging the opponents' contract.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Doubleton</h3>
 <p>A suit containing exactly two cards.</p>
-</div>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Dummy</h3>
-<p>The Declarer's partner whose cards are placed face up.</p>
-</div>
+<p>The declarer's partner whose cards are placed face up.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Finesse</h3>
-<p>A play that hopes an important missing card is positioned favorably.</p>
-</div>
+<p>A technique that attempts to win a trick with a lower high card.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Follow Suit</h3>
-<p>You must play the suit that was led if you have one.</p>
-</div>
+<p>Play the same suit if you have one.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Game</h3>
-<p>A contract worth enough points to earn a larger bonus.</p>
-</div>
+<p>A contract worth enough points to earn a game bonus.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Lead</h3>
 <p>The first card played to a trick.</p>
-</div>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>No Trump</h3>
 <p>A contract with no trump suit.</p>
-</div>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Part-score</h3>
-<p>A contract that is worth less than a full game bonus.</p>
-</div>
+<p>A successful contract worth less than game.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
+<h3>Redouble</h3>
+<p>A response to a double.</p>
+</article>
+
+<article class="glossary-item">
 <h3>Revoke</h3>
-<p>Failing to follow suit when you actually could have.</p>
-</div>
+<p>Failing to follow suit when able.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Rubber</h3>
-<p>A traditional style of Bridge played over several games.</p>
-</div>
+<p>A traditional form of social Bridge.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Slam</h3>
 <p>A contract at the six or seven level.</p>
-</div>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Singleton</h3>
-<p>A suit containing only one card.</p>
-</div>
+<p>A suit containing exactly one card.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Trick</h3>
-<p>One card from each player played together.</p>
-</div>
+<p>One card played by each player.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Trump</h3>
-<p>A suit that beats every other suit.</p>
-</div>
+<p>A suit that beats every non-trump suit.</p>
+</article>
 
-<div class="term">
+<article class="glossary-item">
 <h3>Void</h3>
 <p>A suit in which a player has no cards.</p>
-</div>
+</article>
 
 </div>
 
 </section>
 
-<!-- ========================= -->
-<!-- TIPS -->
-<!-- ========================= -->
+<!-- CONTINUES IN PART 4 -->
 
-<section id="tips">
+<!-- ===================================================== -->
+<!-- PRACTICE QUIZ -->
+<!-- ===================================================== -->
 
-<h1>Tips for Your First Game</h1>
+<section id="quiz" class="section">
 
-<div class="tips-grid">
+    <h2>Practice Quiz</h2>
 
-<div class="tip-card">
-<h3>Count Your Cards</h3>
-<p>Make sure you have exactly 13 cards before play begins.</p>
-</div>
+    <p class="section-intro">
+        Ready to test what you've learned? Answer each question and you'll
+        immediately see whether you were correct along with a short explanation.
+    </p>
 
-<div class="tip-card">
-<h3>Take Your Time</h3>
-<p>Bridge rewards careful thinking more than quick decisions.</p>
-</div>
+    <div id="quiz-container" class="quiz-container">
 
-<div class="tip-card">
-<h3>Follow Suit</h3>
-<p>This is the rule beginners forget most often.</p>
-</div>
+        <div class="quiz-progress">
 
-<div class="tip-card">
-<h3>Count Tricks</h3>
-<p>Keep track of how many tricks your side has already won.</p>
-</div>
+            <div class="progress-top">
+                <span id="question-number">
+                    Question 1 of 10
+                </span>
 
-<div class="tip-card">
-<h3>Ask Questions</h3>
-<p>Friendly Bridge players are usually happy to help beginners.</p>
-</div>
+                <span id="score-display">
+                    Score: 0 / 10
+                </span>
+            </div>
 
-<div class="tip-card">
-<h3>Have Fun</h3>
-<p>Everyone starts somewhere. Every hand teaches something new.</p>
-</div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
 
-</div>
+        </div>
+
+        <div id="question-card" class="question-card">
+
+            <h3 id="question-text">
+                Loading question...
+            </h3>
+
+            <div id="answer-buttons" class="answer-buttons">
+                <!-- JavaScript inserts answer buttons here -->
+            </div>
+
+            <div id="answer-feedback" class="answer-feedback hidden">
+
+                <h4 id="feedback-title"></h4>
+
+                <p id="feedback-text"></p>
+
+                <button id="next-question" class="primary-button">
+                    Next Question
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="quiz-results" class="quiz-results hidden">
+
+            <h3>Your Quiz Results</h3>
+
+            <div class="score-circle">
+                <span id="final-score">0 / 10</span>
+            </div>
+
+            <p id="result-message">
+                Great effort!
+            </p>
+
+            <button id="restart-quiz" class="primary-button">
+                Restart Quiz
+            </button>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- ========================= -->
-<!-- QUIZ -->
-<!-- ========================= -->
+<!-- ===================================================== -->
+<!-- FAQ -->
+<!-- ===================================================== -->
 
-<section id="quiz">
+<section id="faq" class="section">
 
-<h1>Practice Quiz</h1>
+    <h2>Frequently Asked Questions</h2>
 
-<p class="quiz-intro">
-Test what you've learned! Choose an answer for each question and then click
-<strong>Check Answers</strong>.
-</p>
+    <div class="faq-list">
 
-<div id="quiz-container">
+        <details class="faq-item">
 
-<!-- Questions will be inserted by script.js -->
+            <summary>
+                Is Bridge difficult to learn?
+            </summary>
 
-</div>
+            <p>
 
-<div class="quiz-buttons">
+                Bridge has a lot of depth, but the basic rules are much
+                easier than many people expect. Once you understand tricks,
+                bidding, and partnerships, you can already enjoy casual games.
 
-<button id="submitQuiz">
-Check Answers
-</button>
+            </p>
 
-<button id="resetQuiz">
-Try Again
-</button>
+        </details>
 
-</div>
+        <details class="faq-item">
 
-<div id="quiz-results"></div>
+            <summary>
+                Do I need to memorize every rule?
+            </summary>
+
+            <p>
+
+                No. Learn the fundamentals first. Your understanding will
+                naturally improve with experience.
+
+            </p>
+
+        </details>
+
+        <details class="faq-item">
+
+            <summary>
+                How many people are required?
+            </summary>
+
+            <p>
+
+                Contract Bridge is designed for exactly four players,
+                arranged as two partnerships.
+
+            </p>
+
+        </details>
+
+        <details class="faq-item">
+
+            <summary>
+                Can beginners play together?
+            </summary>
+
+            <p>
+
+                Absolutely. Many people learn fastest by playing friendly
+                practice games where everyone is learning together.
+
+            </p>
+
+        </details>
+
+        <details class="faq-item">
+
+            <summary>
+                What should I learn next?
+            </summary>
+
+            <p>
+
+                Once you're comfortable with the mechanics, start learning
+                a beginner bidding system such as Standard American or Acol,
+                then practice declarer play and defense.
+
+            </p>
+
+        </details>
+
+    </div>
 
 </section>
 
-<footer>
+</main>
 
-<h2>Congratulations!</h2>
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
 
-<p>
-You now know the basic structure of a Bridge hand:
-</p>
+<footer class="site-footer">
 
-<p class="footer-flow">
-Deal → Auction → Contract → Play → Score
-</p>
+    <div class="footer-content">
 
-<p>
-Once these steps become familiar, you'll be ready to learn simple bidding
-methods and beginner strategy.
-</p>
+        <h2>Learn Bridge</h2>
 
-<p class="copyright">
-© 2026 Learn Bridge • Built for Beginners
-</p>
+        <p>
+
+            Thanks for visiting this beginner's guide to Contract Bridge.
+
+            Every expert player started exactly where you are now.
+
+            Keep practicing, enjoy the journey, and most importantly,
+            have fun at the table!
+
+        </p>
+
+        <nav class="footer-nav">
+
+            <a href="#home">Home</a>
+
+            <a href="#basics">Basics</a>
+
+            <a href="#auction">Auction</a>
+
+            <a href="#play">Play</a>
+
+            <a href="#scoring">Scoring</a>
+
+            <a href="#glossary">Glossary</a>
+
+            <a href="#quiz">Quiz</a>
+
+        </nav>
+
+        <p class="copyright">
+
+            © 2026 Learn Bridge
+
+            <br>
+
+            Built with HTML, CSS, and Vanilla JavaScript.
+
+        </p>
+
+    </div>
 
 </footer>
 
-</main>
+<!-- ===================================================== -->
+<!-- BACK TO TOP -->
+<!-- ===================================================== -->
+
+<button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+
+    ↑
+
+</button>
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
 
 <script src="script.js"></script>
 
