@@ -42,6 +42,8 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Final results screen
 - Quiz restart button
 - Back-to-top button
+- Guided animated Bridge table lesson
+- Dealing, dealer rotation, opening lead, dummy reveal, and trick animation
 
 ---
 
