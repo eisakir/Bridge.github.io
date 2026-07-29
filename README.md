@@ -44,6 +44,9 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Back-to-top button
 - Guided animated Bridge table lesson
 - Dealing, dealer rotation, opening lead, dummy reveal, and trick animation
+- Interactive 35-bid auction simulator
+- Legal-bid enforcement, Pass, Double, Redouble, and declarer calculation
+- Click-to-flip glossary cards with keyboard controls
 
 ---
 
