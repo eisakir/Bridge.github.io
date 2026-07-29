@@ -110,12 +110,12 @@ function updateReadingProgress() {
 
     const distance = Math.abs(window.scrollY - lastScrollSoundPosition);
 
-    if (scrollSoundReady && distance >= 180) {
+    if (scrollSoundReady && distance >= 360) {
         playTone({
             frequency: window.scrollY > lastScrollSoundPosition ? 285 : 360,
-            duration: 0.045,
+            duration: 0.035,
             type: "triangle",
-            volume: 0.018
+            volume: 0.012
         });
         lastScrollSoundPosition = window.scrollY;
     }
