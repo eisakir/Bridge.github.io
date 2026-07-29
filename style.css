@@ -786,7 +786,7 @@ img{
 
     grid-template-columns: minmax(140px, 1fr) minmax(230px, 1.5fr) minmax(140px, 1fr);
 
-    grid-template-rows: 145px 230px 145px;
+    grid-template-rows: 112px 188px 112px;
 
     grid-template-areas:
         ". north ."
@@ -1773,7 +1773,7 @@ img{
 
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 2rem;
 
@@ -1819,7 +1819,7 @@ img{
 
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 
     gap: 2rem;
 
@@ -1899,7 +1899,7 @@ img{
 
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 2rem;
 
@@ -2021,7 +2021,7 @@ img{
 
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 
     gap: 2rem;
 
@@ -2059,7 +2059,7 @@ img{
 
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 2rem;
 
@@ -3777,7 +3777,7 @@ img{
 
         grid-template-columns: 110px minmax(145px, 1fr) 110px;
 
-        grid-template-rows: 130px 190px 130px;
+        grid-template-rows: 100px 165px 100px;
 
         padding: .75rem;
 
@@ -3950,7 +3950,7 @@ img{
 
         grid-template-columns: 78px minmax(118px, 1fr) 78px;
 
-        grid-template-rows: 115px 165px 115px;
+        grid-template-rows: 92px 145px 92px;
 
         gap: .25rem;
 
@@ -4559,6 +4559,8 @@ main,
     box-shadow:0 24px 60px rgba(17,41,61,.12);
 }
 
+.trick-trainer{padding:22px;}
+
 .dashboard-heading,
 .calculator-heading,
 .trainer-topbar{
@@ -4797,28 +4799,28 @@ main,
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:12px;
-    margin:22px 0;
+    margin:12px 0;
 }
 
 .trainer-scoreboard div{
-    padding:12px;
+    padding:7px 12px;
     border-radius:14px;
     background:#e8f0f4;
     text-align:center;
 }
 
 .trainer-scoreboard span{display:block;color:#60717c;font-size:.78rem;}
-.trainer-scoreboard strong{font-size:1.45rem;color:#153c59;}
+.trainer-scoreboard strong{font-size:1.25rem;color:#153c59;}
 
 .trainer-table{
     display:grid;
-    min-height:500px;
-    padding:24px;
+    min-height:382px;
+    padding:14px 20px;
     grid-template:"blank north blank2" 1fr "west trick east" 2fr "blank3 south blank4" 1fr / 1fr 2fr 1fr;
     align-items:center;
-    gap:14px;
-    border:12px solid #654128;
-    border-radius:34px;
+    gap:8px;
+    border:10px solid #654128;
+    border-radius:28px;
     color:#fff;
     background:radial-gradient(circle,#347556,#236044);
     box-shadow:inset 0 0 0 4px rgba(255,255,255,.16);
@@ -4895,11 +4897,11 @@ main,
     grid-area:trick;
     position:relative;
     display:grid;
-    min-height:255px;
+    min-height:185px;
     grid-template-columns:repeat(2,1fr);
     align-items:center;
     gap:12px;
-    padding:16px;
+    padding:10px;
     border:2px dashed rgba(255,255,255,.3);
     border-radius:50%;
     text-align:center;
@@ -4934,11 +4936,13 @@ main,
 .trainer-dummy,
 .trainer-active-panel,
 .trainer-result{
-    margin-top:18px;
-    padding:20px;
+    margin-top:12px;
+    padding:14px;
     border-radius:18px;
     background:#eaf2f6;
 }
+
+#trainerDummy{display:none!important;}
 
 #trainerDummyCards,
 .trainer-active-hand{
@@ -4949,7 +4953,7 @@ main,
     padding:5px 2px 12px;
 }
 
-.trainer-active-panel{display:grid;grid-template-columns:minmax(190px,.6fr) 1.4fr;gap:20px;}
+.trainer-active-panel{display:grid;grid-template-columns:minmax(175px,.5fr) 1.5fr;gap:14px;}
 .trainer-result{text-align:center;background:#eef8ef;}
 
 .accessibility-toggle{
@@ -5264,6 +5268,15 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
 }
 
 @media(max-width:900px){
+    .step-grid,
+    .tips-grid,
+    .cheat-grid,
+    .glossary-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .glossary-item:last-child:nth-child(odd){
+        width:calc(50% - 1rem);
+        grid-column:1/-1;
+        justify-self:center;
+    }
     .dashboard-stat-grid{grid-template-columns:repeat(2,1fr);}
     .learning-path-grid{grid-template-columns:repeat(2,1fr);}
     .calculator-controls{grid-template-columns:repeat(2,1fr);}
@@ -5274,6 +5287,15 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
 }
 
 @media(max-width:650px){
+    .example-grid,
+    .step-grid,
+    .tips-grid,
+    .cheat-grid,
+    .glossary-grid{grid-template-columns:1fr;}
+    .glossary-item:last-child:nth-child(odd){
+        width:auto;
+        grid-column:auto;
+    }
     .learning-dashboard,
     .scoring-calculator,
     .trick-trainer{padding:20px;}
@@ -5285,11 +5307,11 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
     .learning-path-grid,
     .calculator-controls{grid-template-columns:1fr;}
     .trainer-table{
-        min-height:430px;
+        min-height:350px;
         padding:12px;
         grid-template:"blank north blank2" 1fr "west trick east" 2fr "blank3 south blank4" 1fr / .7fr 1.8fr .7fr;
     }
-    .trainer-trick-area{min-height:210px;padding:7px;}
+    .trainer-trick-area{min-height:150px;padding:7px;}
     .trainer-seat-card{
         width:25px;
         height:37px;
