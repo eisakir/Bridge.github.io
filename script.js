@@ -633,6 +633,287 @@ document.querySelectorAll(".tilt-card").forEach(card => {
 });
 
 /* ==========================================================
+   ANIMATED BRIDGE TABLE LESSON
+========================================================== */
+
+const bridgeLesson = document.getElementById("bridgeLesson");
+const lessonStep = document.getElementById("lessonStep");
+const lessonTitle = document.getElementById("lessonTitle");
+const lessonText = document.getElementById("lessonText");
+const lessonNext = document.getElementById("lessonNext");
+const lessonReset = document.getElementById("lessonReset");
+const trickWinner = document.getElementById("trickWinner");
+const dealerChip = document.getElementById("dealerChip");
+const tableSeats = [...document.querySelectorAll(".table-seat")];
+
+const bridgeScenarios = [
+    {
+        dealer: "north",
+        declarer: "north",
+        dummy: "south",
+        contract: "3NT",
+        leader: "east",
+        cards: { north: "A♠", east: "6♠", south: "Q♠", west: "K♠" },
+        dummyCards: ["Q♠", "A♥", "10♦", "7♣"],
+        winner: "north"
+    },
+    {
+        dealer: "east",
+        declarer: "south",
+        dummy: "north",
+        contract: "4♥",
+        leader: "west",
+        cards: { north: "2♣", east: "A♣", south: "5♣", west: "K♣" },
+        dummyCards: ["2♣", "K♥", "Q♦", "8♠"],
+        winner: "east"
+    },
+    {
+        dealer: "south",
+        declarer: "west",
+        dummy: "east",
+        contract: "2♠",
+        leader: "north",
+        cards: { north: "Q♦", east: "A♦", south: "3♦", west: "7♦" },
+        dummyCards: ["A♦", "J♠", "8♥", "4♣"],
+        winner: "east"
+    },
+    {
+        dealer: "west",
+        declarer: "east",
+        dummy: "west",
+        contract: "3NT",
+        leader: "south",
+        cards: { north: "K♥", east: "A♥", south: "J♥", west: "Q♥" },
+        dummyCards: ["Q♥", "10♠", "7♦", "3♣"],
+        winner: "east"
+    },
+    {
+        dealer: "north",
+        declarer: "east",
+        dummy: "west",
+        contract: "4♠",
+        leader: "south",
+        cards: { north: "9♦", east: "A♦", south: "J♦", west: "K♦" },
+        dummyCards: ["K♦", "Q♠", "6♥", "4♣"],
+        winner: "east"
+    },
+    {
+        dealer: "east",
+        declarer: "north",
+        dummy: "south",
+        contract: "2♥",
+        leader: "east",
+        cards: { north: "A♣", east: "10♣", south: "Q♣", west: "K♣" },
+        dummyCards: ["Q♣", "J♥", "8♦", "5♠"],
+        winner: "north"
+    }
+];
+
+const seatOrder = ["north", "east", "south", "west"];
+let lessonIndex = 0;
+let scenarioIndex = -1;
+
+function seatName(seat) {
+    return seat.charAt(0).toUpperCase() + seat.slice(1);
+}
+
+function leftHandOpponent(seat) {
+    return seatOrder[(seatOrder.indexOf(seat) + 1) % seatOrder.length];
+}
+
+function cardColor(card) {
+    return card.includes("♥") || card.includes("♦") ? "red" : "black";
+}
+
+function chooseNewScenario() {
+    let nextIndex;
+
+    do {
+        nextIndex = Math.floor(Math.random() * bridgeScenarios.length);
+    } while (
+        bridgeScenarios.length > 1 &&
+        nextIndex === scenarioIndex
+    );
+
+    scenarioIndex = nextIndex;
+    return bridgeScenarios[scenarioIndex];
+}
+
+function currentScenario() {
+    return bridgeScenarios[scenarioIndex];
+}
+
+function applyScenario(scenario) {
+    if (!bridgeLesson) {
+        return;
+    }
+
+    bridgeLesson.classList.remove(
+        "dealer-north",
+        "dealer-east",
+        "dealer-south",
+        "dealer-west"
+    );
+    bridgeLesson.classList.add(`dealer-${scenario.dealer}`);
+
+    tableSeats.forEach(seat => {
+        const position = seat.dataset.seat;
+        const role = seat.querySelector(".seat-role");
+        const cards = [...seat.querySelectorAll(".mini-card")];
+        const playCard = seat.querySelector(".play-card");
+
+        seat.classList.toggle("is-dummy", position === scenario.dummy);
+        playCard.classList.toggle("opening-lead", position === scenario.leader);
+        playCard.classList.toggle("trick-winning-card", position === scenario.winner);
+
+        let playerRole;
+
+        if (position === scenario.declarer) {
+            playerRole = "Declarer";
+        } else if (position === scenario.dummy) {
+            playerRole = "Dummy";
+        } else if (position === scenario.leader) {
+            playerRole = "Opening lead";
+        } else {
+            playerRole = "Defender";
+        }
+
+        role.textContent = position === scenario.dealer
+            ? `Dealer · ${playerRole}`
+            : playerRole;
+
+        const displayedCards = position === scenario.dummy
+            ? scenario.dummyCards
+            : [
+                scenario.cards[position],
+                "9♠",
+                "6♥",
+                "3♦"
+            ];
+
+        cards.forEach((card, index) => {
+            const face = card.querySelector(".card-face");
+            face.textContent = displayedCards[index];
+            face.classList.toggle(
+                "red",
+                cardColor(displayedCards[index]) === "red"
+            );
+        });
+    });
+
+    trickWinner.textContent =
+        `${seatName(scenario.winner)} wins with ` +
+        `${scenario.cards[scenario.winner]}`;
+
+    dealerChip.setAttribute(
+        "aria-label",
+        `${seatName(scenario.dealer)} is the dealer`
+    );
+    dealerChip.title = `${seatName(scenario.dealer)} is the dealer`;
+}
+
+function lessonStepsFor(scenario) {
+    const expectedLeader = leftHandOpponent(scenario.declarer);
+
+    return [
+        {
+            label: "Interactive lesson",
+            title: `${seatName(scenario.dealer)} is dealer`,
+            text:
+                `${seatName(scenario.dealer)} will begin the auction. ` +
+                `This hand reaches ${scenario.contract} by ` +
+                `${seatName(scenario.declarer)}.`,
+            button: "Start lesson"
+        },
+        {
+            label: "Step 1 of 4 · The deal",
+            title: "Four hands, 13 cards each",
+            text:
+                `The cards are dealt clockwise. The dealer chip correctly ` +
+                `marks ${seatName(scenario.dealer)} for this scenario.`,
+            button: "Show opening lead"
+        },
+        {
+            label: "Step 2 of 4 · Opening lead",
+            title:
+                `${seatName(scenario.leader)} leads ` +
+                `${scenario.cards[scenario.leader]}`,
+            text:
+                `${seatName(scenario.dealer)} dealt this hand, but ` +
+                `${seatName(scenario.declarer)} became declarer. Therefore ` +
+                `${seatName(expectedLeader)}, the player on declarer's left, ` +
+                `makes the opening lead.`,
+            button: "Reveal dummy"
+        },
+        {
+            label: "Step 3 of 4 · Dummy",
+            title: `${seatName(scenario.dummy)}'s hand opens face up`,
+            text:
+                `${seatName(scenario.dummy)} is dummy because they are ` +
+                `${seatName(scenario.declarer)}'s partner. Declarer chooses ` +
+                `the cards played from dummy.`,
+            button: "Play the trick"
+        },
+        {
+            label: "Step 4 of 4 · The trick",
+            title:
+                `${seatName(scenario.winner)} wins with ` +
+                `${scenario.cards[scenario.winner]}`,
+            text:
+                `All four players followed suit. ` +
+                `${scenario.cards[scenario.winner]} is the highest card, so ` +
+                `${seatName(scenario.winner)} wins and leads next.`,
+            button: "Try a new scenario"
+        }
+    ];
+}
+
+function updateBridgeLesson() {
+    if (!bridgeLesson) {
+        return;
+    }
+
+    const content = lessonStepsFor(currentScenario())[lessonIndex];
+    bridgeLesson.dataset.step = String(lessonIndex);
+    lessonStep.textContent = content.label;
+    lessonTitle.textContent = content.title;
+    lessonText.textContent = content.text;
+    lessonNext.textContent = content.button;
+}
+
+function resetBridgeLesson() {
+    if (!bridgeLesson) {
+        return;
+    }
+
+    lessonIndex = 0;
+    applyScenario(chooseNewScenario());
+    updateBridgeLesson();
+}
+
+if (lessonNext) {
+    lessonNext.addEventListener("click", () => {
+        if (lessonIndex === 4) {
+            resetBridgeLesson();
+            window.setTimeout(() => {
+                lessonIndex = 1;
+                updateBridgeLesson();
+            }, 400);
+            return;
+        }
+
+        lessonIndex += 1;
+        updateBridgeLesson();
+    });
+}
+
+if (lessonReset) {
+    lessonReset.addEventListener("click", resetBridgeLesson);
+}
+
+resetBridgeLesson();
+
+/* ==========================================================
    INITIALIZE
 ========================================================== */
 
