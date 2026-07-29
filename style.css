@@ -1,0 +1,1804 @@
+/* ==========================================================
+   Learn Bridge
+   style.css
+   Modern Responsive Stylesheet
+   ========================================================== */
+
+/* ==========================================================
+   CSS RESET
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    line-height: 1.7;
+
+    background: #f8f6ef;
+
+    color: #243447;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+}
+
+/* ==========================================================
+   VARIABLES
+   ========================================================== */
+
+:root{
+
+    --navy:#1f3b57;
+    --navy-dark:#16283d;
+
+    --cream:#f8f6ef;
+
+    --green:#5b7b67;
+
+    --gold:#d4af37;
+
+    --light:#ffffff;
+
+    --shadow:
+        0 12px 30px rgba(0,0,0,.08);
+
+    --radius:16px;
+
+    --transition:.30s ease;
+
+}
+
+/* ==========================================================
+   TYPOGRAPHY
+   ========================================================== */
+
+h1,
+h2,
+h3,
+h4{
+
+    line-height:1.2;
+
+    margin-bottom:1rem;
+
+    color:var(--navy);
+
+}
+
+h1{
+
+    font-size:clamp(2.5rem,5vw,4rem);
+
+}
+
+h2{
+
+    font-size:clamp(2rem,4vw,3rem);
+
+    text-align:center;
+
+    margin-bottom:2rem;
+
+}
+
+h3{
+
+    font-size:1.4rem;
+
+}
+
+p{
+
+    margin-bottom:1rem;
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+img{
+
+    max-width:100%;
+
+}
+
+/* ==========================================================
+   LAYOUT
+   ========================================================== */
+
+.section{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+
+        5rem
+        2rem;
+
+}
+
+.section-intro{
+
+    text-align:center;
+
+    max-width:700px;
+
+    margin:
+
+        0 auto
+        3rem;
+
+}
+
+/* ==========================================================
+   NAVIGATION
+   ========================================================== */
+
+.site-header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+
+}
+
+.navbar{
+
+    max-width:1300px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:
+
+        1rem
+        2rem;
+
+}
+
+.logo{
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    color:var(--navy);
+
+}
+
+.nav-links{
+
+    display:flex;
+
+    gap:2rem;
+
+    list-style:none;
+
+}
+
+.nav-links a{
+
+    font-weight:600;
+
+    position:relative;
+
+    transition:var(--transition);
+
+}
+
+.nav-links a:hover{
+
+    color:var(--gold);
+
+}
+
+.nav-links a.active{
+
+    color:var(--gold);
+
+}
+
+.nav-links a.active::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:100%;
+
+    height:3px;
+
+    background:var(--gold);
+
+    border-radius:20px;
+
+}
+
+.menu-toggle{
+
+    display:none;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:2rem;
+
+}
+
+/* ==========================================================
+   HERO
+   ========================================================== */
+
+.hero{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(320px,1fr));
+
+    gap:4rem;
+
+    align-items:center;
+
+    max-width:1300px;
+
+    margin:auto;
+
+    padding:
+
+        5rem
+        2rem;
+
+}
+
+.hero-tagline{
+
+    font-size:1.3rem;
+
+    color:var(--green);
+
+    margin-bottom:2rem;
+
+}
+
+.primary-button{
+
+    display:inline-block;
+
+    margin-top:1rem;
+
+    padding:
+
+        1rem
+        2rem;
+
+    border:none;
+
+    border-radius:999px;
+
+    background:var(--navy);
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+.primary-button:hover{
+
+    transform:translateY(-2px);
+
+    background:var(--gold);
+
+    color:#222;
+
+}
+
+/* ==========================================================
+   PLAYING CARDS
+   ========================================================== */
+
+.hero-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,160px);
+
+    justify-content:center;
+
+    gap:1.5rem;
+
+}
+
+.playing-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    height:220px;
+
+    box-shadow:var(--shadow);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    padding:1rem;
+
+    font-size:2rem;
+
+    transition:.35s;
+
+}
+
+.playing-card:hover{
+
+    transform:
+
+        rotate(-3deg)
+        translateY(-10px);
+
+}
+
+.spade{
+
+    color:#111;
+
+}
+
+.club{
+
+    color:#111;
+
+}
+
+.heart{
+
+    color:#c53a3a;
+
+}
+
+.diamond{
+
+    color:#c53a3a;
+
+}
+
+/* ==========================================================
+   STAGE CARDS
+   ========================================================== */
+
+.stage-grid{
+
+    display:grid;
+
+    gap:2rem;
+
+}
+
+.stage-card{
+
+    background:white;
+
+    padding:2rem;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+.stage-arrow{
+
+    text-align:center;
+
+    font-size:2rem;
+
+    color:var(--gold);
+
+}
+
+/* ==========================================================
+   INFO CARDS
+   ========================================================== */
+
+.info-grid{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(240px,1fr));
+
+    gap:2rem;
+
+    margin-top:2rem;
+
+}
+
+.info-card{
+
+    background:white;
+
+    padding:2rem;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+/* ==========================================================
+   SUIT GRID
+   ========================================================== */
+
+.suit-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(150px,1fr));
+
+    gap:1rem;
+
+    margin:2rem 0;
+
+}
+
+.suit-card{
+
+    background:white;
+
+    text-align:center;
+
+    padding:1.5rem;
+
+    border-radius:14px;
+
+    font-weight:700;
+
+    box-shadow:var(--shadow);
+
+}
+
+.hearts,
+.diamonds{
+
+    color:#c0392b;
+
+}
+
+.spades,
+.clubs{
+
+    color:#222;
+
+}
+
+.notrump{
+
+    color:var(--green);
+
+}
+
+/* ==========================================================
+   RANK DISPLAY
+   ========================================================== */
+
+.ranking-box{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:.75rem;
+
+    margin:2rem 0;
+
+}
+
+.rank-card{
+
+    width:55px;
+
+    height:70px;
+
+    background:white;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:700;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==========================================================
+   BRIDGE TABLE
+   ========================================================== */
+
+.bridge-table{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    grid-template-rows:
+        auto auto auto;
+
+    gap:1rem;
+
+    max-width:500px;
+
+    margin:3rem auto;
+
+    text-align:center;
+
+}
+
+.seat{
+
+    background:white;
+
+    padding:1rem;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.table-center{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--green);
+
+    color:white;
+
+    border-radius:18px;
+
+    font-weight:bold;
+
+}
+
+.north{
+
+    grid-column:2;
+
+}
+
+.west{
+
+    grid-column:1;
+
+}
+
+.east{
+
+    grid-column:3;
+
+}
+
+.south{
+
+    grid-column:2;
+
+}
+
+/* ==========================================================
+   TABLES
+   ========================================================== */
+
+.simple-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 2rem 0;
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+
+}
+
+.simple-table th {
+
+    background: var(--navy);
+
+    color: white;
+
+    padding: 1rem;
+
+    text-align: left;
+
+}
+
+.simple-table td {
+
+    padding: 1rem;
+
+    border-bottom: 1px solid #ececec;
+
+}
+
+.simple-table tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+.simple-table tbody tr:hover {
+
+    background: #f7f9fc;
+
+}
+
+/* ==========================================================
+   FLOW DIAGRAM
+   ========================================================== */
+
+.flow-diagram {
+
+    margin: 2rem 0;
+
+    padding: 1.5rem;
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    text-align: center;
+
+    font-weight: 600;
+
+    color: var(--navy);
+
+    line-height: 2;
+
+}
+
+/* ==========================================================
+   EXAMPLES
+   ========================================================== */
+
+.example-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 2rem;
+
+    margin-top: 2rem;
+
+}
+
+.example-card {
+
+    background: white;
+
+    padding: 2rem;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    border-left: 6px solid var(--gold);
+
+}
+
+.example-box {
+
+    background: #fffef9;
+
+    border-left: 6px solid var(--gold);
+
+    border-radius: var(--radius);
+
+    padding: 2rem;
+
+    margin: 2rem 0;
+
+    box-shadow: var(--shadow);
+
+}
+
+/* ==========================================================
+   STEP CARDS
+   ========================================================== */
+
+.step-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 2rem;
+
+    margin: 2rem 0;
+
+}
+
+.step-card {
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    padding: 2rem;
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
+
+}
+
+.step-card:hover {
+
+    transform: translateY(-6px);
+
+}
+
+.step-number {
+
+    display: inline-flex;
+
+    width: 48px;
+
+    height: 48px;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: var(--gold);
+
+    color: #222;
+
+    font-weight: bold;
+
+    margin-bottom: 1rem;
+
+}
+
+/* ==========================================================
+   TRICK EXAMPLE
+   ========================================================== */
+
+.trick-example {
+
+    margin: 2rem 0;
+
+    background: white;
+
+    padding: 2rem;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+}
+
+/* ==========================================================
+   TIPS
+   ========================================================== */
+
+.tips-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 2rem;
+
+}
+
+.tip-card {
+
+    background: white;
+
+    padding: 2rem;
+
+    border-radius: var(--radius);
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+
+    transition: .3s;
+
+}
+
+.tip-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.tip-card h3 {
+
+    color: var(--green);
+
+}
+
+/* ==========================================================
+   CHECKLIST
+   ========================================================== */
+
+.checklist {
+
+    display: grid;
+
+    gap: 1rem;
+
+    max-width: 850px;
+
+    margin: auto;
+
+}
+
+.check-item {
+
+    background: white;
+
+    padding: 1.2rem 1.5rem;
+
+    border-radius: 12px;
+
+    box-shadow: var(--shadow);
+
+    font-weight: 500;
+
+}
+
+/* ==========================================================
+   TIMELINE
+   ========================================================== */
+
+.timeline {
+
+    display: grid;
+
+    gap: 1.5rem;
+
+}
+
+.timeline-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    background: white;
+
+    padding: 1.5rem;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+}
+
+.timeline-number {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: var(--gold);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: bold;
+
+}
+
+/* ==========================================================
+   CHEAT SHEET
+   ========================================================== */
+
+.cheat-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 2rem;
+
+}
+
+.cheat-card {
+
+    background: white;
+
+    padding: 2rem;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+}
+
+.cheat-card ul {
+
+    padding-left: 1.25rem;
+
+}
+
+.cheat-card li {
+
+    margin-bottom: .6rem;
+
+}
+
+/* ==========================================================
+   GLOSSARY
+   ========================================================== */
+
+.glossary-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 2rem;
+
+}
+
+.glossary-item {
+
+    background: white;
+
+    padding: 2rem;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
+
+}
+
+.glossary-item:hover {
+
+    transform: translateY(-5px);
+
+}
+
+.glossary-item h3 {
+
+    color: var(--green);
+
+}
+
+/* ==========================================================
+   QUIZ
+   ========================================================== */
+
+.quiz-container {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 2rem;
+
+}
+
+.quiz-progress {
+
+    margin-bottom: 2rem;
+
+}
+
+.progress-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: .75rem;
+
+    font-weight: 600;
+
+}
+
+.progress-bar {
+
+    height: 12px;
+
+    border-radius: 999px;
+
+    background: #ddd;
+
+    overflow: hidden;
+
+}
+
+.progress-fill {
+
+    width: 0;
+
+    height: 100%;
+
+    background: var(--gold);
+
+    transition: width .35s ease;
+
+}
+
+.question-card h3 {
+
+    margin-bottom: 2rem;
+
+}
+
+.answer-buttons {
+
+    display: grid;
+
+    gap: 1rem;
+
+}
+
+.answer-buttons button {
+
+    border: none;
+
+    padding: 1rem;
+
+    background: #eef2f6;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: var(--transition);
+
+    font-size: 1rem;
+
+}
+
+.answer-buttons button:hover {
+
+    background: var(--navy);
+
+    color: white;
+
+}
+
+.answer-buttons button.correct {
+
+    background: #2e8b57;
+
+    color: white;
+
+}
+
+.answer-buttons button.incorrect {
+
+    background: #c0392b;
+
+    color: white;
+
+}
+
+.answer-feedback {
+
+    margin-top: 2rem;
+
+    padding: 1.5rem;
+
+    border-radius: 12px;
+
+    background: #f7f8fa;
+
+}
+
+.hidden {
+
+    display: none;
+
+}
+
+.score-circle {
+
+    width: 180px;
+
+    height: 180px;
+
+    margin: 2rem auto;
+
+    border-radius: 50%;
+
+    background: var(--navy);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 2rem;
+
+    font-weight: bold;
+
+}
+
+/* ==========================================================
+   FAQ
+   ========================================================== */
+
+.faq-list {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+}
+
+.faq-item {
+
+    background: white;
+
+    border-radius: var(--radius);
+
+    margin-bottom: 1rem;
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+
+}
+
+.faq-item summary {
+
+    cursor: pointer;
+
+    padding: 1.5rem;
+
+    font-weight: 700;
+
+    list-style: none;
+
+    position: relative;
+
+    transition: var(--transition);
+
+}
+
+.faq-item summary:hover {
+
+    background: #f5f7fa;
+
+}
+
+.faq-item summary::-webkit-details-marker {
+
+    display: none;
+
+}
+
+.faq-item summary::after {
+
+    content: "+";
+
+    position: absolute;
+
+    right: 1.5rem;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 1.5rem;
+
+    color: var(--gold);
+
+}
+
+.faq-item[open] summary::after {
+
+    content: "–";
+
+}
+
+.faq-item p {
+
+    padding: 0 1.5rem 1.5rem;
+
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.site-footer {
+
+    background: var(--navy);
+
+    color: white;
+
+    padding: 4rem 2rem;
+
+    margin-top: 4rem;
+
+}
+
+.footer-content {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+}
+
+.site-footer h2 {
+
+    color: white;
+
+}
+
+.footer-nav {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 1.5rem;
+
+    margin: 2rem 0;
+
+}
+
+.footer-nav a {
+
+    color: white;
+
+    transition: var(--transition);
+
+}
+
+.footer-nav a:hover {
+
+    color: var(--gold);
+
+}
+
+.copyright {
+
+    opacity: .8;
+
+    font-size: .95rem;
+
+}
+
+/* ==========================================================
+   BACK TO TOP BUTTON
+   ========================================================== */
+
+.back-to-top {
+
+    position: fixed;
+
+    right: 1.5rem;
+
+    bottom: 1.5rem;
+
+    width: 54px;
+
+    height: 54px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--gold);
+
+    color: #222;
+
+    font-size: 1.4rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: var(--shadow);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: var(--transition);
+
+    z-index: 999;
+
+}
+
+.back-to-top.show {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+.back-to-top:hover {
+
+    transform: translateY(-4px);
+
+}
+
+/* ==========================================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================================== */
+
+.section {
+
+    opacity: 0;
+
+    transform: translateY(40px);
+
+    transition:
+
+        opacity .7s ease,
+
+        transform .7s ease;
+
+}
+
+.section.visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+/* ==========================================================
+   MOBILE NAVIGATION
+   ========================================================== */
+
+@media (max-width: 900px) {
+
+    .menu-toggle {
+
+        display: block;
+
+    }
+
+    .nav-links {
+
+        position: absolute;
+
+        top: 100%;
+
+        left: 0;
+
+        right: 0;
+
+        background: white;
+
+        flex-direction: column;
+
+        gap: 0;
+
+        display: none;
+
+        box-shadow: 0 10px 25px rgba(0,0,0,.08);
+
+    }
+
+    .nav-links.open {
+
+        display: flex;
+
+    }
+
+    .nav-links li {
+
+        border-bottom: 1px solid #ececec;
+
+    }
+
+    .nav-links a {
+
+        display: block;
+
+        padding: 1rem 2rem;
+
+    }
+
+}
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width:768px){
+
+    .hero{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+    .hero-cards{
+
+        grid-template-columns:repeat(2,130px);
+
+    }
+
+    .playing-card{
+
+        height:180px;
+
+    }
+
+    .progress-top{
+
+        flex-direction:column;
+
+        gap:.5rem;
+
+    }
+
+    .timeline-item{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .bridge-table{
+
+        max-width:350px;
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width:540px){
+
+    body{
+
+        font-size:15px;
+
+    }
+
+    .section{
+
+        padding:3.5rem 1.25rem;
+
+    }
+
+    .navbar{
+
+        padding:1rem;
+
+    }
+
+    .hero{
+
+        padding:3rem 1.25rem;
+
+    }
+
+    .hero-cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .playing-card{
+
+        width:170px;
+
+        margin:auto;
+
+    }
+
+    .ranking-box{
+
+        justify-content:center;
+
+    }
+
+    .simple-table{
+
+        display:block;
+
+        overflow-x:auto;
+
+    }
+
+    .footer-nav{
+
+        flex-direction:column;
+
+        gap:.75rem;
+
+    }
+
+    .score-circle{
+
+        width:140px;
+
+        height:140px;
+
+        font-size:1.6rem;
+
+    }
+
+}
+
+/* ==========================================================
+   DARK MODE
+   ========================================================== */
+
+@media (prefers-color-scheme: dark){
+
+    :root{
+
+        --cream:#111827;
+
+        --light:#1f2937;
+
+        --navy:#dbeafe;
+
+        --navy-dark:#f3f4f6;
+
+    }
+
+    body{
+
+        background:#111827;
+
+        color:#e5e7eb;
+
+    }
+
+    .site-header{
+
+        background:rgba(17,24,39,.95);
+
+    }
+
+    .site-header,
+    .playing-card,
+    .info-card,
+    .tip-card,
+    .step-card,
+    .example-card,
+    .example-box,
+    .glossary-item,
+    .cheat-card,
+    .faq-item,
+    .question-card,
+    .quiz-container,
+    .simple-table,
+    .stage-card,
+    .seat,
+    .check-item,
+    .timeline-item,
+    .rank-card,
+    .suit-card{
+
+        background:#1f2937;
+
+        color:#f3f4f6;
+
+    }
+
+    h1,
+    h2,
+    h3,
+    h4{
+
+        color:#f8fafc;
+
+    }
+
+    .simple-table th{
+
+        background:#0f172a;
+
+    }
+
+    .simple-table td{
+
+        border-color:#374151;
+
+    }
+
+    .answer-buttons button{
+
+        background:#374151;
+
+        color:white;
+
+    }
+
+    .faq-item summary:hover{
+
+        background:#374151;
+
+    }
+
+}
+
+/* ==========================================================
+   PRINT STYLESHEET
+   ========================================================== */
+
+@media print{
+
+    body{
+
+        background:white;
+
+        color:black;
+
+        font-size:12pt;
+
+    }
+
+    .site-header,
+    .site-footer,
+    .menu-toggle,
+    .back-to-top,
+    #quiz{
+
+        display:none !important;
+
+    }
+
+    .section{
+
+        opacity:1 !important;
+
+        transform:none !important;
+
+        page-break-inside:avoid;
+
+        padding:1rem 0;
+
+    }
+
+    .cheat-sheet{
+
+        border:2px solid black;
+
+        padding:1rem;
+
+    }
+
+    a{
+
+        text-decoration:none;
+
+        color:black;
+
+    }
+
+}
+
+/* ==========================================================
+   END OF STYLESHEET
+   ========================================================== */
