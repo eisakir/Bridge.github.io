@@ -1377,8 +1377,8 @@
     <h2>Practice Quiz</h2>
 
     <p class="section-intro">
-        Ready to test what you've learned? Answer each question and you'll
-        immediately see whether you were correct along with a short explanation.
+        Ready to test what you've learned? Each game selects 10 questions from
+        a bank of 80, with no repeats. Restart for a fresh challenge.
     </p>
 
     <div id="quiz-container" class="quiz-container">
@@ -1398,6 +1398,14 @@
             <div class="progress-bar">
                 <div id="progress-fill" class="progress-fill"></div>
             </div>
+
+            <button
+                id="new-quiz"
+                class="quiz-restart-button"
+                type="button"
+                aria-label="Restart with 10 new random questions">
+                ↻ New Quiz
+            </button>
 
         </div>
 
@@ -1610,6 +1618,7 @@
 <!-- JAVASCRIPT -->
 <!-- ===================================================== -->
 
+<script src="questions.js"></script>
 <script src="script.js"></script>
 
 </body>
