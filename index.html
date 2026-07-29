@@ -22,9 +22,12 @@
 
     <nav class="navbar">
 
-        <div class="logo">
+        <a
+            href="#home"
+            class="logo"
+            aria-label="Learn Bridge — return to home">
             ♠ Learn Bridge
-        </div>
+        </a>
 
         <button
             class="menu-toggle"
@@ -35,7 +38,6 @@
         </button>
 
         <ul class="nav-links" id="navMenu">
-            <li><a href="#home" class="active">Home</a></li>
             <li><a href="#basics">The Basics</a></li>
             <li><a href="#auction">The Auction</a></li>
             <li><a href="#play">Playing the Hand</a></li>
@@ -1020,6 +1022,83 @@
 </section>
 
 <!-- ===================================================== -->
+<!-- CARD PLAYGROUND -->
+<!-- ===================================================== -->
+
+<section id="playground" class="section">
+
+    <h2>Card Playground</h2>
+
+    <p class="section-intro">
+        Work with a real 13-card hand. Drag cards into your preferred order,
+        sort them automatically, and practice the most important rule of play:
+        following suit.
+    </p>
+
+    <div class="card-playground" id="cardPlayground">
+
+        <div class="playground-toolbar">
+            <button type="button" id="newHand">Deal New Hand</button>
+            <button type="button" id="shuffleHand">Shuffle Hand</button>
+            <button type="button" id="sortSuit">Sort by Suit</button>
+            <button type="button" id="sortRank">Sort by Rank</button>
+        </div>
+
+        <div class="follow-suit-challenge">
+            <div class="lead-card-area">
+                <span>Opening lead</span>
+                <div class="practice-card lead-card" id="leadCard">
+                    <span class="card-rank">A</span>
+                    <span class="card-suit">♠</span>
+                </div>
+            </div>
+
+            <div class="challenge-copy">
+                <span class="simulator-label">Following-suit exercise</span>
+                <h3 id="playgroundPrompt">
+                    Choose a card from the suit led.
+                </h3>
+                <p id="playgroundFeedback" aria-live="polite">
+                    Click a card or drag it onto the play area.
+                </p>
+                <button
+                    class="next-exercise hidden"
+                    id="nextExercise"
+                    type="button">
+                    Next Exercise
+                </button>
+            </div>
+
+            <div
+                class="card-drop-zone"
+                id="cardDropZone"
+                tabindex="0"
+                aria-label="Play card here">
+                <span>Play card here</span>
+            </div>
+        </div>
+
+        <div class="playground-score">
+            <span>Correct: <strong id="playgroundCorrect">0</strong></span>
+            <span>Attempts: <strong id="playgroundAttempts">0</strong></span>
+        </div>
+
+        <div
+            class="playground-hand"
+            id="playgroundHand"
+            aria-label="Your 13-card Bridge hand">
+            <!-- JavaScript deals the cards -->
+        </div>
+
+        <p class="drag-hint">
+            Tip: drag cards left or right to arrange your hand manually.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
 <!-- SCORING -->
 <!-- ===================================================== -->
 
@@ -1739,13 +1818,13 @@
 
         <nav class="footer-nav">
 
-            <a href="#home">Home</a>
-
             <a href="#basics">Basics</a>
 
             <a href="#auction">Auction</a>
 
             <a href="#play">Play</a>
+
+            <a href="#playground">Playground</a>
 
             <a href="#scoring">Scoring</a>
 
@@ -1788,6 +1867,7 @@
 
 <script src="questions.js"></script>
 <script src="auction.js"></script>
+<script src="playground.js"></script>
 <script src="script.js"></script>
 
 </body>
