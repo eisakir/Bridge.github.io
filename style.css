@@ -586,77 +586,566 @@ img{
    BRIDGE TABLE
    ========================================================== */
 
-.bridge-table{
+.bridge-lesson {
 
-    display:grid;
+    max-width: 880px;
 
-    grid-template-columns:
-        1fr 1fr 1fr;
+    margin: 3rem auto;
 
-    grid-template-rows:
-        auto auto auto;
+    padding: 1.5rem;
 
-    gap:1rem;
+    background: white;
 
-    max-width:500px;
+    border: 1px solid rgba(31, 59, 87, .1);
 
-    margin:3rem auto;
+    border-radius: 24px;
 
-    text-align:center;
+    box-shadow: var(--shadow);
 
 }
 
-.seat{
+.lesson-heading {
 
-    background:white;
+    min-height: 132px;
 
-    padding:1rem;
-
-    border-radius:14px;
-
-    box-shadow:var(--shadow);
+    text-align: center;
 
 }
 
-.table-center{
+.lesson-heading p {
 
-    display:flex;
+    max-width: 620px;
 
-    align-items:center;
-
-    justify-content:center;
-
-    background:var(--green);
-
-    color:white;
-
-    border-radius:18px;
-
-    font-weight:bold;
+    margin: 0 auto;
 
 }
 
-.north{
+.lesson-step {
 
-    grid-column:2;
+    display: inline-block;
+
+    margin-bottom: .5rem;
+
+    color: var(--green);
+
+    font-size: .82rem;
+
+    font-weight: 800;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
 
 }
 
-.west{
+.lesson-heading strong {
 
-    grid-column:1;
+    display: block;
+
+    margin-bottom: .5rem;
+
+    color: var(--navy);
+
+    font-size: 1.35rem;
 
 }
 
-.east{
+.animated-bridge-table {
 
-    grid-column:3;
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: minmax(140px, 1fr) minmax(230px, 1.5fr) minmax(140px, 1fr);
+
+    grid-template-rows: 145px 230px 145px;
+
+    grid-template-areas:
+        ". north ."
+        "west center east"
+        ". south .";
+
+    gap: 1rem;
+
+    padding: 1.25rem;
+
+    overflow: hidden;
+
+    border: 10px solid #69452f;
+
+    border-radius: 34px;
+
+    background:
+        radial-gradient(circle at center, rgba(255,255,255,.09), transparent 55%),
+        #356a4e;
+
+    box-shadow:
+        inset 0 0 0 3px rgba(255,255,255,.12),
+        inset 0 15px 30px rgba(255,255,255,.06),
+        0 16px 35px rgba(24, 55, 37, .22);
 
 }
 
-.south{
+.table-seat {
 
-    grid-column:2;
+    position: relative;
+
+    z-index: 3;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+}
+
+.table-north { grid-area: north; }
+.table-west { grid-area: west; }
+.table-east { grid-area: east; }
+.table-south { grid-area: south; }
+
+.seat-label {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: .55rem;
+
+    font-weight: 800;
+
+    text-align: center;
+
+    text-shadow: 0 2px 5px rgba(0,0,0,.25);
+
+}
+
+.seat-label small {
+
+    color: #f8e7a4;
+
+    font-size: .7rem;
+
+    font-weight: 700;
+
+    letter-spacing: .05em;
+
+    text-transform: uppercase;
+
+}
+
+.seat-role {
+
+    min-height: 1.2em;
+
+}
+
+.animated-hand {
+
+    position: relative;
+
+    display: flex;
+
+    width: 150px;
+
+    height: 70px;
+
+    justify-content: center;
+
+}
+
+.mini-card {
+
+    position: absolute;
+
+    left: 50%;
+
+    width: 42px;
+
+    height: 58px;
+
+    overflow: hidden;
+
+    border: 2px solid rgba(255,255,255,.8);
+
+    border-radius: 7px;
+
+    opacity: 0;
+
+    background: linear-gradient(135deg, #284e72 25%, #173653 25% 50%, #284e72 50% 75%, #173653 75%);
+
+    background-size: 12px 12px;
+
+    box-shadow: 0 5px 12px rgba(0,0,0,.28);
+
+    transform: translate(-50%, -35px) scale(.5);
+
+    transition:
+        transform .65s cubic-bezier(.2,.8,.2,1),
+        opacity .35s ease,
+        background .45s ease;
+
+}
+
+.mini-card:nth-child(1) { --card-x: -43px; --card-r: -10deg; transition-delay: .08s; }
+.mini-card:nth-child(2) { --card-x: -14px; --card-r: -3deg; transition-delay: .16s; }
+.mini-card:nth-child(3) { --card-x: 15px; --card-r: 4deg; transition-delay: .24s; }
+.mini-card:nth-child(4) { --card-x: 44px; --card-r: 11deg; transition-delay: .32s; }
+
+.bridge-lesson[data-step="1"] .mini-card,
+.bridge-lesson[data-step="2"] .mini-card,
+.bridge-lesson[data-step="3"] .mini-card,
+.bridge-lesson[data-step="4"] .mini-card {
+
+    opacity: 1;
+
+    transform:
+        translate(calc(-50% + var(--card-x)), 0)
+        rotate(var(--card-r))
+        scale(1);
+
+}
+
+.card-back,
+.card-face {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+.card-back {
+
+    color: rgba(255,255,255,.85);
+
+    font-size: 1.25rem;
+
+}
+
+.card-face {
+
+    opacity: 0;
+
+    background: white;
+
+    font-size: .9rem;
+
+    font-weight: 900;
+
+    transform: rotateY(180deg);
+
+    transition: opacity .25s ease, transform .45s ease;
+
+}
+
+.card-face { color: #17202a; }
+.card-face.red { color: #c0392b; }
+
+.card-count {
+
+    position: absolute;
+
+    bottom: -10px;
+
+    padding: .2rem .55rem;
+
+    border-radius: 999px;
+
+    opacity: 0;
+
+    background: rgba(16, 42, 29, .72);
+
+    color: white;
+
+    font-size: .66rem;
+
+    font-weight: 700;
+
+    transition: opacity .35s ease .4s;
+
+}
+
+.bridge-lesson[data-step="1"] .card-count,
+.bridge-lesson[data-step="2"] .card-count,
+.bridge-lesson[data-step="3"] .card-count,
+.bridge-lesson[data-step="4"] .card-count {
+
+    opacity: 1;
+
+}
+
+.felt-center {
+
+    position: relative;
+
+    z-index: 2;
+
+    grid-area: center;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 2px dashed rgba(255,255,255,.26);
+
+    border-radius: 50%;
+
+}
+
+.card-deck {
+
+    width: 54px;
+
+    height: 74px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 3px solid white;
+
+    border-radius: 9px;
+
+    background: linear-gradient(135deg, #284e72 25%, #173653 25% 50%, #284e72 50% 75%, #173653 75%);
+
+    background-size: 12px 12px;
+
+    color: white;
+
+    font-size: 1.5rem;
+
+    box-shadow: 4px 5px 0 rgba(255,255,255,.45), 0 8px 20px rgba(0,0,0,.25);
+
+    transition: opacity .35s ease, transform .5s ease;
+
+}
+
+.bridge-lesson[data-step="1"] .card-deck,
+.bridge-lesson[data-step="2"] .card-deck,
+.bridge-lesson[data-step="3"] .card-deck,
+.bridge-lesson[data-step="4"] .card-deck {
+
+    opacity: 0;
+
+    transform: scale(.7);
+
+}
+
+.dealer-chip {
+
+    position: absolute;
+
+    z-index: 8;
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 4px double #a8790e;
+
+    border-radius: 50%;
+
+    background: #f8dc75;
+
+    color: #513c08;
+
+    font-size: .85rem;
+
+    font-weight: 900;
+
+    box-shadow: 0 5px 12px rgba(0,0,0,.3);
+
+    transition: top .7s ease, left .7s ease, transform .7s ease;
+
+}
+
+.dealer-north .dealer-chip { top: 95px; left: calc(50% + 82px); }
+.dealer-east .dealer-chip { top: 50%; left: calc(100% - 115px); transform: translateY(-50%); }
+.dealer-south .dealer-chip { top: calc(100% - 130px); left: calc(50% + 82px); }
+.dealer-west .dealer-chip { top: 50%; left: 75px; transform: translateY(-50%); }
+
+.trick-label,
+.trick-winner {
+
+    position: absolute;
+
+    opacity: 0;
+
+    color: white;
+
+    text-align: center;
+
+    transition: opacity .35s ease;
+
+}
+
+.trick-label {
+
+    top: 18px;
+
+    font-size: .7rem;
+
+    font-weight: 800;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+}
+
+.trick-winner {
+
+    bottom: 18px;
+
+    color: #ffe99b;
+
+    font-size: .78rem;
+
+}
+
+.bridge-lesson[data-step="2"] .trick-label,
+.bridge-lesson[data-step="3"] .trick-label,
+.bridge-lesson[data-step="4"] .trick-label,
+.bridge-lesson[data-step="4"] .trick-winner {
+
+    opacity: 1;
+
+}
+
+.bridge-lesson[data-step="3"] .is-dummy .card-face,
+.bridge-lesson[data-step="4"] .is-dummy .card-face,
+.bridge-lesson[data-step="2"] .opening-lead .card-face,
+.bridge-lesson[data-step="3"] .opening-lead .card-face,
+.bridge-lesson[data-step="4"] .play-card .card-face {
+
+    opacity: 1;
+
+    transform: rotateY(0);
+
+}
+
+.bridge-lesson[data-step="2"] .table-west .opening-lead,
+.bridge-lesson[data-step="3"] .table-west .opening-lead,
+.bridge-lesson[data-step="4"] .table-west .play-card {
+
+    z-index: 10;
+
+    transform: translate(135px, 45px) rotate(-8deg);
+
+}
+
+.bridge-lesson[data-step="2"] .table-east .opening-lead,
+.bridge-lesson[data-step="3"] .table-east .opening-lead,
+.bridge-lesson[data-step="4"] .table-east .play-card {
+
+    z-index: 10;
+
+    transform: translate(-175px, 45px) rotate(8deg);
+
+}
+
+.bridge-lesson[data-step="2"] .table-north .opening-lead,
+.bridge-lesson[data-step="3"] .table-north .opening-lead,
+.bridge-lesson[data-step="4"] .table-north .play-card {
+
+    z-index: 10;
+
+    transform: translate(-20px, 125px) rotate(6deg);
+
+}
+
+.bridge-lesson[data-step="2"] .table-south .opening-lead,
+.bridge-lesson[data-step="3"] .table-south .opening-lead,
+.bridge-lesson[data-step="4"] .table-south .play-card {
+
+    z-index: 10;
+
+    transform: translate(-20px, -138px) rotate(-4deg);
+
+}
+
+.bridge-lesson[data-step="4"] .trick-winning-card {
+
+    z-index: 10;
+
+    box-shadow: 0 0 0 4px #f8dc75, 0 7px 18px rgba(0,0,0,.35);
+
+}
+
+.lesson-controls {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 1rem;
+
+    margin-top: 1.25rem;
+
+}
+
+.lesson-controls .primary-button {
+
+    min-width: 155px;
+
+    margin-top: 0;
+
+}
+
+.lesson-reset {
+
+    padding: .85rem 1.1rem;
+
+    border: 2px solid var(--navy);
+
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: var(--navy);
+
+    font: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+}
+
+.lesson-reset:hover,
+.lesson-reset:focus-visible {
+
+    background: var(--navy);
+
+    color: white;
 
 }
 
@@ -1605,6 +2094,61 @@ img{
 
     }
 
+    .animated-bridge-table {
+
+        grid-template-columns: 110px minmax(145px, 1fr) 110px;
+
+        grid-template-rows: 130px 190px 130px;
+
+        padding: .75rem;
+
+    }
+
+    .animated-hand {
+
+        width: 110px;
+
+        transform: scale(.82);
+
+    }
+
+    .dealer-north .dealer-chip { top: 84px; left: calc(50% + 58px); }
+    .dealer-east .dealer-chip { left: calc(100% - 85px); }
+    .dealer-south .dealer-chip { top: calc(100% - 115px); left: calc(50% + 58px); }
+    .dealer-west .dealer-chip { left: 48px; }
+
+    .bridge-lesson[data-step="2"] .table-west .opening-lead,
+    .bridge-lesson[data-step="3"] .table-west .opening-lead,
+    .bridge-lesson[data-step="4"] .table-west .play-card {
+
+        transform: translate(98px, 35px) rotate(-8deg);
+
+    }
+
+    .bridge-lesson[data-step="2"] .table-north .opening-lead,
+    .bridge-lesson[data-step="3"] .table-north .opening-lead,
+    .bridge-lesson[data-step="4"] .table-north .play-card {
+
+        transform: translate(-18px, 98px) rotate(6deg);
+
+    }
+
+    .bridge-lesson[data-step="2"] .table-east .opening-lead,
+    .bridge-lesson[data-step="3"] .table-east .opening-lead,
+    .bridge-lesson[data-step="4"] .table-east .play-card {
+
+        transform: translate(-132px, 35px) rotate(8deg);
+
+    }
+
+    .bridge-lesson[data-step="2"] .table-south .opening-lead,
+    .bridge-lesson[data-step="3"] .table-south .opening-lead,
+    .bridge-lesson[data-step="4"] .table-south .play-card {
+
+        transform: translate(-18px, -108px) rotate(-4deg);
+
+    }
+
 }
 
 /* ==========================================================
@@ -1680,6 +2224,91 @@ img{
         height:140px;
 
         font-size:1.6rem;
+
+    }
+
+    .bridge-lesson {
+
+        padding: .75rem;
+
+    }
+
+    .animated-bridge-table {
+
+        grid-template-columns: 78px minmax(118px, 1fr) 78px;
+
+        grid-template-rows: 115px 165px 115px;
+
+        gap: .25rem;
+
+        border-width: 7px;
+
+        border-radius: 24px;
+
+    }
+
+    .seat-label {
+
+        font-size: .78rem;
+
+    }
+
+    .seat-label small {
+
+        font-size: .55rem;
+
+    }
+
+    .animated-hand {
+
+        transform: scale(.65);
+
+    }
+
+    .dealer-chip {
+
+        width: 30px;
+
+        height: 30px;
+
+        font-size: .7rem;
+
+    }
+
+    .dealer-north .dealer-chip { top: 75px; left: calc(50% + 42px); }
+    .dealer-east .dealer-chip { left: calc(100% - 62px); }
+    .dealer-south .dealer-chip { top: calc(100% - 98px); left: calc(50% + 42px); }
+    .dealer-west .dealer-chip { left: 30px; }
+
+    .bridge-lesson[data-step="2"] .table-west .opening-lead,
+    .bridge-lesson[data-step="3"] .table-west .opening-lead,
+    .bridge-lesson[data-step="4"] .table-west .play-card {
+
+        transform: translate(83px, 27px) rotate(-8deg) scale(1.25);
+
+    }
+
+    .bridge-lesson[data-step="2"] .table-north .opening-lead,
+    .bridge-lesson[data-step="3"] .table-north .opening-lead,
+    .bridge-lesson[data-step="4"] .table-north .play-card {
+
+        transform: translate(-18px, 83px) rotate(6deg) scale(1.25);
+
+    }
+
+    .bridge-lesson[data-step="2"] .table-east .opening-lead,
+    .bridge-lesson[data-step="3"] .table-east .opening-lead,
+    .bridge-lesson[data-step="4"] .table-east .play-card {
+
+        transform: translate(-112px, 27px) rotate(8deg) scale(1.25);
+
+    }
+
+    .bridge-lesson[data-step="2"] .table-south .opening-lead,
+    .bridge-lesson[data-step="3"] .table-south .opening-lead,
+    .bridge-lesson[data-step="4"] .table-south .play-card {
+
+        transform: translate(-18px, -92px) rotate(-4deg) scale(1.25);
 
     }
 
