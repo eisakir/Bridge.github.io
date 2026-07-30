@@ -53,7 +53,13 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Automatic HCP, shape analysis, and Standard American coaching
 - Account-saved learning dashboard with daily streak tracking
 - Five-step guided learning path
-- Dedicated collection page with 27 unlockable learning achievements
+- Dedicated collection page with 29 categorized learning achievements
+- Animated achievement-unlock celebrations
+- Daily Bridge Challenge with streak-aware completion
+- Adaptive practice weighted toward weak topics and saved mistakes
+- Mistake Review page for retrying missed questions
+- Topic-by-topic progress statistics and accuracy tracking
+- Installable Progressive Web App with offline lesson and practice support
 - Complete duplicate Bridge scoring calculator with vulnerability,
   doubles, redoubles, bonuses, and penalties
 - Full 52-card, 13-trick deal trainer with legal-play enforcement
@@ -96,12 +102,16 @@ bridge-beginners/
 │── style.css
 │── questions.js
 │── phase3-core.js
+│── phase4.js
+│── app-shell.js
 │── auction.js
 │── playground.js
 │── practice-hands.js
 │── scoring-calculator.js
 │── trick-trainer.js
 │── firebase-sync.js
+│── manifest.webmanifest
+│── sw.js
 │── script.js
 └── README.md
 ```

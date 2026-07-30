@@ -96,3 +96,20 @@ window.bridgeQuestionBank = [
     q("Which skill is central to Bridge?", ["Teamwork", "Physical speed", "Dice rolling", "Bluffing with extra cards"], 0, "Bridge is fundamentally a partnership game."),
     q("After learning the mechanics, what is a sensible next step?", ["Learn a simple bidding system", "Add jokers", "Play with three people", "Ignore defense"], 0, "A simple system such as Standard American or Acol gives partners shared bidding meanings.")
 ];
+
+window.bridgeQuestionBank.forEach((question, index) => {
+    question.id = `bridge-question-${index + 1}`;
+    question.topic = index < 10
+        ? "Basics"
+        : index < 30
+            ? "Auction"
+            : index < 40
+                ? "Roles"
+                : index < 50
+                    ? "Card Play"
+                    : index < 60
+                        ? "Scoring"
+                        : index < 70
+                            ? "Vocabulary"
+                            : "Table Skills";
+});

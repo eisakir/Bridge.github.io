@@ -10,6 +10,7 @@
     <title>Learn Bridge | Beginner's Guide to Contract Bridge</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#173f5e">
 
     <script>
@@ -150,6 +151,8 @@
             <optgroup label="Progress">
                 <option value="#dashboard">Dashboard</option>
                 <option value="#achievements">Achievements</option>
+                <option value="#statistics">Practice Statistics</option>
+                <option value="#mistake-review">Mistake Review</option>
                 <option value="#learning-path">Guided Learning Path</option>
             </optgroup>
             <optgroup label="Learn">
@@ -159,6 +162,8 @@
                 <option value="#scoring">Scoring</option>
             </optgroup>
             <optgroup label="Practice">
+                <option value="#daily-challenge">Daily Challenge</option>
+                <option value="#adaptive-practice">Adaptive Practice</option>
                 <option value="#quiz">Practice Quiz</option>
                 <option value="#trick-trainer">Full Deal Trainer</option>
                 <option value="#playground">Card Playground</option>
@@ -361,6 +366,42 @@
         </a>
     </div>
 
+    <div class="phase-four-dashboard-grid">
+        <a href="#daily-challenge">
+            <span aria-hidden="true">☀️</span>
+            <strong>Daily Challenge</strong>
+            <small>One fresh Bridge question every day</small>
+        </a>
+        <a href="#adaptive-practice">
+            <span aria-hidden="true">🧠</span>
+            <strong>Adaptive Practice</strong>
+            <small>Practice questions chosen for your needs</small>
+        </a>
+        <a href="#mistake-review">
+            <span aria-hidden="true">↻</span>
+            <strong>Mistake Review</strong>
+            <small><span id="dashboardMistakeCount">0</span> questions to revisit</small>
+        </a>
+        <a href="#statistics">
+            <span aria-hidden="true">▥</span>
+            <strong>Practice Statistics</strong>
+            <small>See strengths and areas to improve</small>
+        </a>
+    </div>
+
+    <div class="install-app-card" id="installAppCard">
+        <div>
+            <span class="simulator-label">Take Learn Bridge anywhere</span>
+            <h3>Install the app</h3>
+            <p id="installAppMessage">
+                Install Learn Bridge for quick access and offline lessons.
+            </p>
+        </div>
+        <button class="primary-button" id="installAppButton" type="button">
+            Install Learn Bridge
+        </button>
+    </div>
+
 </section>
 
 <!-- ===================================================== -->
@@ -378,7 +419,7 @@
                 earned yet remain gray so you can see what to work toward.
             </p>
         </div>
-        <strong id="achievementCount">0 / 27 unlocked</strong>
+        <strong id="achievementCount">0 / 29 unlocked</strong>
     </div>
 
     <div class="achievement-legend" aria-label="Achievement color key">
@@ -386,10 +427,114 @@
         <span><i class="legend-dot locked"></i> Not completed</span>
     </div>
 
+    <div class="achievement-filters" id="achievementFilters"
+        aria-label="Filter achievements">
+        <button class="active" type="button" data-achievement-filter="all"
+            aria-pressed="true">
+            All
+        </button>
+        <button type="button" data-achievement-filter="learning"
+            aria-pressed="false">Learning</button>
+        <button type="button" data-achievement-filter="quiz"
+            aria-pressed="false">Quiz</button>
+        <button type="button" data-achievement-filter="bidding"
+            aria-pressed="false">Bidding</button>
+        <button type="button" data-achievement-filter="play"
+            aria-pressed="false">Card Play</button>
+        <button type="button" data-achievement-filter="consistency"
+            aria-pressed="false">
+            Consistency
+        </button>
+    </div>
+
     <div class="achievement-grid achievement-collection" id="achievementGrid">
         <!-- JavaScript inserts every achievement -->
     </div>
 
+</section>
+
+<!-- ===================================================== -->
+<!-- DAILY CHALLENGE -->
+<!-- ===================================================== -->
+
+<section id="daily-challenge" class="section phase-four-page">
+    <div class="feature-page-heading">
+        <div>
+            <span class="simulator-label">A new challenge every day</span>
+            <h2>Daily Bridge Challenge</h2>
+            <p>
+                Answer today’s question to build your streak and unlock
+                daily-practice achievements.
+            </p>
+        </div>
+        <span class="daily-date" id="dailyChallengeDate"></span>
+    </div>
+    <div class="focused-question-card" id="dailyChallengeCard">
+        <!-- JavaScript inserts today's challenge -->
+    </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- ADAPTIVE PRACTICE -->
+<!-- ===================================================== -->
+
+<section id="adaptive-practice" class="section phase-four-page">
+    <div class="feature-page-heading">
+        <div>
+            <span class="simulator-label">Practice smarter</span>
+            <h2>Adaptive Practice</h2>
+            <p>
+                Learn Bridge prioritizes missed questions and topics where
+                your accuracy is lowest.
+            </p>
+        </div>
+        <span class="adaptive-session-score" id="adaptiveSessionScore">
+            Ready
+        </span>
+    </div>
+    <div class="adaptive-practice-card" id="adaptivePracticeCard">
+        <!-- JavaScript inserts the adaptive session -->
+    </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- MISTAKE REVIEW -->
+<!-- ===================================================== -->
+
+<section id="mistake-review" class="section phase-four-page">
+    <div class="feature-page-heading">
+        <div>
+            <span class="simulator-label">Turn errors into progress</span>
+            <h2>Mistake Review</h2>
+            <p>
+                Retry questions you previously missed. A question leaves this
+                page after you answer it correctly.
+            </p>
+        </div>
+        <strong id="mistakeReviewCount">0 to review</strong>
+    </div>
+    <div class="mistake-review-list" id="mistakeReviewList">
+        <!-- JavaScript inserts saved mistakes -->
+    </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- PRACTICE STATISTICS -->
+<!-- ===================================================== -->
+
+<section id="statistics" class="section phase-four-page">
+    <div class="feature-page-heading">
+        <div>
+            <span class="simulator-label">Your learning patterns</span>
+            <h2>Practice Statistics</h2>
+            <p>
+                See how much you have practiced and which Bridge topics
+                deserve your attention next.
+            </p>
+        </div>
+    </div>
+    <div class="statistics-summary" id="statisticsSummary"></div>
+    <div class="topic-statistics" id="topicStatistics"></div>
 </section>
 
 <!-- ===================================================== -->
@@ -2216,7 +2361,8 @@
 
     <p class="section-intro">
         Ready to test what you've learned? Each game selects 10 questions from
-        a bank of 80, with no repeats. Restart for a fresh challenge.
+        a bank of 80, with no repeats. When you are signed in, the mix
+        automatically includes more questions from weaker topics.
     </p>
 
     <div id="quiz-container" class="quiz-container">
@@ -2415,6 +2561,10 @@
 
             <a href="#achievements">Achievements</a>
 
+            <a href="#statistics">Statistics</a>
+
+            <a href="#mistake-review">Mistake Review</a>
+
             <a href="#learning-path">Learning Path</a>
 
             <a href="#basics">Basics</a>
@@ -2434,6 +2584,10 @@
             <a href="#glossary">Glossary</a>
 
             <a href="#quiz">Quiz</a>
+
+            <a href="#daily-challenge">Daily Challenge</a>
+
+            <a href="#adaptive-practice">Adaptive Practice</a>
 
         </nav>
 
@@ -2485,6 +2639,7 @@
 <script src="scoring-calculator.js"></script>
 <script src="trick-trainer.js"></script>
 <script src="script.js"></script>
+<script src="phase4.js"></script>
 <script type="module" src="firebase-sync.js"></script>
 
 </body>

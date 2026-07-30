@@ -43,6 +43,16 @@
             category: "practice",
             sections: ["quiz"]
         },
+        "daily-challenge": {
+            title: "Daily Challenge",
+            category: "practice",
+            sections: ["daily-challenge"]
+        },
+        "adaptive-practice": {
+            title: "Adaptive Practice",
+            category: "practice",
+            sections: ["adaptive-practice"]
+        },
         "trick-trainer": {
             title: "Full Deal Trainer",
             category: "practice",
@@ -102,6 +112,16 @@
             title: "Achievements",
             category: "progress",
             sections: ["achievements"]
+        },
+        statistics: {
+            title: "Practice Statistics",
+            category: "progress",
+            sections: ["statistics"]
+        },
+        "mistake-review": {
+            title: "Mistake Review",
+            category: "progress",
+            sections: ["mistake-review"]
         },
         "learning-path": {
             title: "Guided Learning Path",

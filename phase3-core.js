@@ -18,9 +18,15 @@
             handsAttempts: 0,
             deals: 0,
             scoringUses: 0,
-            animatedLessons: 0
+            animatedLessons: 0,
+            dailyChallenges: 0
         },
         achievements: [],
+        mistakes: [],
+        topicStats: {},
+        daily: {
+            lastCompleted: null
+        },
         streak: {
             count: 0,
             lastDate: null
@@ -224,6 +230,20 @@
             title: "Bridge Devotion",
             description: "Complete fifty lessons and activities.",
             test: data => totalActivity(data) >= 50
+        },
+        {
+            id: "daily-deal",
+            icon: "☀️",
+            title: "Daily Deal",
+            description: "Complete your first Daily Bridge Challenge.",
+            test: data => data.stats.dailyChallenges >= 1
+        },
+        {
+            id: "daily-regular",
+            icon: "📅",
+            title: "Daily Regular",
+            description: "Complete seven Daily Bridge Challenges.",
+            test: data => data.stats.dailyChallenges >= 7
         }
     ];
 
@@ -268,6 +288,11 @@
             lessons: { ...defaults.lessons, ...(saved.lessons || {}) },
             stats: { ...defaults.stats, ...(saved.stats || {}) },
             streak: { ...defaults.streak, ...(saved.streak || {}) },
+            daily: { ...defaults.daily, ...(saved.daily || {}) },
+            topicStats: { ...defaults.topicStats, ...(saved.topicStats || {}) },
+            mistakes: Array.isArray(saved.mistakes)
+                ? saved.mistakes
+                : [],
             achievements: Array.isArray(saved.achievements)
                 ? saved.achievements
                 : []
@@ -315,19 +340,25 @@
             data.stats.handsAttempts +
             data.stats.deals +
             data.stats.scoringUses +
-            data.stats.animatedLessons
+            data.stats.animatedLessons +
+            data.stats.dailyChallenges
         );
     }
 
     function updateAchievements() {
+        const newlyUnlocked = [];
+
         achievementDefinitions.forEach(achievement => {
             if (
                 achievement.test(progress) &&
                 !progress.achievements.includes(achievement.id)
             ) {
                 progress.achievements.push(achievement.id);
+                newlyUnlocked.push(achievement);
             }
         });
+
+        return newlyUnlocked;
     }
 
     function saveProgress() {
@@ -335,13 +366,20 @@
             return;
         }
 
-        updateAchievements();
+        const newlyUnlocked = updateAchievements();
         storageSet(
             PROGRESS_KEY,
             JSON.stringify(progress)
         );
         renderProgress();
         listeners.forEach(listener => listener(getData()));
+
+        if (newlyUnlocked.length) {
+            window.dispatchEvent(new CustomEvent(
+                "bridge:achievements-unlocked",
+                { detail: { achievements: newlyUnlocked } }
+            ));
+        }
     }
 
     function recordActivity(type, detail = {}) {
@@ -380,10 +418,64 @@
             case "animatedLesson":
                 progress.stats.animatedLessons += 1;
                 break;
+            case "dailyChallenge":
+                if (progress.daily.lastCompleted === detail.date) {
+                    return;
+                }
+                progress.daily.lastCompleted = detail.date;
+                progress.stats.dailyChallenges += 1;
+                break;
             default:
                 return;
         }
 
+        saveProgress();
+    }
+
+    function recordQuizAnswer(question, correct) {
+        if (!authenticated || !question?.id) {
+            return;
+        }
+
+        const topic = question.topic || "General";
+        const topicRecord = progress.topicStats[topic] || {
+            correct: 0,
+            total: 0
+        };
+        topicRecord.total += 1;
+        if (correct) {
+            topicRecord.correct += 1;
+        }
+        progress.topicStats[topic] = topicRecord;
+
+        const existing = progress.mistakes.find(
+            mistake => mistake.id === question.id
+        );
+
+        if (!correct) {
+            if (existing) {
+                existing.misses = (existing.misses || 1) + 1;
+                existing.lastMissed = new Date().toISOString();
+            } else {
+                progress.mistakes.push({
+                    id: question.id,
+                    misses: 1,
+                    lastMissed: new Date().toISOString()
+                });
+            }
+        }
+
+        saveProgress();
+    }
+
+    function resolveMistake(questionId) {
+        if (!authenticated) {
+            return;
+        }
+
+        progress.mistakes = progress.mistakes.filter(
+            mistake => mistake.id !== questionId
+        );
         saveProgress();
     }
 
@@ -450,6 +542,40 @@
         if (element) {
             element.textContent = value;
         }
+    }
+
+    function achievementCategory(id) {
+        if (
+            id.includes("quiz") ||
+            id === "perfect-quiz"
+        ) {
+            return "quiz";
+        }
+        if (
+            id.includes("auction") ||
+            id.includes("bid") ||
+            id === "first-call"
+        ) {
+            return "bidding";
+        }
+        if (
+            id.includes("follow") ||
+            id.includes("deal") ||
+            id === "table-tour" ||
+            id === "scorekeeper" ||
+            id === "scoring-pro"
+        ) {
+            return "play";
+        }
+        if (
+            id.includes("streak") ||
+            id.includes("daily") ||
+            id === "bridge-devotion" ||
+            id === "all-rounder"
+        ) {
+            return "consistency";
+        }
+        return "learning";
     }
 
     function renderProgress() {
@@ -523,10 +649,14 @@
                 return (
                     `<article class="achievement-badge ` +
                         `${isUnlocked ? "unlocked" : "locked"}" ` +
+                        `data-achievement-category="` +
+                        `${achievementCategory(achievement.id)}" ` +
                         `aria-label="${achievement.title}: ${status}">` +
                         `<span class="achievement-icon" aria-hidden="true">` +
                             `${achievement.icon}</span>` +
-                        `<div><span class="achievement-status">${status}</span>` +
+                        `<div><span class="achievement-category">` +
+                            `${achievementCategory(achievement.id)}</span>` +
+                        `<span class="achievement-status">${status}</span>` +
                         `<strong>${achievement.title}</strong>` +
                         `<p>${achievement.description}</p></div>` +
                     `</article>`
@@ -547,11 +677,14 @@
 
     window.BridgeProgress = {
         recordActivity,
+        recordQuizAnswer,
+        resolveMistake,
         completeLesson,
         getData,
         replaceData,
         resetData,
         setAuthenticated,
+        isAuthenticated: () => authenticated,
         subscribe,
         render: renderProgress
     };

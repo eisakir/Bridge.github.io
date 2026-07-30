@@ -244,7 +244,31 @@ function shuffledCopy(items) {
 }
 
 function selectQuestions() {
-    quizQuestions = shuffledCopy(questionBank)
+    const progress = window.BridgeProgress?.getData?.() || {};
+    const mistakeIds = new Set(
+        (progress.mistakes || []).map(mistake => mistake.id)
+    );
+    const weakTopics = new Set(
+        Object.entries(progress.topicStats || {})
+            .filter(([, stats]) => (
+                stats.total >= 2 &&
+                stats.correct / stats.total < .75
+            ))
+            .map(([topic]) => topic)
+    );
+    const priorityQuestions = shuffledCopy(questionBank.filter(question => (
+        mistakeIds.has(question.id) || weakTopics.has(question.topic)
+    )));
+    const selected = priorityQuestions.slice(
+        0,
+        Math.min(6, priorityQuestions.length)
+    );
+    const selectedIds = new Set(selected.map(question => question.id));
+    const remaining = shuffledCopy(questionBank.filter(
+        question => !selectedIds.has(question.id)
+    ));
+
+    quizQuestions = [...selected, ...remaining]
         .slice(0, QUESTIONS_PER_GAME)
         .map(question => ({
             ...question,
@@ -584,6 +608,7 @@ function checkAnswer(selectedIndex) {
 
     const question = quizQuestions[currentQuestionIndex];
     const buttons = answerButtons.querySelectorAll("button");
+    const isCorrect = selectedIndex === question.correct;
 
     buttons.forEach((button, index) => {
         button.disabled = true;
@@ -597,7 +622,9 @@ function checkAnswer(selectedIndex) {
         }
     });
 
-    if (selectedIndex === question.correct) {
+    window.BridgeProgress?.recordQuizAnswer?.(question, isCorrect);
+
+    if (isCorrect) {
         score += 1;
         feedbackTitle.textContent = "✅ Correct!";
         playCorrectSound();

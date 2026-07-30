@@ -85,6 +85,48 @@ if (
         const cloudStreak = cloud.streak || {};
         const cloudIsNewer =
             (cloudStreak.lastDate || "") > (localStreak.lastDate || "");
+        const mistakeMap = new Map();
+
+        [
+            ...(local.mistakes || []),
+            ...(cloud.mistakes || [])
+        ].forEach(mistake => {
+            const existing = mistakeMap.get(mistake.id);
+            if (!existing) {
+                mistakeMap.set(mistake.id, { ...mistake });
+                return;
+            }
+            mistakeMap.set(mistake.id, {
+                ...existing,
+                ...mistake,
+                misses: Math.max(
+                    existing.misses || 1,
+                    mistake.misses || 1
+                ),
+                lastMissed: [existing.lastMissed, mistake.lastMissed]
+                    .filter(Boolean)
+                    .sort()
+                    .at(-1) || null
+            });
+        });
+        const topicStats = {};
+        const topicKeys = new Set([
+            ...Object.keys(local.topicStats || {}),
+            ...Object.keys(cloud.topicStats || {})
+        ]);
+
+        topicKeys.forEach(topic => {
+            topicStats[topic] = {
+                correct: Math.max(
+                    local.topicStats?.[topic]?.correct || 0,
+                    cloud.topicStats?.[topic]?.correct || 0
+                ),
+                total: Math.max(
+                    local.topicStats?.[topic]?.total || 0,
+                    cloud.topicStats?.[topic]?.total || 0
+                )
+            };
+        });
 
         return {
             ...local,
@@ -101,6 +143,14 @@ if (
                 )
             },
             stats,
+            mistakes: [...mistakeMap.values()],
+            topicStats,
+            daily: {
+                lastCompleted: [
+                    local.daily?.lastCompleted,
+                    cloud.daily?.lastCompleted
+                ].filter(Boolean).sort().at(-1) || null
+            },
             achievements: [
                 ...new Set([
                     ...(local.achievements || []),
