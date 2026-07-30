@@ -401,7 +401,7 @@ function playCardRiffle(direction = 1) {
     filter.Q.setValueAtTime(0.8, startTime);
 
     gain.gain.setValueAtTime(0.0001, startTime);
-    gain.gain.exponentialRampToValueAtTime(0.045, startTime + 0.018);
+    gain.gain.exponentialRampToValueAtTime(0.07, startTime + 0.018);
     gain.gain.exponentialRampToValueAtTime(
         0.0001,
         startTime + duration
