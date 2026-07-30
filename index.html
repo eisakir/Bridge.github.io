@@ -30,6 +30,7 @@
         }
     </script>
     <link rel="stylesheet" href="style.css">
+    <script defer src="app-shell.js"></script>
 </head>
 
 <body>
@@ -49,23 +50,7 @@
             ♠ Learn Bridge
         </a>
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            type="button"
-            aria-label="Toggle navigation"
-            aria-expanded="false">
-            ☰
-        </button>
-
-        <ul class="nav-links" id="navMenu">
-            <li><a href="#basics">The Basics</a></li>
-            <li><a href="#auction">The Auction</a></li>
-            <li><a href="#play">Playing the Hand</a></li>
-            <li><a href="#scoring">Scoring</a></li>
-            <li><a href="#glossary">Glossary</a></li>
-            <li><a href="#quiz">Practice Quiz</a></li>
-        </ul>
+        <p class="header-context" id="headerContext">Home</p>
 
         <div class="account-controls">
             <button
@@ -124,7 +109,69 @@
 
 </header>
 
-<main>
+<main class="app-shell">
+
+<aside class="app-sidebar" aria-label="Primary navigation">
+    <a href="#home" data-app-nav="home">
+        <span aria-hidden="true">⌂</span>
+        <span>Home</span>
+    </a>
+    <a href="#basics" data-app-nav="learn">
+        <span aria-hidden="true">▤</span>
+        <span>Learn</span>
+    </a>
+    <a href="#quiz" data-app-nav="practice">
+        <span aria-hidden="true">♠</span>
+        <span>Practice</span>
+    </a>
+    <a href="#glossary" data-app-nav="reference">
+        <span aria-hidden="true">⌕</span>
+        <span>Reference</span>
+    </a>
+    <a href="#dashboard" data-app-nav="progress">
+        <span aria-hidden="true">◔</span>
+        <span>Progress</span>
+    </a>
+</aside>
+
+<div class="app-viewport">
+
+<div class="view-toolbar" id="viewToolbar">
+    <div>
+        <span class="view-eyebrow" id="viewEyebrow">Learn Bridge</span>
+        <strong id="viewTitle">Home</strong>
+    </div>
+    <label class="view-jump">
+        <span>Jump to</span>
+        <select id="viewJump" aria-label="Jump to a Learn Bridge page">
+            <optgroup label="Progress">
+                <option value="#dashboard">Dashboard</option>
+                <option value="#learning-path">Guided Learning Path</option>
+            </optgroup>
+            <optgroup label="Learn">
+                <option value="#basics">The Basics</option>
+                <option value="#auction">The Auction</option>
+                <option value="#play">Playing the Hand</option>
+                <option value="#scoring">Scoring</option>
+            </optgroup>
+            <optgroup label="Practice">
+                <option value="#quiz">Practice Quiz</option>
+                <option value="#trick-trainer">Full Deal Trainer</option>
+                <option value="#playground">Card Playground</option>
+                <option value="#practice-hands">Bid Coach</option>
+            </optgroup>
+            <optgroup label="Reference">
+                <option value="#glossary">Glossary</option>
+                <option value="#cheatsheet">Cheat Sheet</option>
+                <option value="#tips">First-Game Tips</option>
+                <option value="#beginner-mistakes">Beginner Mistakes</option>
+                <option value="#etiquette">Bridge Etiquette</option>
+                <option value="#keep-learning">Keep Learning</option>
+                <option value="#faq">Frequently Asked Questions</option>
+            </optgroup>
+        </select>
+    </label>
+</div>
 
 <!-- ===================================================== -->
 <!-- HERO -->
@@ -193,7 +240,7 @@
 <!-- FOUR STAGES -->
 <!-- ===================================================== -->
 
-<section class="section">
+<section id="four-stages" class="section">
 
     <h2>The Four Stages of Every Bridge Hand</h2>
 
@@ -1810,7 +1857,7 @@
 <!-- BEGINNER MISTAKES -->
 <!-- ===================================================== -->
 
-<section class="section">
+<section id="beginner-mistakes" class="section">
 
     <h2>Common Beginner Mistakes</h2>
 
@@ -1871,7 +1918,7 @@
 <!-- ETIQUETTE -->
 <!-- ===================================================== -->
 
-<section class="section">
+<section id="etiquette" class="section">
 
     <h2>Bridge Etiquette</h2>
 
@@ -1909,7 +1956,7 @@
 <!-- KEEP LEARNING -->
 <!-- ===================================================== -->
 
-<section class="section">
+<section id="keep-learning" class="section">
 
     <h2>How to Keep Learning</h2>
 
@@ -2306,6 +2353,8 @@
 
 </section>
 
+</div>
+
 </main>
 
 <!-- ===================================================== -->
@@ -2368,6 +2417,14 @@
     </div>
 
 </footer>
+
+<nav class="mobile-tabbar" aria-label="Primary navigation">
+    <a href="#home" data-app-nav="home"><span aria-hidden="true">⌂</span>Home</a>
+    <a href="#basics" data-app-nav="learn"><span aria-hidden="true">▤</span>Learn</a>
+    <a href="#quiz" data-app-nav="practice"><span aria-hidden="true">♠</span>Practice</a>
+    <a href="#glossary" data-app-nav="reference"><span aria-hidden="true">⌕</span>Reference</a>
+    <a href="#dashboard" data-app-nav="progress"><span aria-hidden="true">◔</span>Progress</a>
+</nav>
 
 <!-- ===================================================== -->
 <!-- BACK TO TOP -->

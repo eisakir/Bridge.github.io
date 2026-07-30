@@ -112,6 +112,7 @@ window.addEventListener("scroll", requestReadingProgressUpdate, {
 });
 window.addEventListener("resize", requestReadingProgressUpdate);
 window.addEventListener("load", requestReadingProgressUpdate);
+window.addEventListener("bridge:view-changed", requestReadingProgressUpdate);
 requestReadingProgressUpdate();
 
 document.querySelectorAll(".navbar a, .navbar button").forEach(control => {
@@ -684,6 +685,10 @@ if (newQuizButton) {
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", event => {
+        if (event.defaultPrevented) {
+            return;
+        }
+
         const targetID = link.getAttribute("href");
 
         if (!targetID || targetID === "#") {

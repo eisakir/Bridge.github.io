@@ -51,14 +51,17 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Suit/rank sorting and randomized following-suit exercises
 - Twelve randomized opening-bid practice hands
 - Automatic HCP, shape analysis, and Standard American coaching
-- Browser-saved learning dashboard with daily streak tracking
+- Account-saved learning dashboard with daily streak tracking
 - Five-step guided learning path
 - Seven unlockable learning achievements
 - Complete duplicate Bridge scoring calculator with vulnerability,
   doubles, redoubles, bonuses, and penalties
 - Full 52-card, 13-trick deal trainer with legal-play enforcement
 - Persistent Light/Dark mode switch in the top navigation
-- Optional Google sign-in with secure Firestore progress synchronization
+- Google sign-in with secure Firestore progress synchronization
+- Focused app-style views instead of one continuous scrolling page
+- Desktop sidebar, mobile bottom navigation, and grouped page jump menu
+- Bookmarkable routes with browser Back and Forward support
 
 ---
 
