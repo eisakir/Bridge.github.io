@@ -484,8 +484,12 @@
 
     const hero = document.getElementById("home");
     const dashboard = document.getElementById("dashboard");
+    const learningPath = document.getElementById("learning-path");
     if (hero && dashboard) {
         hero.insertAdjacentElement("afterend", dashboard);
+        if (learningPath) {
+            dashboard.insertAdjacentElement("afterend", learningPath);
+        }
     }
 
     applyAccessibility();
