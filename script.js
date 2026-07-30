@@ -111,12 +111,7 @@ function updateReadingProgress() {
     const distance = Math.abs(window.scrollY - lastScrollSoundPosition);
 
     if (scrollSoundReady && distance >= 360) {
-        playTone({
-            frequency: window.scrollY > lastScrollSoundPosition ? 285 : 360,
-            duration: 0.035,
-            type: "triangle",
-            volume: 0.012
-        });
+        playCardRiffle(window.scrollY > lastScrollSoundPosition ? 1 : -1);
         lastScrollSoundPosition = window.scrollY;
     }
 
@@ -356,6 +351,67 @@ function playTone({
 
     oscillator.start(startTime);
     oscillator.stop(startTime + duration + 0.03);
+}
+
+function playCardRiffle(direction = 1) {
+    if (
+        window.BridgeA11y &&
+        !window.BridgeA11y.soundEnabled()
+    ) {
+        return;
+    }
+
+    const context = getAudioContext();
+
+    if (!context || context.state !== "running") {
+        return;
+    }
+
+    const duration = 0.16;
+    const sampleRate = context.sampleRate;
+    const buffer = context.createBuffer(
+        1,
+        Math.ceil(sampleRate * duration),
+        sampleRate
+    );
+    const samples = buffer.getChannelData(0);
+    const cardSpacing = sampleRate * 0.012;
+
+    for (let index = 0; index < samples.length; index += 1) {
+        const position = index / samples.length;
+        const cardPulse = Math.pow(
+            Math.max(0, 1 - (index % cardSpacing) / (cardSpacing * 0.42)),
+            4
+        );
+        const overallFade = Math.sin(Math.PI * position);
+        samples[index] =
+            (Math.random() * 2 - 1) * cardPulse * overallFade * 0.7;
+    }
+
+    const source = context.createBufferSource();
+    const filter = context.createBiquadFilter();
+    const gain = context.createGain();
+    const startTime = context.currentTime;
+
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(
+        direction > 0 ? 1450 : 1750,
+        startTime
+    );
+    filter.Q.setValueAtTime(0.8, startTime);
+
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.045, startTime + 0.018);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        startTime + duration
+    );
+
+    source.buffer = buffer;
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(context.destination);
+    source.start(startTime);
 }
 
 function playCorrectSound() {
