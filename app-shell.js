@@ -98,6 +98,11 @@
             category: "progress",
             sections: ["dashboard"]
         },
+        achievements: {
+            title: "Achievements",
+            category: "progress",
+            sections: ["achievements"]
+        },
         "learning-path": {
             title: "Guided Learning Path",
             category: "progress",

@@ -53,7 +53,7 @@ The site is built using only **HTML5**, **CSS3**, and **Vanilla JavaScript**, ma
 - Automatic HCP, shape analysis, and Standard American coaching
 - Account-saved learning dashboard with daily streak tracking
 - Five-step guided learning path
-- Seven unlockable learning achievements
+- Dedicated collection page with 27 unlockable learning achievements
 - Complete duplicate Bridge scoring calculator with vulnerability,
   doubles, redoubles, bonuses, and penalties
 - Full 52-card, 13-trick deal trainer with legal-play enforcement

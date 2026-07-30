@@ -36,11 +36,67 @@
             test: data => totalActivity(data) > 0
         },
         {
+            id: "first-lesson",
+            icon: "📖",
+            title: "Lesson Learner",
+            description: "Complete your first guided lesson.",
+            test: data => lessonIds.some(id => data.lessons[id])
+        },
+        {
+            id: "lesson-halfway",
+            icon: "🧭",
+            title: "Halfway There",
+            description: "Complete three guided lessons.",
+            test: data => lessonIds.filter(id => data.lessons[id]).length >= 3
+        },
+        {
+            id: "path-complete",
+            icon: "🎓",
+            title: "Bridge Graduate",
+            description: "Complete all five guided lessons.",
+            test: data => lessonIds.every(id => data.lessons[id])
+        },
+        {
+            id: "quiz-rookie",
+            icon: "❓",
+            title: "Quiz Rookie",
+            description: "Finish your first practice quiz.",
+            test: data => data.stats.quizAttempts >= 1
+        },
+        {
+            id: "quiz-explorer",
+            icon: "🧠",
+            title: "Quiz Explorer",
+            description: "Finish five practice quizzes.",
+            test: data => data.stats.quizAttempts >= 5
+        },
+        {
+            id: "quiz-veteran",
+            icon: "📚",
+            title: "Quiz Veteran",
+            description: "Finish ten practice quizzes.",
+            test: data => data.stats.quizAttempts >= 10
+        },
+        {
+            id: "quiz-ace",
+            icon: "⭐",
+            title: "Quiz Ace",
+            description: "Earn a best quiz score of at least 80%.",
+            test: data => data.stats.quizBest >= 80
+        },
+        {
             id: "perfect-quiz",
             icon: "🏆",
             title: "Perfect Quiz",
             description: "Score 100% on a quiz.",
             test: data => data.stats.quizBest === 100
+        },
+        {
+            id: "first-auction",
+            icon: "📣",
+            title: "First Call",
+            description: "Complete your first auction.",
+            test: data => data.stats.auctions >= 1
         },
         {
             id: "auctioneer",
@@ -50,11 +106,39 @@
             test: data => data.stats.auctions >= 3
         },
         {
+            id: "auction-master",
+            icon: "🔨",
+            title: "Auction Master",
+            description: "Complete ten auctions.",
+            test: data => data.stats.auctions >= 10
+        },
+        {
+            id: "first-follow",
+            icon: "♣",
+            title: "Suit Starter",
+            description: "Solve your first following-suit exercise.",
+            test: data => data.stats.exercises >= 1
+        },
+        {
             id: "follow-suit",
             icon: "🃏",
             title: "Follow-Suit Pro",
             description: "Solve five following-suit exercises.",
             test: data => data.stats.exercises >= 5
+        },
+        {
+            id: "follow-suit-master",
+            icon: "🎯",
+            title: "Follow-Suit Master",
+            description: "Solve fifteen following-suit exercises.",
+            test: data => data.stats.exercises >= 15
+        },
+        {
+            id: "first-bid",
+            icon: "💬",
+            title: "Opening Bid",
+            description: "Answer your first opening hand correctly.",
+            test: data => data.stats.handsCorrect >= 1
         },
         {
             id: "bid-student",
@@ -64,6 +148,13 @@
             test: data => data.stats.handsCorrect >= 5
         },
         {
+            id: "bid-expert",
+            icon: "🧩",
+            title: "Bid Expert",
+            description: "Answer fifteen opening hands correctly.",
+            test: data => data.stats.handsCorrect >= 15
+        },
+        {
             id: "full-deal",
             icon: "♠",
             title: "Full Deal",
@@ -71,11 +162,68 @@
             test: data => data.stats.deals >= 1
         },
         {
-            id: "path-complete",
-            icon: "🎓",
-            title: "Bridge Graduate",
-            description: "Complete all five guided lessons.",
-            test: data => lessonIds.every(id => data.lessons[id])
+            id: "deal-maker",
+            icon: "🂡",
+            title: "Deal Maker",
+            description: "Finish five complete deals.",
+            test: data => data.stats.deals >= 5
+        },
+        {
+            id: "scorekeeper",
+            icon: "🧮",
+            title: "Scorekeeper",
+            description: "Use the scoring calculator once.",
+            test: data => data.stats.scoringUses >= 1
+        },
+        {
+            id: "scoring-pro",
+            icon: "➕",
+            title: "Scoring Pro",
+            description: "Use the scoring calculator five times.",
+            test: data => data.stats.scoringUses >= 5
+        },
+        {
+            id: "table-tour",
+            icon: "♦",
+            title: "Table Tour",
+            description: "Complete the animated table lesson.",
+            test: data => data.stats.animatedLessons >= 1
+        },
+        {
+            id: "streak-three",
+            icon: "🔥",
+            title: "Three-Day Streak",
+            description: "Practice on three consecutive days.",
+            test: data => data.streak.count >= 3
+        },
+        {
+            id: "streak-seven",
+            icon: "🌟",
+            title: "Week at the Table",
+            description: "Practice on seven consecutive days.",
+            test: data => data.streak.count >= 7
+        },
+        {
+            id: "all-rounder",
+            icon: "🌈",
+            title: "All-Rounder",
+            description: "Try every type of interactive activity.",
+            test: data => (
+                data.stats.quizAttempts > 0 &&
+                data.stats.auctions > 0 &&
+                data.stats.exercises > 0 &&
+                data.stats.handsAttempts > 0 &&
+                data.stats.deals > 0 &&
+                data.stats.scoringUses > 0 &&
+                data.stats.animatedLessons > 0
+            )
+        },
+        {
+            id: "bridge-devotion",
+            icon: "👑",
+            title: "Bridge Devotion",
+            description: "Complete fifty lessons and activities.",
+            test: data => totalActivity(data) >= 50
         }
     ];
 
@@ -366,25 +514,33 @@
         const grid = document.getElementById("achievementGrid");
 
         if (grid) {
-            const unlockedAchievements = achievementDefinitions.filter(
-                achievement => progress.achievements.includes(achievement.id)
-            );
+            const unlocked = new Set(progress.achievements);
 
-            grid.innerHTML = unlockedAchievements.length
-                ? unlockedAchievements.map(achievement => (
-                    `<article class="achievement-badge unlocked">` +
-                        `<span>${achievement.icon}</span>` +
-                        `<div><strong>${achievement.title}</strong>` +
+            grid.innerHTML = achievementDefinitions.map(achievement => {
+                const isUnlocked = unlocked.has(achievement.id);
+                const status = isUnlocked ? "Unlocked" : "Not yet unlocked";
+
+                return (
+                    `<article class="achievement-badge ` +
+                        `${isUnlocked ? "unlocked" : "locked"}" ` +
+                        `aria-label="${achievement.title}: ${status}">` +
+                        `<span class="achievement-icon" aria-hidden="true">` +
+                            `${achievement.icon}</span>` +
+                        `<div><span class="achievement-status">${status}</span>` +
+                        `<strong>${achievement.title}</strong>` +
                         `<p>${achievement.description}</p></div>` +
                     `</article>`
-                )).join("")
-                : `<p class="achievement-empty">Keep learning—your first ` +
-                    `milestone will appear here when you unlock it.</p>`;
+                );
+            }).join("");
         }
+
+        const unlockedCount = achievementDefinitions.filter(
+            achievement => progress.achievements.includes(achievement.id)
+        ).length;
 
         setText(
             "achievementCount",
-            `${progress.achievements.length} / ` +
+            `${unlockedCount} / ` +
             `${achievementDefinitions.length} unlocked`
         );
     }

@@ -149,6 +149,7 @@
         <select id="viewJump" aria-label="Choose any lesson, practice tool, reference, or progress page">
             <optgroup label="Progress">
                 <option value="#dashboard">Dashboard</option>
+                <option value="#achievements">Achievements</option>
                 <option value="#learning-path">Guided Learning Path</option>
             </optgroup>
             <optgroup label="Learn">
@@ -349,17 +350,44 @@
         </article>
     </div>
 
-    <div class="achievement-panel">
-        <div class="panel-heading">
-            <div>
-                <span class="simulator-label">Milestones</span>
-                <h3>Achievements</h3>
-            </div>
-            <span id="achievementCount">0 / 7 unlocked</span>
+    <div class="dashboard-achievement-link">
+        <div>
+            <span class="simulator-label">Milestones</span>
+            <h3>Achievement Collection</h3>
+            <p>See every challenge and track what you still have to unlock.</p>
         </div>
-        <div class="achievement-grid" id="achievementGrid">
-            <!-- JavaScript inserts achievement badges -->
+        <a href="#achievements" class="primary-button">
+            View all achievements
+        </a>
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ACHIEVEMENTS -->
+<!-- ===================================================== -->
+
+<section id="achievements" class="section achievements-page">
+
+    <div class="achievements-heading">
+        <div>
+            <span class="simulator-label">Your collection</span>
+            <h2>Achievements</h2>
+            <p>
+                Completed achievements are green. Achievements you have not
+                earned yet remain gray so you can see what to work toward.
+            </p>
         </div>
+        <strong id="achievementCount">0 / 27 unlocked</strong>
+    </div>
+
+    <div class="achievement-legend" aria-label="Achievement color key">
+        <span><i class="legend-dot unlocked"></i> Completed</span>
+        <span><i class="legend-dot locked"></i> Not completed</span>
+    </div>
+
+    <div class="achievement-grid achievement-collection" id="achievementGrid">
+        <!-- JavaScript inserts every achievement -->
     </div>
 
 </section>
@@ -2384,6 +2412,8 @@
         <nav class="footer-nav">
 
             <a href="#dashboard">Dashboard</a>
+
+            <a href="#achievements">Achievements</a>
 
             <a href="#learning-path">Learning Path</a>
 
