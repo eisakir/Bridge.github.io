@@ -174,16 +174,14 @@ if (
         const reference = doc(database, "users", user.uid);
         try {
             const snapshot = await getDoc(reference);
-            const local = window.BridgeProgress.getData();
             const cloud = snapshot.exists()
                 ? snapshot.data().progress || {}
                 : {};
-            const merged = mergeProgress(local, cloud);
 
             applyingCloudData = true;
-            window.BridgeProgress.replaceData(merged);
+            window.BridgeProgress.replaceData(cloud);
             applyingCloudData = false;
-            await saveToCloud(merged);
+            await saveToCloud(window.BridgeProgress.getData());
         } catch (error) {
             applyingCloudData = false;
             console.error("Could not load Bridge progress:", error);
@@ -223,7 +221,6 @@ if (
 
         try {
             await signOut(auth);
-            window.BridgeProgress.resetData();
         } catch (error) {
             currentUser = auth.currentUser;
             console.error("Google sign-out failed:", error);
@@ -243,9 +240,11 @@ if (
 
     onAuthStateChanged(auth, user => {
         if (!user) {
+            window.BridgeProgress.setAuthenticated(false);
             showSignedOut();
             return;
         }
+        window.BridgeProgress.setAuthenticated(true);
         currentUser = user;
         showSignedIn(user);
         loadCloudProgress(user);

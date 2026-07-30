@@ -103,6 +103,14 @@
         }
     }
 
+    function storageRemove(key) {
+        try {
+            window.localStorage.removeItem(key);
+        } catch {
+            /* The in-memory reset still protects signed-out progress. */
+        }
+    }
+
     function normalizeProgress(saved = {}) {
         const defaults = defaultProgress();
 
@@ -118,13 +126,8 @@
         };
     }
 
-    function loadProgress() {
-        return normalizeProgress(
-            safeParse(storageGet(PROGRESS_KEY), {})
-        );
-    }
-
-    let progress = loadProgress();
+    let progress = defaultProgress();
+    let authenticated = false;
 
     function localDateKey(date = new Date()) {
         return [
@@ -180,6 +183,10 @@
     }
 
     function saveProgress() {
+        if (!authenticated) {
+            return;
+        }
+
         updateAchievements();
         storageSet(
             PROGRESS_KEY,
@@ -190,6 +197,10 @@
     }
 
     function recordActivity(type, detail = {}) {
+        if (!authenticated) {
+            return;
+        }
+
         updateStreak();
 
         switch (type) {
@@ -229,7 +240,7 @@
     }
 
     function completeLesson(id, complete = true) {
-        if (!lessonIds.includes(id)) {
+        if (!authenticated || !lessonIds.includes(id)) {
             return;
         }
 
@@ -245,13 +256,25 @@
     function replaceData(nextProgress) {
         progress = normalizeProgress(nextProgress);
         updateAchievements();
-        storageSet(PROGRESS_KEY, JSON.stringify(progress));
+        if (authenticated) {
+            storageSet(PROGRESS_KEY, JSON.stringify(progress));
+        }
         renderProgress();
         listeners.forEach(listener => listener(getData()));
     }
 
     function resetData() {
+        storageRemove(PROGRESS_KEY);
         replaceData(defaultProgress());
+    }
+
+    function setAuthenticated(isAuthenticated) {
+        authenticated = Boolean(isAuthenticated);
+        if (!authenticated) {
+            resetData();
+        } else {
+            renderProgress();
+        }
     }
 
     function subscribe(listener) {
@@ -331,7 +354,12 @@
 
             card.classList.toggle("completed", complete);
             status.textContent = complete ? "Completed ✓" : "Not completed";
-            button.textContent = complete ? "Completed" : "Mark complete";
+            button.textContent = !authenticated
+                ? "Sign in to complete"
+                : complete
+                    ? "Completed"
+                    : "Mark complete";
+            button.disabled = !authenticated;
             button.setAttribute("aria-pressed", String(complete));
         });
 
@@ -367,6 +395,7 @@
         getData,
         replaceData,
         resetData,
+        setAuthenticated,
         subscribe,
         render: renderProgress
     };
@@ -377,7 +406,7 @@
             const wasComplete = Boolean(progress.lessons[id]);
             completeLesson(id, !wasComplete);
 
-            if (!wasComplete) {
+            if (authenticated && !wasComplete) {
                 window.dispatchEvent(
                     new CustomEvent("bridge:lesson-completed")
                 );
