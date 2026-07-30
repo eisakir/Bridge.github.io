@@ -221,6 +221,7 @@ document.querySelectorAll(".glossary-item").forEach(card => {
     function toggleGlossaryCard() {
         const isFlipped = card.classList.toggle("flipped");
 
+        playCardSwish(isFlipped ? 1 : -1);
         card.setAttribute("aria-expanded", String(isFlipped));
         card.setAttribute(
             "aria-label",
@@ -402,6 +403,68 @@ function playCardRiffle(direction = 1) {
 
     gain.gain.setValueAtTime(0.0001, startTime);
     gain.gain.exponentialRampToValueAtTime(0.14, startTime + 0.018);
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        startTime + duration
+    );
+
+    source.buffer = buffer;
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(context.destination);
+    source.start(startTime);
+}
+
+function playCardSwish(direction = 1) {
+    if (
+        window.BridgeA11y &&
+        !window.BridgeA11y.soundEnabled()
+    ) {
+        return;
+    }
+
+    const context = getAudioContext();
+
+    if (!context) {
+        return;
+    }
+
+    if (context.state === "suspended") {
+        context.resume().catch(() => {});
+    }
+
+    const duration = 0.13;
+    const buffer = context.createBuffer(
+        1,
+        Math.ceil(context.sampleRate * duration),
+        context.sampleRate
+    );
+    const samples = buffer.getChannelData(0);
+
+    for (let index = 0; index < samples.length; index += 1) {
+        const position = index / samples.length;
+        const envelope = Math.sin(Math.PI * position);
+        samples[index] = (Math.random() * 2 - 1) * envelope;
+    }
+
+    const source = context.createBufferSource();
+    const filter = context.createBiquadFilter();
+    const gain = context.createGain();
+    const startTime = context.currentTime;
+
+    filter.type = "bandpass";
+    filter.Q.setValueAtTime(0.7, startTime);
+    filter.frequency.setValueAtTime(
+        direction > 0 ? 650 : 2200,
+        startTime
+    );
+    filter.frequency.exponentialRampToValueAtTime(
+        direction > 0 ? 2200 : 650,
+        startTime + duration
+    );
+
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.09, startTime + 0.025);
     gain.gain.exponentialRampToValueAtTime(
         0.0001,
         startTime + duration
