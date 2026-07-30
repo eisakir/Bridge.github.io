@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="description" content="Learn Contract Bridge from scratch with this beginner-friendly interactive guide.">
     <meta name="keywords" content="Bridge, Contract Bridge, Learn Bridge, Card Game, Beginner Bridge">
     <meta name="author" content="Learn Bridge">
 
     <title>Learn Bridge | Beginner's Guide to Contract Bridge</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#173f5e">
 
     <script>
         try {
@@ -49,6 +52,7 @@
         <button
             class="menu-toggle"
             id="menuToggle"
+            type="button"
             aria-label="Toggle navigation"
             aria-expanded="false">
             ☰
@@ -67,18 +71,32 @@
             <button
                 class="google-sign-in"
                 id="googleSignIn"
+                aria-describedby="authMessage"
                 type="button">
                 <span aria-hidden="true">G</span>
                 Sign in
             </button>
             <div class="user-account hidden" id="userAccount">
-                <img id="userAvatar" alt="" referrerpolicy="no-referrer">
+                <img
+                    id="userAvatar"
+                    width="30"
+                    height="30"
+                    alt=""
+                    referrerpolicy="no-referrer">
                 <div>
                     <strong id="userName">Bridge learner</strong>
-                    <small id="syncStatus">Progress saved</small>
+                    <small
+                        id="syncStatus"
+                        role="status"
+                        aria-live="polite">Progress saved</small>
                 </div>
                 <button id="googleSignOut" type="button">Sign out</button>
             </div>
+            <span
+                class="auth-message"
+                id="authMessage"
+                role="status"
+                aria-live="polite"></span>
         </div>
 
         <button
@@ -2167,7 +2185,7 @@
 
                 <p id="feedback-text"></p>
 
-                <button id="next-question" class="primary-button">
+                <button id="next-question" class="primary-button" type="button">
                     Next Question
                 </button>
 
@@ -2187,7 +2205,7 @@
                 Great effort!
             </p>
 
-            <button id="restart-quiz" class="primary-button">
+            <button id="restart-quiz" class="primary-button" type="button">
                 Restart Quiz
             </button>
 
@@ -2358,6 +2376,7 @@
 <button
     id="backToTop"
     class="back-to-top"
+    type="button"
     aria-label="Back to top">
 
     ↑

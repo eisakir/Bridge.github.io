@@ -393,20 +393,29 @@
             {}
         )
     };
-    if (!["light", "dark"].includes(accessibility.theme)) {
-        accessibility.theme =
-            window.matchMedia?.("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+    if (!["auto", "light", "dark"].includes(accessibility.theme)) {
+        accessibility.theme = "auto";
     }
 
     const themeToggle = document.getElementById("themeToggle");
+    const systemTheme = window.matchMedia?.(
+        "(prefers-color-scheme: dark)"
+    );
 
     function applyAccessibility() {
         const root = document.documentElement;
 
-        const isDark = accessibility.theme === "dark";
+        const isDark =
+            accessibility.theme === "dark" ||
+            (
+                accessibility.theme === "auto" &&
+                Boolean(systemTheme?.matches)
+            );
         root.dataset.theme = isDark ? "dark" : "light";
+        document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            "content",
+            isDark ? "#0d1b25" : "#173f5e"
+        );
         root.classList.toggle(
             "a11y-large",
             accessibility.text === "large"
@@ -443,10 +452,23 @@
     }
 
     themeToggle?.addEventListener("click", () => {
-        accessibility.theme =
-            accessibility.theme === "dark" ? "light" : "dark";
+        const currentlyDark =
+            document.documentElement.dataset.theme === "dark";
+        accessibility.theme = currentlyDark ? "light" : "dark";
         applyAccessibility();
     });
+
+    function followSystemTheme() {
+        if (accessibility.theme === "auto") {
+            applyAccessibility();
+        }
+    }
+
+    if (systemTheme?.addEventListener) {
+        systemTheme.addEventListener("change", followSystemTheme);
+    } else {
+        systemTheme?.addListener?.(followSystemTheme);
+    }
 
     window.BridgeA11y = {
         soundEnabled: () => accessibility.sound,

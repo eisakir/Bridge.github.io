@@ -34,6 +34,7 @@ const userAccount = document.getElementById("userAccount");
 const userAvatar = document.getElementById("userAvatar");
 const userName = document.getElementById("userName");
 const syncStatus = document.getElementById("syncStatus");
+const authMessage = document.getElementById("authMessage");
 
 if (
     signInButton &&
@@ -54,6 +55,14 @@ if (
     function setStatus(message, state = "") {
         syncStatus.textContent = message;
         syncStatus.dataset.state = state;
+    }
+
+    function setAuthMessage(message, state = "") {
+        if (!authMessage) {
+            return;
+        }
+        authMessage.textContent = message;
+        authMessage.dataset.state = state;
     }
 
     function mergeProgress(local, cloud) {
@@ -148,6 +157,7 @@ if (
     }
 
     function showSignedIn(user) {
+        setAuthMessage("");
         signInButton.classList.add("hidden");
         userAccount.classList.remove("hidden");
         userName.textContent =
@@ -183,23 +193,30 @@ if (
 
     signInButton.addEventListener("click", async () => {
         signInButton.disabled = true;
+        signInButton.setAttribute("aria-busy", "true");
         signInButton.textContent = "Opening Google…";
+        setAuthMessage("");
         try {
             await signInWithPopup(auth, provider);
         } catch (error) {
             console.error("Google sign-in failed:", error);
-            signInButton.textContent =
+            const message =
                 error.code === "auth/unauthorized-domain"
-                    ? "Domain not authorized"
-                    : "Try sign-in again";
+                    ? "This website is not authorized for Google sign-in."
+                    : "Google sign-in did not finish. Please try again.";
+            setAuthMessage(message, "error");
+            showSignedOut();
         } finally {
             signInButton.disabled = false;
+            signInButton.removeAttribute("aria-busy");
         }
     });
 
     signOutButton.addEventListener("click", async () => {
         signOutButton.disabled = true;
+        signOutButton.setAttribute("aria-busy", "true");
         setStatus("Signing out…", "saving");
+        setAuthMessage("");
         applyingCloudData = true;
         currentUser = null;
         window.clearTimeout(saveTimer);
@@ -211,9 +228,14 @@ if (
             currentUser = auth.currentUser;
             console.error("Google sign-out failed:", error);
             setStatus("Could not sign out", "error");
+            setAuthMessage(
+                "Could not sign out. Check your connection and try again.",
+                "error"
+            );
         } finally {
             applyingCloudData = false;
             signOutButton.disabled = false;
+            signOutButton.removeAttribute("aria-busy");
         }
     });
 

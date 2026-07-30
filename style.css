@@ -5371,3 +5371,273 @@ html[data-theme="light"] .theme-toggle{color:#17324a;background:#fff;}
     .user-account>div{display:none;}
     .user-account button{padding:.5rem;}
 }
+
+/* ==========================================================
+   DESIGN SYSTEM HARDENING
+   Safe areas, native typography, touch targets, and states
+========================================================== */
+
+:root{
+    --background-color:#f8f6ef;
+    --surface-color:#ffffff;
+    --text-color:#243447;
+    --muted-text-color:#526a78;
+    --accent-color:#17577f;
+    --gold-text:#806400;
+    --success-color:#197451;
+    --danger-color:#b42318;
+    --focus-color:#006fc9;
+    --z-content:1;
+    --z-sticky:900;
+    --z-overlay:1100;
+    --z-celebration:1200;
+}
+
+html{
+    color-scheme:light;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+}
+
+html[data-theme="dark"]{
+    color-scheme:dark;
+    --background-color:#0d1b25;
+    --surface-color:#1f3441;
+    --text-color:#eef4f7;
+    --muted-text-color:#c1d0d8;
+    --accent-color:#5db8ee;
+    --gold-text:#f0c448;
+    --success-color:#62d39c;
+    --danger-color:#ff9e95;
+    --focus-color:#77c9ff;
+}
+
+body{
+    min-width:0;
+    max-width:100%;
+    background:var(--background-color);
+    color:var(--text-color);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    overflow-wrap:break-word;
+}
+
+main,
+section,
+article,
+div{min-width:0;}
+
+img,
+svg,
+video,
+canvas{
+    display:block;
+    max-width:100%;
+    height:auto;
+}
+
+.user-account img{aspect-ratio:1;}
+
+.site-header{
+    z-index:var(--z-sticky);
+    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px);
+}
+
+.navbar{
+    padding-top:max(1rem,env(safe-area-inset-top));
+    padding-right:max(2rem,env(safe-area-inset-right));
+    padding-left:max(2rem,env(safe-area-inset-left));
+}
+
+.section,
+.hero{
+    padding-right:max(2rem,env(safe-area-inset-right));
+    padding-left:max(2rem,env(safe-area-inset-left));
+}
+
+.site-footer{
+    padding-right:max(2rem,env(safe-area-inset-right));
+    padding-bottom:max(2rem,env(safe-area-inset-bottom));
+    padding-left:max(2rem,env(safe-area-inset-left));
+}
+
+.back-to-top{
+    right:max(2rem,env(safe-area-inset-right));
+    bottom:max(2rem,env(safe-area-inset-bottom));
+}
+
+.accessibility-toggle{
+    right:max(1.5rem,env(safe-area-inset-right));
+    bottom:max(5.5rem,calc(env(safe-area-inset-bottom) + 3.5rem));
+}
+
+.accessibility-panel{
+    right:max(1.5rem,env(safe-area-inset-right));
+    bottom:max(9rem,calc(env(safe-area-inset-bottom) + 7rem));
+    z-index:var(--z-overlay);
+}
+
+#confetti-container{z-index:var(--z-celebration);}
+
+button,
+select,
+[role="button"]{
+    min-height:44px;
+    touch-action:manipulation;
+}
+
+.nav-links a,
+.logo,
+.footer-nav a,
+.learning-path-card a{
+    display:inline-flex;
+    min-height:44px;
+    align-items:center;
+}
+
+button{
+    -webkit-appearance:none;
+    appearance:none;
+}
+
+.calculator-controls label{min-height:44px;}
+
+button,
+a,
+select,
+[role="button"]{
+    -webkit-tap-highlight-color:rgba(23,87,127,.18);
+}
+
+:where(button,a,select,input,[role="button"],summary):focus-visible{
+    outline:3px solid var(--focus-color);
+    outline-offset:3px;
+}
+
+:where(
+    button,
+    .primary-button,
+    .nav-links a,
+    .logo,
+    .glossary-item,
+    [role="button"]
+):active{
+    transform:scale(.975);
+}
+
+button:disabled,
+[aria-disabled="true"]{
+    cursor:not-allowed;
+    opacity:.62;
+}
+
+[aria-busy="true"]::after,
+.user-account small[data-state="saving"]::before{
+    display:inline-block;
+    width:.85em;
+    height:.85em;
+    margin-left:.45em;
+    border:2px solid currentColor;
+    border-right-color:transparent;
+    border-radius:50%;
+    content:"";
+    vertical-align:-.1em;
+    animation:activity-spin .7s linear infinite;
+}
+
+.user-account small[data-state="saving"]::before{
+    margin-right:.4em;
+    margin-left:0;
+}
+
+@keyframes activity-spin{
+    to{transform:rotate(360deg);}
+}
+
+.account-controls{
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+
+.auth-message{
+    position:absolute;
+    top:calc(100% + 10px);
+    right:0;
+    display:none;
+    width:min(310px,calc(100vw - 32px));
+    padding:.65rem .8rem;
+    border:1px solid currentColor;
+    border-radius:10px;
+    color:var(--danger-color);
+    background:var(--surface-color);
+    box-shadow:var(--shadow);
+    font-size:.78rem;
+    line-height:1.4;
+}
+
+.auth-message[data-state="error"]:not(:empty){display:block;}
+
+.user-account small[data-state="error"]{color:var(--danger-color);}
+.user-account small[data-state="saved"]{color:var(--success-color);}
+
+.logo:hover,
+.logo:focus-visible,
+.nav-links a:hover,
+.nav-links a.active,
+.learning-path-card a{
+    color:var(--accent-color);
+}
+
+.stage-arrow,
+.faq-item summary::after{color:var(--gold-text);}
+
+@media (hover:hover){
+    :where(button,a,[role="button"]){
+        transition:
+            color var(--transition),
+            background-color var(--transition),
+            border-color var(--transition),
+            box-shadow var(--transition),
+            transform var(--transition);
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *,
+    *::before,
+    *::after{
+        animation-duration:.001ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.001ms!important;
+    }
+}
+
+@media(max-width:650px){
+    .navbar{
+        padding-right:max(1rem,env(safe-area-inset-right));
+        padding-left:max(1rem,env(safe-area-inset-left));
+    }
+
+    .section,
+    .hero{
+        padding-right:max(1.25rem,env(safe-area-inset-right));
+        padding-left:max(1.25rem,env(safe-area-inset-left));
+    }
+
+    .auth-message{
+        position:fixed;
+        top:calc(72px + env(safe-area-inset-top));
+        right:16px;
+    }
+}
