@@ -396,6 +396,28 @@ function playCorrectSound() {
     });
 }
 
+function playLessonCompleteSound() {
+    playTone({
+        frequency: 880,
+        duration: 0.34,
+        type: "sine",
+        volume: 0.12
+    });
+
+    playTone({
+        frequency: 1320,
+        duration: 0.28,
+        type: "sine",
+        volume: 0.055,
+        delay: 0.025
+    });
+}
+
+window.addEventListener(
+    "bridge:lesson-completed",
+    playLessonCompleteSound
+);
+
 function playWrongSound() {
     const context = getAudioContext();
 

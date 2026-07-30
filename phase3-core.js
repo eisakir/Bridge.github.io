@@ -374,7 +374,14 @@
     document.querySelectorAll("[data-complete-lesson]").forEach(button => {
         button.addEventListener("click", () => {
             const id = button.dataset.completeLesson;
-            completeLesson(id, !progress.lessons[id]);
+            const wasComplete = Boolean(progress.lessons[id]);
+            completeLesson(id, !wasComplete);
+
+            if (!wasComplete) {
+                window.dispatchEvent(
+                    new CustomEvent("bridge:lesson-completed")
+                );
+            }
         });
     });
 
