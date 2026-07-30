@@ -299,6 +299,13 @@ let answered = false;
 ========================================================== */
 
 let audioContext = null;
+const cardShuffleAudio = new Audio("assets/audio/card-shuffle.mp3");
+const cardFlipAudio = new Audio("assets/audio/card-flip.mp3");
+
+cardShuffleAudio.preload = "auto";
+cardFlipAudio.preload = "auto";
+cardShuffleAudio.volume = 1;
+cardFlipAudio.volume = 0.9;
 
 function getAudioContext() {
     if (!audioContext) {
@@ -362,57 +369,10 @@ function playCardRiffle(direction = 1) {
         return;
     }
 
-    const context = getAudioContext();
-
-    if (!context || context.state !== "running") {
-        return;
-    }
-
-    const duration = 0.16;
-    const sampleRate = context.sampleRate;
-    const buffer = context.createBuffer(
-        1,
-        Math.ceil(sampleRate * duration),
-        sampleRate
-    );
-    const samples = buffer.getChannelData(0);
-    const cardSpacing = sampleRate * 0.012;
-
-    for (let index = 0; index < samples.length; index += 1) {
-        const position = index / samples.length;
-        const cardPulse = Math.pow(
-            Math.max(0, 1 - (index % cardSpacing) / (cardSpacing * 0.42)),
-            4
-        );
-        const overallFade = Math.sin(Math.PI * position);
-        samples[index] =
-            (Math.random() * 2 - 1) * cardPulse * overallFade * 0.7;
-    }
-
-    const source = context.createBufferSource();
-    const filter = context.createBiquadFilter();
-    const gain = context.createGain();
-    const startTime = context.currentTime;
-
-    filter.type = "bandpass";
-    filter.frequency.setValueAtTime(
-        direction > 0 ? 1450 : 1750,
-        startTime
-    );
-    filter.Q.setValueAtTime(0.8, startTime);
-
-    gain.gain.setValueAtTime(0.0001, startTime);
-    gain.gain.exponentialRampToValueAtTime(0.14, startTime + 0.018);
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        startTime + duration
-    );
-
-    source.buffer = buffer;
-    source.connect(filter);
-    filter.connect(gain);
-    gain.connect(context.destination);
-    source.start(startTime);
+    void direction;
+    cardShuffleAudio.pause();
+    cardShuffleAudio.currentTime = 0;
+    cardShuffleAudio.play().catch(() => {});
 }
 
 function playCardSwish(direction = 1) {
@@ -423,58 +383,10 @@ function playCardSwish(direction = 1) {
         return;
     }
 
-    const context = getAudioContext();
-
-    if (!context) {
-        return;
-    }
-
-    if (context.state === "suspended") {
-        context.resume().catch(() => {});
-    }
-
-    const duration = 0.13;
-    const buffer = context.createBuffer(
-        1,
-        Math.ceil(context.sampleRate * duration),
-        context.sampleRate
-    );
-    const samples = buffer.getChannelData(0);
-
-    for (let index = 0; index < samples.length; index += 1) {
-        const position = index / samples.length;
-        const envelope = Math.sin(Math.PI * position);
-        samples[index] = (Math.random() * 2 - 1) * envelope;
-    }
-
-    const source = context.createBufferSource();
-    const filter = context.createBiquadFilter();
-    const gain = context.createGain();
-    const startTime = context.currentTime;
-
-    filter.type = "bandpass";
-    filter.Q.setValueAtTime(0.7, startTime);
-    filter.frequency.setValueAtTime(
-        direction > 0 ? 650 : 2200,
-        startTime
-    );
-    filter.frequency.exponentialRampToValueAtTime(
-        direction > 0 ? 2200 : 650,
-        startTime + duration
-    );
-
-    gain.gain.setValueAtTime(0.0001, startTime);
-    gain.gain.exponentialRampToValueAtTime(0.09, startTime + 0.025);
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        startTime + duration
-    );
-
-    source.buffer = buffer;
-    source.connect(filter);
-    filter.connect(gain);
-    gain.connect(context.destination);
-    source.start(startTime);
+    void direction;
+    cardFlipAudio.pause();
+    cardFlipAudio.currentTime = 0;
+    cardFlipAudio.play().catch(() => {});
 }
 
 function playCorrectSound() {
