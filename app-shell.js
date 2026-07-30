@@ -16,7 +16,7 @@
         home: {
             title: "Home",
             category: "home",
-            sections: ["home", "four-stages", "dashboard", "learning-path"]
+            sections: ["home", "four-stages"]
         },
         basics: {
             title: "The Basics",
