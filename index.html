@@ -2613,6 +2613,24 @@
     <a href="#dashboard" data-app-nav="progress"><span aria-hidden="true">◔</span>Progress</a>
 </nav>
 
+<dialog class="install-help-dialog" id="installHelpDialog"
+    aria-labelledby="installHelpTitle">
+    <div class="install-help-heading">
+        <span class="install-help-icon" aria-hidden="true">♠</span>
+        <div>
+            <span class="simulator-label">Install Learn Bridge</span>
+            <h2 id="installHelpTitle">Installation steps</h2>
+        </div>
+        <button class="install-help-close" id="installHelpClose"
+            type="button" aria-label="Close installation instructions">×</button>
+    </div>
+    <p id="installHelpIntro"></p>
+    <ol class="install-help-steps" id="installHelpSteps"></ol>
+    <p class="install-help-note" id="installHelpNote"></p>
+    <button class="primary-button install-help-done" id="installHelpDone"
+        type="button">Got it</button>
+</dialog>
+
 <!-- ===================================================== -->
 <!-- BACK TO TOP -->
 <!-- ===================================================== -->

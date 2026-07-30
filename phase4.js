@@ -542,10 +542,130 @@
     const installCard = document.getElementById("installAppCard");
     const installButton = document.getElementById("installAppButton");
     const installMessage = document.getElementById("installAppMessage");
+    const installDialog = document.getElementById("installHelpDialog");
+    const installHelpTitle = document.getElementById("installHelpTitle");
+    const installHelpIntro = document.getElementById("installHelpIntro");
+    const installHelpSteps = document.getElementById("installHelpSteps");
+    const installHelpNote = document.getElementById("installHelpNote");
 
     function installedAsApp() {
         return window.matchMedia("(display-mode: standalone)").matches ||
             window.navigator.standalone === true;
+    }
+
+    function installationGuide() {
+        const userAgent = navigator.userAgent;
+        const isIphoneOrIpad = /iPhone|iPad|iPod/i.test(userAgent);
+        const isAndroid = /Android/i.test(userAgent);
+        const isFirefox = /Firefox|FxiOS/i.test(userAgent);
+        const isEdge = /Edg/i.test(userAgent);
+        const isChrome = /Chrome|CriOS/i.test(userAgent) && !isEdge;
+        const isSafari = /Safari/i.test(userAgent) && !isChrome && !isEdge;
+        const isMac = /Macintosh|Mac OS X/i.test(userAgent);
+
+        if (isIphoneOrIpad) {
+            return {
+                title: "Install on iPhone or iPad",
+                intro: "Apple uses the Share menu instead of an automatic installation popup.",
+                steps: [
+                    "Open Learn Bridge in Safari.",
+                    "Tap the Share button—the square with an upward arrow.",
+                    "Scroll down and tap Add to Home Screen.",
+                    "Tap Add in the upper-right corner."
+                ],
+                note: "To remove it later, press and hold the Learn Bridge icon, then choose Remove App or Remove from Home Screen."
+            };
+        }
+
+        if (isAndroid) {
+            return {
+                title: "Install on Android",
+                intro: "Use your browser menu if an automatic prompt does not appear.",
+                steps: [
+                    "Open Learn Bridge in Chrome.",
+                    "Tap the three-dot menu in the upper-right corner.",
+                    "Tap Install app or Add to Home screen.",
+                    "Confirm by tapping Install."
+                ],
+                note: "To remove it later, press and hold the Learn Bridge icon and choose Uninstall or Remove."
+            };
+        }
+
+        if (isMac && isSafari) {
+            return {
+                title: "Install on your Mac",
+                intro: "Safari installs websites through Add to Dock on macOS Sonoma 14 or newer.",
+                steps: [
+                    "Keep Learn Bridge open in Safari.",
+                    "Choose File from the menu bar.",
+                    "Choose Add to Dock.",
+                    "Confirm the name and click Add."
+                ],
+                note: "To remove it later, open the Applications folder and move Learn Bridge to the Trash."
+            };
+        }
+
+        if (isFirefox) {
+            return {
+                title: "Install from Chrome or Edge",
+                intro: "Firefox on a computer does not provide the install prompt used by Learn Bridge.",
+                steps: [
+                    "Copy or bookmark the Learn Bridge website address.",
+                    "Open the same address in Google Chrome or Microsoft Edge.",
+                    "Open the browser menu.",
+                    "Choose Install page as app or Apps → Install this site as an app."
+                ],
+                note: "You can keep using Learn Bridge normally in Firefox; only the separate app-window installation requires Chrome or Edge."
+            };
+        }
+
+        return {
+            title: "Install on your computer",
+            intro: "If the automatic popup is unavailable, install from the browser menu.",
+            steps: [
+                "Keep Learn Bridge open in Chrome or Edge.",
+                "Open the three-dot browser menu.",
+                isEdge
+                    ? "Choose Apps → Install this site as an app."
+                    : "Choose Cast, save, and share → Install page as app.",
+                "Confirm the installation."
+            ],
+            note: "To remove it later, open the installed app’s menu and choose Uninstall Learn Bridge."
+        };
+    }
+
+    function showInstallationGuide() {
+        if (!installDialog) {
+            return;
+        }
+
+        const guide = installationGuide();
+        installHelpTitle.textContent = guide.title;
+        installHelpIntro.textContent = guide.intro;
+        installHelpSteps.innerHTML = "";
+        guide.steps.forEach(step => {
+            const item = document.createElement("li");
+            item.textContent = step;
+            installHelpSteps.appendChild(item);
+        });
+        installHelpNote.textContent = guide.note;
+
+        if (typeof installDialog.showModal === "function") {
+            installDialog.showModal();
+        } else {
+            installDialog.setAttribute("open", "");
+        }
+    }
+
+    function closeInstallationGuide() {
+        if (!installDialog) {
+            return;
+        }
+        if (typeof installDialog.close === "function") {
+            installDialog.close();
+        } else {
+            installDialog.removeAttribute("open");
+        }
     }
 
     function updateInstallCard() {
@@ -560,13 +680,15 @@
             installCard.classList.add("installed");
         } else if (installPrompt) {
             installButton.disabled = false;
+            installButton.textContent = "Install Learn Bridge";
             installMessage.textContent =
                 "Install Learn Bridge for quick access and offline lessons.";
         } else {
             installButton.disabled = false;
+            installButton.textContent = "Show installation steps";
             installMessage.textContent =
-                "On iPhone or iPad, use Share → Add to Home Screen. " +
-                "Other supported browsers can use the button.";
+                "Your browser needs a few manual steps. Press the button " +
+                "for instructions made for this device.";
         }
     }
 
@@ -578,9 +700,7 @@
 
     installButton?.addEventListener("click", async () => {
         if (!installPrompt) {
-            installMessage.textContent =
-                "Open your browser menu and choose Install App or " +
-                "Add to Home Screen.";
+            showInstallationGuide();
             return;
         }
 
@@ -591,6 +711,20 @@
     });
 
     window.addEventListener("appinstalled", updateInstallCard);
+
+    document.getElementById("installHelpClose")?.addEventListener(
+        "click",
+        closeInstallationGuide
+    );
+    document.getElementById("installHelpDone")?.addEventListener(
+        "click",
+        closeInstallationGuide
+    );
+    installDialog?.addEventListener("click", event => {
+        if (event.target === installDialog) {
+            closeInstallationGuide();
+        }
+    });
 
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

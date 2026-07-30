@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "learn-bridge-v4";
+const CACHE_NAME = "learn-bridge-v4-install-help";
 const APP_SHELL = [
     "./",
     "./index.html",
