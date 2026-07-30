@@ -78,19 +78,6 @@ window.addEventListener("load", highlightCurrentSection);
 const scrollProgress = document.getElementById("scrollProgress");
 const scrollProgressBar = document.getElementById("scrollProgressBar");
 let scrollFramePending = false;
-let scrollSoundReady = false;
-let scrollGestureStart = window.scrollY;
-let scrollGestureSoundPlayed = false;
-let scrollGestureResetTimer = null;
-
-function enableScrollSound() {
-    scrollSoundReady = true;
-    const context = getAudioContext();
-
-    if (context?.state === "suspended") {
-        context.resume().catch(() => {});
-    }
-}
 
 function updateReadingProgress() {
     const scrollableDistance =
@@ -110,23 +97,6 @@ function updateReadingProgress() {
         );
     }
 
-    const distance = Math.abs(window.scrollY - scrollGestureStart);
-
-    if (
-        scrollSoundReady &&
-        !scrollGestureSoundPlayed &&
-        distance >= 360
-    ) {
-        playCardRiffle(window.scrollY > scrollGestureStart ? 1 : -1);
-        scrollGestureSoundPlayed = true;
-    }
-
-    window.clearTimeout(scrollGestureResetTimer);
-    scrollGestureResetTimer = window.setTimeout(() => {
-        scrollGestureStart = window.scrollY;
-        scrollGestureSoundPlayed = false;
-    }, 500);
-
     scrollFramePending = false;
 }
 
@@ -137,18 +107,18 @@ function requestReadingProgressUpdate() {
     }
 }
 
-window.addEventListener("pointerdown", enableScrollSound, { once: true });
-window.addEventListener("keydown", enableScrollSound, { once: true });
-window.addEventListener("wheel", enableScrollSound, {
-    once: true,
-    passive: true
-});
 window.addEventListener("scroll", requestReadingProgressUpdate, {
     passive: true
 });
 window.addEventListener("resize", requestReadingProgressUpdate);
 window.addEventListener("load", requestReadingProgressUpdate);
 requestReadingProgressUpdate();
+
+document.querySelectorAll(".navbar a, .navbar button").forEach(control => {
+    control.addEventListener("click", () => {
+        playCardRiffle();
+    });
+});
 
 /* ==========================================================
    BACK TO TOP BUTTON
