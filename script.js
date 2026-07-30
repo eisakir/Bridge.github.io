@@ -79,7 +79,9 @@ const scrollProgress = document.getElementById("scrollProgress");
 const scrollProgressBar = document.getElementById("scrollProgressBar");
 let scrollFramePending = false;
 let scrollSoundReady = false;
-let lastScrollSoundPosition = window.scrollY;
+let scrollGestureStart = window.scrollY;
+let scrollGestureSoundPlayed = false;
+let scrollGestureResetTimer = null;
 
 function enableScrollSound() {
     scrollSoundReady = true;
@@ -108,12 +110,22 @@ function updateReadingProgress() {
         );
     }
 
-    const distance = Math.abs(window.scrollY - lastScrollSoundPosition);
+    const distance = Math.abs(window.scrollY - scrollGestureStart);
 
-    if (scrollSoundReady && distance >= 360) {
-        playCardRiffle(window.scrollY > lastScrollSoundPosition ? 1 : -1);
-        lastScrollSoundPosition = window.scrollY;
+    if (
+        scrollSoundReady &&
+        !scrollGestureSoundPlayed &&
+        distance >= 360
+    ) {
+        playCardRiffle(window.scrollY > scrollGestureStart ? 1 : -1);
+        scrollGestureSoundPlayed = true;
     }
+
+    window.clearTimeout(scrollGestureResetTimer);
+    scrollGestureResetTimer = window.setTimeout(() => {
+        scrollGestureStart = window.scrollY;
+        scrollGestureSoundPlayed = false;
+    }, 500);
 
     scrollFramePending = false;
 }
