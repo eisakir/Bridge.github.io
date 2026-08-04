@@ -444,6 +444,13 @@ window.addEventListener(
 );
 
 function playWrongSound() {
+    if (
+        window.BridgeA11y &&
+        !window.BridgeA11y.soundEnabled()
+    ) {
+        return;
+    }
+
     const context = getAudioContext();
 
     if (!context) {
@@ -539,6 +546,12 @@ function showWrongEffect() {
         quizContainer.classList.remove("quiz-wrong");
     }, 500);
 }
+
+window.BridgeFeedbackEffects = {
+    launchConfetti,
+    playCorrectSound,
+    playWrongSound
+};
 
 /* ==========================================================
    QUIZ ENGINE

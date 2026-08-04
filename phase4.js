@@ -339,13 +339,35 @@
                 question,
                 (correct, feedback) => {
                     progressApi.recordQuizAnswer(question, correct);
+                    const effects = window.BridgeFeedbackEffects;
+                    const reduceMotion = window.matchMedia(
+                        "(prefers-reduced-motion: reduce)"
+                    ).matches;
+
+                    article.classList.remove(
+                        "review-correct",
+                        "review-wrong"
+                    );
+                    void article.offsetWidth;
+
                     if (correct) {
+                        article.classList.add("review-correct");
+                        effects?.playCorrectSound?.();
+                        if (!reduceMotion) {
+                            effects?.launchConfetti?.();
+                        }
                         feedback.textContent +=
                             " Removed from your review list.";
                         window.setTimeout(() => {
                             document.activeElement?.blur?.();
                             progressApi.resolveMistake(question.id);
-                        }, 650);
+                        }, reduceMotion ? 250 : 900);
+                    } else {
+                        article.classList.add("review-wrong");
+                        effects?.playWrongSound?.();
+                        window.setTimeout(() => {
+                            article.classList.remove("review-wrong");
+                        }, reduceMotion ? 100 : 650);
                     }
                 }
             );

@@ -6113,11 +6113,71 @@ button:disabled,
 }
 
 .mistake-review-card{
+    position:relative;
     padding:24px;
     border:1px solid var(--border-color);
     border-radius:20px;
     background:var(--surface-color);
     box-shadow:0 10px 24px rgba(19,49,70,.06);
+}
+
+.mistake-review-card.review-correct{
+    border-color:var(--success-color);
+    animation:mistakeReviewCorrect .78s ease both;
+}
+
+.mistake-review-card.review-wrong{
+    border-color:var(--danger-color);
+    animation:mistakeReviewWrong .52s ease both;
+}
+
+@keyframes mistakeReviewCorrect{
+    0%{
+        box-shadow:0 10px 24px rgba(19,49,70,.06);
+        transform:scale(1);
+    }
+    45%{
+        background:color-mix(
+            in srgb,
+            var(--success-color) 13%,
+            var(--surface-color)
+        );
+        box-shadow:
+            0 0 0 6px color-mix(
+                in srgb,
+                var(--success-color) 20%,
+                transparent
+            ),
+            0 18px 38px rgba(25,116,81,.2);
+        transform:scale(1.015);
+    }
+    100%{
+        box-shadow:0 10px 24px rgba(19,49,70,.06);
+        transform:scale(1);
+    }
+}
+
+@keyframes mistakeReviewWrong{
+    0%,100%{
+        background:var(--surface-color);
+        transform:translateX(0);
+    }
+    18%{transform:translateX(-9px);}
+    36%{transform:translateX(8px);}
+    54%{
+        background:color-mix(
+            in srgb,
+            var(--danger-color) 12%,
+            var(--surface-color)
+        );
+        box-shadow:0 0 0 5px color-mix(
+            in srgb,
+            var(--danger-color) 18%,
+            transparent
+        );
+        transform:translateX(-6px);
+    }
+    72%{transform:translateX(4px);}
 }
 
 .mistake-count{
